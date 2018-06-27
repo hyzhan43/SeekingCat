@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">SeekingCat</string>
+    <string name="splash_text">快来寻找，属于你的东西吧~</string>
+    <string name="time_down">%d 秒跳过</string>
 </resources>

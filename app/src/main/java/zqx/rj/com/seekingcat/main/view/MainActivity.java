@@ -1,7 +1,9 @@
-package zqx.rj.com.seekingcat;
+package zqx.rj.com.seekingcat.main.view;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import zqx.rj.com.seekingcat.R;
 
 public class MainActivity extends AppCompatActivity {
 
