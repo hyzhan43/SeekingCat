@@ -12,7 +12,6 @@
     <style name="NoActionBar" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="windowNoTitle">true</item>
         <item name="windowActionBar">false</item>
-        <item name="android:windowFullscreen">true</item>
         <item name="android:windowTitleStyle">@android:color/transparent</item>
         <item name="android:windowActionBarOverlay">@null</item>
     </style>

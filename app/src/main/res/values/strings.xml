@@ -1,5 +1,12 @@
 <resources>
-    <string name="app_name">SeekingCat</string>
+    <string name="app_name">寻物猫</string>
     <string name="splash_text">快来寻找，属于你的东西吧~</string>
-    <string name="time_down">%d 秒跳过</string>
+    <string name="time_down">跳过</string>
+    <string name="title_activity_login">Sign in</string>
+
+
+    <string name="email">邮箱</string>
+    <string name="phone">手机</string>
+    <string name="login">登录</string>
+    <string name="password">密码</string>
 </resources>

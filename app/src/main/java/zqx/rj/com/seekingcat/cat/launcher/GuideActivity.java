@@ -1,5 +1,6 @@
-package zqx.rj.com.seekingcat.launcher;
+package zqx.rj.com.seekingcat.cat.launcher;
 
+import zqx.rj.com.seekingcat.R;
 import zqx.rj.com.seekingcat.base.activity.BaseActivityAdatper;
 
 /**
@@ -14,17 +15,12 @@ import zqx.rj.com.seekingcat.base.activity.BaseActivityAdatper;
 public class GuideActivity extends BaseActivityAdatper{
 
     @Override
-    protected void initData() {
-
-    }
-
-    @Override
     protected void initView() {
 
     }
 
     @Override
     protected int setLayout() {
-        return 0;
+        return R.layout.activity_guide;
     }
 }

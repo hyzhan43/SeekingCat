@@ -1,11 +1,10 @@
 package zqx.rj.com.seekingcat.base.activity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-
-import com.yatoooon.screenadaptation.ScreenAdapterTools;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -37,15 +36,15 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
         setContentView(setLayout());
 
         //如果希望android7.0分屏也适配的话,加上这句
-        //ScreenTools.adapterAndroid7(this);
+        ScreenTools.adapterAndroid7(this);
 
         //在setContentView();后面加上适配语句
-        //ScreenTools.activity(this);
+        ScreenTools.activity(this);
 
         mUnbinder = ButterKnife.bind(this);
         mContext = this;
 
-        initPresenter();
+        mPresenter = bindPresenter();
         if (mPresenter != null){
             mPresenter.attachView(this);
         }
@@ -56,16 +55,12 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
 
         // 初始化控件
         initView();
-        // 初始化数据
-        initData();
 
     }
 
-    protected abstract void initData();
-
     protected abstract void initView();
 
-    protected abstract void initPresenter();
+    protected abstract T bindPresenter();
 
     protected abstract int setLayout();
 
@@ -76,6 +71,19 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
     public void toast(int resId){
         ToastUtil.show(String.valueOf(resId));
     }
+
+    public void startActivity(Class<?> cls){
+        startActivity(new Intent(this, cls));
+    }
+
+    public void startActivity(Class<?> cls, Bundle bundle){
+        Intent intent = new Intent(this, cls);
+        if (bundle != null){
+            intent.putExtra("bundle", bundle);
+        }
+        startActivity(intent);
+    }
+
 
     @Override
     protected void onDestroy() {
