@@ -11,12 +11,13 @@ import zqx.rj.com.seekingcat.base.mvp.BasePresenter;
  * 描述：    TODO
  */
 
-public interface ILoginPresenter extends BasePresenter{
+public abstract class ILoginPresenter extends BasePresenter {
 
     /**
-     *  请求登录
+     * 请求登录
+     *
      * @param phone
      * @param password
      */
-    void requestLogin(String phone, String password);
+    public abstract void requestLogin(String phone, String password);
 }

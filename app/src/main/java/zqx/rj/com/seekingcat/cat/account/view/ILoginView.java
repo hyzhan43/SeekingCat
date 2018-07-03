@@ -1,6 +1,6 @@
 package zqx.rj.com.seekingcat.cat.account.view;
 
-import zqx.rj.com.seekingcat.base.mvp.IBaseView;
+import zqx.rj.com.seekingcat.base.mvp.BaseView;
 
 /**
  * 项目名：  SeekingCat
@@ -11,6 +11,9 @@ import zqx.rj.com.seekingcat.base.mvp.IBaseView;
  * 描述：    TODO
  */
 
-public interface ILoginView extends IBaseView {
+public interface ILoginView<T> extends BaseView {
 
+    void loginSuccess(int code, T data);
+
+    void loginFail(String msg);
 }

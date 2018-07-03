@@ -13,20 +13,17 @@ import com.orhanobut.logger.Logger;
 
 public class Log {
 
-    private static final int VERBOSE = 1;
-    private static final int DEBUG = 2;
-    private static final int INFO = 3;
-    private static final int WARN = 4;
-    private static final int ERROR = 5;
-
-    // 控制 log 等级
-    private static final int LEVEL = VERBOSE;
+    private static String tag = "LST";
 
     public static void v(String tag, String message){
         Logger.t(tag).v(message);
     }
 
     public static void d(String tag, String message){
+        Logger.t(tag).d(message);
+    }
+
+    public static void d(String message){
         Logger.t(tag).d(message);
     }
 

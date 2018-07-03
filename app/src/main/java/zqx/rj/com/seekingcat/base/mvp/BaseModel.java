@@ -1,5 +1,7 @@
 package zqx.rj.com.seekingcat.base.mvp;
 
+import zqx.rj.com.seekingcat.common.http.retrofit.BaseRetrofit;
+
 /**
  * 项目名：  SeekingCat
  * 包名：    zqx.rj.com.seekingcat.common.base
@@ -9,5 +11,6 @@ package zqx.rj.com.seekingcat.base.mvp;
  * 描述：    TODO
  */
 
-public class BaseModel {
+public class BaseModel extends BaseRetrofit{
+
 }

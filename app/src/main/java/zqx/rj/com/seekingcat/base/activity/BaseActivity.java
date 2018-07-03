@@ -9,7 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import zqx.rj.com.seekingcat.base.mvp.BasePresenter;
-import zqx.rj.com.seekingcat.base.mvp.IBaseView;
+import zqx.rj.com.seekingcat.base.mvp.BaseView;
 import zqx.rj.com.seekingcat.common.utils.ScreenTools;
 import zqx.rj.com.seekingcat.common.utils.ToastUtil;
 
@@ -23,7 +23,7 @@ import zqx.rj.com.seekingcat.common.utils.ToastUtil;
  */
 
 public abstract class BaseActivity<T extends BasePresenter> extends AppCompatActivity
-    implements IBaseView{
+    implements BaseView {
 
     protected T mPresenter;
     protected Activity mContext;

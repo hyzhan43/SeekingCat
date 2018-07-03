@@ -1,5 +1,7 @@
 package zqx.rj.com.seekingcat.base.mvp;
 
+import java.lang.ref.WeakReference;
+
 /**
  * 项目名：  SeekingCat
  * 包名：    zqx.rj.com.seekingcat.common.base
@@ -9,9 +11,10 @@ package zqx.rj.com.seekingcat.base.mvp;
  * 描述：    TODO
  */
 
-public interface BasePresenter<T extends IBaseView> {
+public abstract class BasePresenter<T extends BaseView> {
 
-    void attachView(T view);
+    public abstract void attachView(T view);
 
-    void detachView();
+    public abstract void detachView();
+
 }
