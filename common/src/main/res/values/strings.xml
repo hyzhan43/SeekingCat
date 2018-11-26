@@ -1,0 +1,27 @@
+<resources>
+    <string name="app_name">寻物猫</string>
+    <string name="splash_text">快来寻找，属于你的东西吧~</string>
+    <string name="time_down">%ds 跳过</string>
+    <string name="title_activity_login">Sign in</string>
+
+
+    <string name="email">邮箱</string>
+    <string name="phone">手机</string>
+    <string name="login">登录</string>
+    <string name="password">密码</string>
+    <string name="login_loading">正在登录</string>
+    <string name="home">首页</string>
+    <string name="login_tip">请输入账号或密码</string>
+    <string name="discovery">发现</string>
+    <string name="message">消息</string>
+    <string name="publish">发布</string>
+    <string name="mine">我的</string>
+    <string name="school">广东农工商职业技术学院</string>
+    <string name="school_news">校园新闻</string>
+    <string name="input_lose_thing">请输入丢失物品</string>
+    <string name="lose_thing">失物招领</string>
+    <string name="money_changer">兑换中心</string>
+    <string name="corporation_news">社团动态</string>
+    <string name="phone_exit">手机号码已存在</string>
+    <string name="search">搜索</string>
+</resources>

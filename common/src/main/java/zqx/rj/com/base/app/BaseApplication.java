@@ -1,0 +1,27 @@
+package zqx.rj.com.base.app;
+
+import android.app.Application;
+
+import com.orhanobut.logger.AndroidLogAdapter;
+import com.orhanobut.logger.Logger;
+
+
+/**
+ * 项目名：  SeekingCat
+ * 包名：    zqx.rj.com.base.app
+ * 文件名：  BaseApplication
+ * 创建者：  ZQX
+ * 创建时间：2018/6/27 14:43
+ * 描述：    TODO
+ */
+
+public class BaseApplication extends Application{
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+
+        // 初始化 Logger
+        Logger.addLogAdapter(new AndroidLogAdapter());
+    }
+}

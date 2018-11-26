@@ -1,12 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">寻物猫</string>
-    <string name="splash_text">快来寻找，属于你的东西吧~</string>
-    <string name="time_down">跳过</string>
-    <string name="title_activity_login">Sign in</string>
-
-
-    <string name="email">邮箱</string>
-    <string name="phone">手机</string>
-    <string name="login">登录</string>
-    <string name="password">密码</string>
+    <string name="network_fail">网络异常</string>
 </resources>

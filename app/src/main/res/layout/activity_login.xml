@@ -10,7 +10,7 @@
         android:layout_height="150dp"
         android:layout_gravity="center"
         android:layout_marginTop="30dp"
-        android:src="@drawable/cat_logo" />
+        android:src="@drawable/ic_cat" />
 
     <!--手机号-->
     <android.support.design.widget.TextInputLayout
@@ -19,9 +19,11 @@
         android:layout_margin="10dp">
 
         <android.support.design.widget.TextInputEditText
+            android:id="@+id/account_phone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/phone"
+            android:text="18312014195"
             android:inputType="phone" />
 
     </android.support.design.widget.TextInputLayout>
@@ -33,9 +35,11 @@
         android:layout_margin="10dp">
 
         <android.support.design.widget.TextInputEditText
+            android:id="@+id/account_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/password"
+            android:text="222222222"
             android:inputType="textPassword" />
 
     </android.support.design.widget.TextInputLayout>
@@ -47,6 +51,9 @@
         android:layout_gravity="center_horizontal"
         android:layout_margin="10dp"
         android:gravity="center"
-        android:text="@string/login" />
+        android:text="@string/login"
+        android:textSize="20dp"
+        android:textColor="@color/white"
+        android:background="@drawable/round_bg"/>
 
 </LinearLayout>

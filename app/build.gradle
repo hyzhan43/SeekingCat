@@ -1,5 +1,4 @@
 apply plugin: 'com.android.application'
-apply plugin: 'com.jakewharton.butterknife'
 
 android {
     compileSdkVersion 26
@@ -20,35 +19,11 @@ android {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'com.android.support:appcompat-v7:26.1.0'
-    implementation 'com.android.support.constraint:constraint-layout:1.1.2'
-    implementation 'com.android.support:design:26.1.0'
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
     testImplementation 'junit:junit:4.12'
 
-    // 屏幕适配
-    implementation 'me.yatoooon:screenadaptation:1.1.1'
+    // 一定要加~~
+    annotationProcessor "com.jakewharton:butterknife-compiler:$butterknife_version"
 
-    // ButterKnife
-    compile 'com.jakewharton:butterknife:8.5.1'
-    annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
-
-    // Logger
-    implementation 'com.orhanobut:logger:2.2.0'
-
-    //retrofit
-    compile 'com.squareup.retrofit2:retrofit:2.1.0'
-    //Gson converter
-    compile 'com.squareup.retrofit2:converter-gson:2.1.0'
-    //RxJava2 Adapter
-    compile 'com.jakewharton.retrofit:retrofit2-rxjava2-adapter:1.0.0'
-    //okhttp
-    compile 'com.squareup.okhttp3:okhttp:3.4.1'
-
-    // RxJava
-    compile 'io.reactivex.rxjava2:rxjava:2.1.1'
-    compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
-
-    // Dagger2
-    compile"com.google.dagger:dagger:2.14.1"
+    api project(':common')
 }
