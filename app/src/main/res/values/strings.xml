@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="network_fail">网络异常</string>
+    <string name="account">账号</string>
+    <string name="register">注册</string>
+    <string name="register_tip">没有账号,去注册</string>
 </resources>

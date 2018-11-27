@@ -4,6 +4,9 @@ import android.app.Application;
 
 import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.Logger;
+import com.squareup.leakcanary.LeakCanary;
+
+import zqx.rj.com.utils.Preferences;
 
 
 /**
@@ -21,7 +24,16 @@ public class BaseApplication extends Application{
     public void onCreate() {
         super.onCreate();
 
+        // 初始化 leak
+        if (LeakCanary.isInAnalyzerProcess(this)) {
+            return;
+        }
+        LeakCanary.install(this);
+
         // 初始化 Logger
         Logger.addLogAdapter(new AndroidLogAdapter());
+
+        // 初始化 SharedPreferences
+        Preferences.setContext(this);
     }
 }

@@ -1,17 +1,15 @@
 package zqx.rj.com.net.api;
 
 
-import java.util.List;
-
 import io.reactivex.Observable;
-import retrofit2.Call;
-import retrofit2.http.Field;
-import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
-import retrofit2.http.Url;
+import retrofit2.http.Path;
+import retrofit2.http.Query;
 import zqx.rj.com.model.entity.BaseResponse;
-import zqx.rj.com.model.entity.account.User;
+import zqx.rj.com.model.entity.PageRsp;
+import zqx.rj.com.model.entity.account.LoginRsp;
+import zqx.rj.com.model.entity.goods.GoodsRsp;
 
 /**
  * 项目名：  SeekingCat
@@ -27,13 +25,14 @@ public interface ApiService {
     // Test Login
 //    @FormUrlEncoded
 //    @POST("/login.php")
-//    Observable<BaseResponse<User>> getLogin(@Field("phone") String phone,
+//    Observable<BaseResponse<LoginRsp>> getLogin(@Field("phone") String phone,
 //                                       @Field("password") String password);
 
-    @FormUrlEncoded
-    @POST("user/login")
-    Observable<BaseResponse<List<User>>> getLogin(@Field("phone") String phone,
-                                                  @Field("password") String password);
+    @POST("user/app/login")
+    Observable<BaseResponse<LoginRsp>> getLogin(@Query("account") String account,
+                                                @Query("password") String password);
 
 
+    @GET("goods/list/{page}")
+    Observable<BaseResponse<PageRsp<GoodsRsp>>> getAllGoods(@Path("page") int page);
 }

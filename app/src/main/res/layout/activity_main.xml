@@ -23,7 +23,7 @@
             android:layout_gravity="bottom|end"
             android:layout_marginEnd="@dimen/len_14"
             android:layout_marginBottom="@dimen/len_14"
-            android:src="@drawable/ic_bone" />
+            android:src="@drawable/ic_fish"/>
     </FrameLayout>
 
     <android.support.design.widget.BottomNavigationView

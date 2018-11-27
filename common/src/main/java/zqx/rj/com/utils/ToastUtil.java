@@ -30,7 +30,6 @@ public class ToastUtil {
         }else {
             mToast.setText(text);
         }
-
         mToast.show();
     }
 }

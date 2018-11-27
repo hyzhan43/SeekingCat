@@ -21,7 +21,7 @@ public class MineFragmentImpl extends BaseFragment {
     }
 
     @Override
-    protected void initView(View viewContent) {
+    public void initView(View view) {
 
     }
 

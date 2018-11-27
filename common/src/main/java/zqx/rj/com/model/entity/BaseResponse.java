@@ -11,11 +11,11 @@ package zqx.rj.com.model.entity;
 
 public class BaseResponse<T> {
 
-    public static final int REQUEST_SUC = 1;
+    public static final int REQUEST_SUC = 0;
 
     private int code;
 
-    private String message;
+    private String msg;
 
     private T data;
 
@@ -27,12 +27,12 @@ public class BaseResponse<T> {
         this.code = code;
     }
 
-    public String getMessage() {
-        return message;
+    public String getMsg() {
+        return msg;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
+    public void setMsg(String msg) {
+        this.msg = msg;
     }
 
     public T getData() {

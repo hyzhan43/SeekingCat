@@ -18,6 +18,12 @@ buildscript {
     ext.rx_android_version = '2.1.0'
     // ui
     ext.genius_version = '2.1.1'
+    // baseRecyclerView
+    ext.base_recyclerview_version = '2.9.42'
+    // circle
+    ext.circle_version = '2.2.0'
+    // leak
+    ext.leak_version = '1.6.2'
 
     repositories {
         google()

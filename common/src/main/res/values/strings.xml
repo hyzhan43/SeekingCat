@@ -13,7 +13,7 @@
     <string name="home">首页</string>
     <string name="login_tip">请输入账号或密码</string>
     <string name="discovery">发现</string>
-    <string name="message">消息</string>
+    <string name="msg">消息</string>
     <string name="publish">发布</string>
     <string name="mine">我的</string>
     <string name="school">广东农工商职业技术学院</string>
@@ -24,4 +24,8 @@
     <string name="corporation_news">社团动态</string>
     <string name="phone_exit">手机号码已存在</string>
     <string name="search">搜索</string>
+
+
+
+    <string name="network_error">网络异常</string>
 </resources>

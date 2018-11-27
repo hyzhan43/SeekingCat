@@ -57,4 +57,14 @@ dependencies {
     // RxJava/ RxAndroid
     api "io.reactivex.rxjava2:rxjava:$rx_java_version"
     api "io.reactivex.rxjava2:rxandroid:$rx_android_version"
+
+    // BaseRecyclerViewAdapterHelper
+    api "com.github.CymChad:BaseRecyclerViewAdapterHelper:$base_recyclerview_version"
+
+    // circleImageView
+    api "de.hdodenhof:circleimageview:$circle_version"
+
+    // leakCanary
+    debugImplementation "com.squareup.leakcanary:leakcanary-android:$leak_version"
+    releaseImplementation "com.squareup.leakcanary:leakcanary-android-no-op:$leak_version"
 }

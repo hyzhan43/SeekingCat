@@ -2,6 +2,10 @@ package zqx.rj.com.rx;
 
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
+import zqx.rj.com.base.mvp.BaseContract;
+import zqx.rj.com.common.R;
+import zqx.rj.com.model.entity.BaseResponse;
+import zqx.rj.com.utils.Log;
 
 /**
  * 项目名：  SeekingCat
@@ -12,21 +16,32 @@ import io.reactivex.disposables.Disposable;
  * 描述：    TODO
  */
 
-public class BaseObserver<T> implements Observer<T> {
+public class BaseObserver<T> implements Observer<BaseResponse<T>> {
+
+    private BaseContract.View mView;
+
+    public BaseObserver(BaseContract.View view) {
+        this.mView = view;
+    }
 
     @Override
     public void onSubscribe(Disposable d) {
-
     }
 
+    @SuppressWarnings("unchecked")
     @Override
-    public void onNext(T response) {
+    public void onNext(BaseResponse<T> response) {
+        if (response.getCode() == BaseResponse.REQUEST_SUC) {
+            mView.success(response.getData());
+        } else {
+            mView.showError(response.getMsg());
+        }
     }
-
 
     @Override
     public void onError(Throwable e) {
-
+        mView.showError(R.string.network_error);
+        Log.d("LST", "error -> " + e);
     }
 
     @Override

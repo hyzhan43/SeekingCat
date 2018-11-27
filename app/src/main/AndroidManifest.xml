@@ -8,13 +8,13 @@
     <application
         android:name="zqx.rj.com.base.app.BaseApplication"
         android:allowBackup="true"
-        android:icon="@drawable/ic_claw"
+        android:icon="@drawable/ic_logo"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/NoActionBar"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".SplashActivity">
+        <activity android:name=".account.ui.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -23,7 +23,7 @@
         </activity>
 
         <activity android:name=".MainActivity" />
-        <activity android:name=".account.view.impl.LoginActivity"/>
+        <!--<activity android:name=".account.view.impl.LoginActivity"/>-->
     </application>
 
 </manifest>

@@ -2,6 +2,9 @@ package zqx.rj.com.seekingcat;
 
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -14,12 +17,10 @@ import java.util.List;
 import butterknife.BindView;
 import zqx.rj.com.base.activity.BaseActivity;
 import zqx.rj.com.base.fragment.BaseFragment;
-import zqx.rj.com.seekingcat.home.presenter.adapter.ViewPagerAdapter;
-import zqx.rj.com.seekingcat.home.view.HomeFragment;
+import zqx.rj.com.seekingcat.home.ui.HomeFragment;
 import zqx.rj.com.seekingcat.mine.view.MineFragmentImpl;
 
 public class MainActivity extends BaseActivity {
-
 
     @BindView(R.id.toolbar)
     public Toolbar toolbar;
@@ -30,7 +31,7 @@ public class MainActivity extends BaseActivity {
     @BindView(R.id.vp_main)
     ViewPager mViewPager;
 
-    private ViewPagerAdapter mViewPagerAdapter;
+    private List<BaseFragment> fragments;
 
     @Override
     protected void initView() {
@@ -38,22 +39,20 @@ public class MainActivity extends BaseActivity {
         // 设置 toolbar
         setSupportActionBar(toolbar);
         initBottomNavigationBar();
-        initViewPager();
         initFragments();
+        initViewPager();
     }
 
     private void initFragments() {
 
-        List<BaseFragment> fragments = new ArrayList<>();
+        fragments = new ArrayList<>();
         fragments.add(HomeFragment.getInstance());
         fragments.add(MineFragmentImpl.getInstance());
-
-        mViewPagerAdapter.addFragments(fragments);
     }
 
     private void initViewPager() {
 
-        mViewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
+        ViewPagerAdapter mViewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
         mViewPager.setAdapter(mViewPagerAdapter);
 
         mViewPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
@@ -103,5 +102,21 @@ public class MainActivity extends BaseActivity {
     @Override
     protected int getLayoutId() {
         return R.layout.activity_main;
+    }
+
+
+    class ViewPagerAdapter extends FragmentPagerAdapter{
+
+        ViewPagerAdapter(FragmentManager fm) { super(fm); }
+
+        @Override
+        public Fragment getItem(int i) {
+            return fragments.get(i);
+        }
+
+        @Override
+        public int getCount() {
+            return fragments.size();
+        }
     }
 }

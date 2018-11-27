@@ -22,29 +22,29 @@ public abstract class BaseFragment extends Fragment {
 
     protected View mRoot;
 
-
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        if (mRoot == null) {
-            View viewContent = inflater.inflate(getLayoutId(), container, false);
-
-            ButterKnife.bind(this, viewContent);
-            initView(viewContent);
-            mRoot = viewContent;
-
-        } else {
-            if (mRoot.getParent() != null) {
-                ((ViewGroup) mRoot.getParent()).removeView(mRoot);
-            }
-        }
-
+        mRoot = inflater.inflate(getLayoutId(), container, false);
+        ButterKnife.bind(this, mRoot);
         return mRoot;
     }
 
-    protected abstract void initView(View viewContent);
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        initView(mRoot);
+        initData();
+    }
+
+    public void initData() {
+    }
+
+    public void initView(View view) {
+
+    }
 
     public abstract int getLayoutId();
 }
