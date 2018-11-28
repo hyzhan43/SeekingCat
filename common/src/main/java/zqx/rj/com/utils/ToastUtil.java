@@ -1,5 +1,6 @@
 package zqx.rj.com.utils;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.widget.Toast;
 
@@ -14,20 +15,15 @@ import android.widget.Toast;
 
 public class ToastUtil {
 
-    private static int TOAST_TIME = Toast.LENGTH_SHORT;
+    private static final int TOAST_TIME = Toast.LENGTH_SHORT;
 
     private static Toast mToast;
 
-    private static Context mContext;
-
-    public static void init(Context context){
-        mContext = context;
-    }
-
-    public static void show(String text){
-        if (mToast == null){
-            mToast = Toast.makeText(mContext, text, TOAST_TIME);
-        }else {
+    @SuppressLint("ShowToast")
+    public static void show(Context context, String text) {
+        if (mToast == null) {
+            mToast = Toast.makeText(context, text, TOAST_TIME);
+        } else {
             mToast.setText(text);
         }
         mToast.show();

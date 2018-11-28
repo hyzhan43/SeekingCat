@@ -2,22 +2,28 @@ package zqx.rj.com.base.mvp;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.view.View;
 
-import zqx.rj.com.base.activity.BaseActivity;
+import zqx.rj.com.base.fragment.BaseFragment;
 
-public abstract class MvpActivity<Data, T extends BaseContract.Presenter>
-        extends BaseActivity implements BaseContract.View<Data> {
+/**
+ * author：  HyZhan
+ * create：  2018/11/28 19:06
+ * desc：    TODO
+ */
+public abstract class MvpFragment<Data, T extends BaseContract.Presenter>
+        extends BaseFragment implements BaseContract.View<Data> {
 
     protected T mPresenter;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         mPresenter = bindPresenter();
         if (mPresenter != null) {
             mPresenter.attachView(this);
         }
+
+        super.onViewCreated(view, savedInstanceState);
     }
 
     protected abstract T bindPresenter();
@@ -36,4 +42,5 @@ public abstract class MvpActivity<Data, T extends BaseContract.Presenter>
     public void showError(String str) {
         toast(str);
     }
+
 }

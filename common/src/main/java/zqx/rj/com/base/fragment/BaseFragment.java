@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import butterknife.ButterKnife;
+import zqx.rj.com.utils.ToastUtil;
 
 /**
  * 项目名：  SeekingCat
@@ -44,6 +45,11 @@ public abstract class BaseFragment extends Fragment {
 
     public void initView(View view) {
 
+    }
+
+    // toast 显示
+    public void toast(String str) {
+        ToastUtil.show(getActivity(), str);
     }
 
     public abstract int getLayoutId();

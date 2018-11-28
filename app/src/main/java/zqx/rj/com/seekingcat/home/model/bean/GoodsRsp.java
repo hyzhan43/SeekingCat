@@ -1,4 +1,4 @@
-package zqx.rj.com.model.entity.goods;
+package zqx.rj.com.seekingcat.home.model.bean;
 
 public class GoodsRsp {
 

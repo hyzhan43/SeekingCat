@@ -3,6 +3,8 @@
     <color name="colorPrimary">#FED747</color>
     <color name="colorPrimaryDark">#FED747</color>
     <color name="colorAccent">#FED747</color>
+
     <color name="blue">#98CCF6</color>
-    <color name="yellow">#f6eb98</color>
+
+    <color name="yellow">#FCD692</color>
 </resources>

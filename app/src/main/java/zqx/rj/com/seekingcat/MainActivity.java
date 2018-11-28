@@ -15,9 +15,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 import zqx.rj.com.base.activity.BaseActivity;
 import zqx.rj.com.base.fragment.BaseFragment;
-import zqx.rj.com.seekingcat.home.ui.HomeFragment;
+import zqx.rj.com.seekingcat.home.ui.fragment.HomeFragment;
 import zqx.rj.com.seekingcat.mine.view.MineFragmentImpl;
 
 public class MainActivity extends BaseActivity {
@@ -102,6 +103,11 @@ public class MainActivity extends BaseActivity {
     @Override
     protected int getLayoutId() {
         return R.layout.activity_main;
+    }
+
+    @OnClick(R.id.fab_publish)
+    void onFloatButton(){
+        toast("发布");
     }
 
 

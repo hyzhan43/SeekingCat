@@ -35,8 +35,6 @@ public abstract class BaseActivity extends AppCompatActivity {
 
         ActivityManager.addActivity(this);
 
-        ToastUtil.init(this);
-
         // 初始化控件
         initView();
         // 初始化数据
@@ -66,8 +64,10 @@ public abstract class BaseActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-
-
+    // toast 显示
+    public void toast(String str) {
+        ToastUtil.show(this, str);
+    }
 
     @Override
     protected void onDestroy() {

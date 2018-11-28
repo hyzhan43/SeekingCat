@@ -44,6 +44,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/account"
+            android:text="123123"
             android:inputType="phone" />
 
     </android.support.design.widget.TextInputLayout>
@@ -62,6 +63,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/password"
+            android:text="123123"
             android:inputType="textPassword" />
 
     </android.support.design.widget.TextInputLayout>

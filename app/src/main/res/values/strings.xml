@@ -1,7 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="network_fail">网络异常</string>
+
+
     <string name="account">账号</string>
     <string name="register">注册</string>
     <string name="register_tip">没有账号,去注册</string>
+
+
+    <string name="lost_and_found">失物招领</string>
+    <string name="search_for_notices">寻物启事</string>
+    <string name="news">最新</string>
+    <string name="test_time">2018-11-28</string>
+    <string name="test_description">描述按实际滴哦千万吨级哦请问建瓯请问大家请问将启动去都叫我大家去大家轻拍描述按实际滴哦千万吨级哦请问建瓯请问大家请问将启动去都叫我大家去大家轻拍</string>
+    <string name="test_category">失物招领</string>
 </resources>

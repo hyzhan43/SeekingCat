@@ -5,7 +5,7 @@ import android.support.design.widget.TextInputEditText;
 import butterknife.BindView;
 import butterknife.OnClick;
 import zqx.rj.com.base.mvp.MvpActivity;
-import zqx.rj.com.model.entity.account.LoginRsp;
+import zqx.rj.com.seekingcat.account.model.bean.LoginRsp;
 import zqx.rj.com.seekingcat.MainActivity;
 import zqx.rj.com.seekingcat.R;
 import zqx.rj.com.seekingcat.account.LoginContract;
@@ -34,7 +34,7 @@ public class LoginActivity extends MvpActivity<LoginRsp, LoginContract.Presenter
     }
 
     /**
-     *  登录
+     * 登录
      */
     @OnClick(R.id.btn_login)
     void onLoginClick() {
@@ -46,11 +46,11 @@ public class LoginActivity extends MvpActivity<LoginRsp, LoginContract.Presenter
     }
 
     /**
-     *  注册
+     * 注册
      */
     @OnClick(R.id.tv_register)
     void onRegisterClick() {
-        ToastUtil.show("注册");
+        ToastUtil.show(this, "注册");
     }
 
     @Override

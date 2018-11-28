@@ -1,5 +1,7 @@
-package zqx.rj.com.net.api;
+package zqx.rj.com.seekingcat.common.api;
 
+
+import java.util.List;
 
 import io.reactivex.Observable;
 import retrofit2.http.GET;
@@ -8,8 +10,8 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 import zqx.rj.com.model.entity.BaseResponse;
 import zqx.rj.com.model.entity.PageRsp;
-import zqx.rj.com.model.entity.account.LoginRsp;
-import zqx.rj.com.model.entity.goods.GoodsRsp;
+import zqx.rj.com.seekingcat.account.model.bean.LoginRsp;
+import zqx.rj.com.seekingcat.home.model.bean.GoodsRsp;
 
 /**
  * 项目名：  SeekingCat
@@ -34,5 +36,5 @@ public interface ApiService {
 
 
     @GET("goods/list/{page}")
-    Observable<BaseResponse<PageRsp<GoodsRsp>>> getAllGoods(@Path("page") int page);
+    Observable<BaseResponse<PageRsp<List<GoodsRsp>>>> getAllGoods(@Path("page") int page);
 }

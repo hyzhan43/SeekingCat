@@ -1,4 +1,4 @@
-package zqx.rj.com.model.entity.account;
+package zqx.rj.com.seekingcat.account.model.bean;
 
 /**
  * 项目名：  SeekingCat

@@ -1,6 +1,6 @@
-package zqx.rj.com.helper;
+package zqx.rj.com.seekingcat.common;
 
-import zqx.rj.com.net.api.ApiService;
+import zqx.rj.com.seekingcat.common.api.ApiService;
 import zqx.rj.com.net.retrofit.RetrofitFactory;
 
 public class BaseHelper {

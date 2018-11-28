@@ -1,24 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="140dp"
-        android:contentDescription="@string/app_name"
-        android:src="@drawable/home_top" />
-
-    <Button
-        android:id="@+id/btn_test"
+    <android.support.design.widget.TabLayout
+        android:id="@+id/tl_category"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/app_name"/>
+        android:background="@color/white"
+        android:elevation="@dimen/len_4"
+        tools:targetApi="lollipop" />
 
-    <TextView
-        android:id="@+id/tv_show"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/app_name"/>
+    <android.support.v4.view.ViewPager
+        android:id="@+id/vp_content"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
 </LinearLayout>

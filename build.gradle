@@ -24,6 +24,8 @@ buildscript {
     ext.circle_version = '2.2.0'
     // leak
     ext.leak_version = '1.6.2'
+    // glide
+    ext.glide_version = '4.3.1'
 
     repositories {
         google()

@@ -3,8 +3,8 @@ package zqx.rj.com.seekingcat.account.presenter;
 import android.text.TextUtils;
 
 import zqx.rj.com.base.mvp.BasePresenter;
-import zqx.rj.com.helper.AccountHelper;
-import zqx.rj.com.model.entity.account.LoginRsp;
+import zqx.rj.com.seekingcat.account.model.helper.AccountHelper;
+import zqx.rj.com.seekingcat.account.model.bean.LoginRsp;
 import zqx.rj.com.rx.BaseObserver;
 import zqx.rj.com.seekingcat.R;
 import zqx.rj.com.seekingcat.account.LoginContract;

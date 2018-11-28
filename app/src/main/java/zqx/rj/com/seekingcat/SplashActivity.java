@@ -7,6 +7,7 @@ import android.widget.RelativeLayout;
 
 import butterknife.BindView;
 import zqx.rj.com.base.activity.BaseActivity;
+import zqx.rj.com.seekingcat.account.ui.LoginActivity;
 
 /**
  * 闪屏页
@@ -35,7 +36,7 @@ public class SplashActivity extends BaseActivity {
             @Override
             public void onAnimationEnd(Animator animation) {
                 super.onAnimationEnd(animation);
-                startActivity(MainActivity.class);
+                startActivity(LoginActivity.class);
                 finish();
             }
         });

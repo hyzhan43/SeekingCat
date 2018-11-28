@@ -1,10 +1,9 @@
-package zqx.rj.com.helper;
+package zqx.rj.com.seekingcat.account.model.helper;
 
 import io.reactivex.Observable;
+import zqx.rj.com.seekingcat.common.BaseHelper;
 import zqx.rj.com.model.entity.BaseResponse;
-import zqx.rj.com.model.entity.PageRsp;
-import zqx.rj.com.model.entity.account.LoginRsp;
-import zqx.rj.com.model.entity.goods.GoodsRsp;
+import zqx.rj.com.seekingcat.account.model.bean.LoginRsp;
 import zqx.rj.com.utils.RxScheduler;
 
 /**
@@ -25,8 +24,5 @@ public class AccountHelper extends BaseHelper {
 
     }
 
-    public static Observable<BaseResponse<PageRsp<GoodsRsp>>> test(){
-        return apiHelper().getAllGoods(0)
-                .compose(RxScheduler.<BaseResponse<PageRsp<GoodsRsp>>>ioToMain());
-    }
+
 }
