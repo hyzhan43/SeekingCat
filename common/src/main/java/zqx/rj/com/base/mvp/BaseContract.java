@@ -7,19 +7,15 @@ import android.support.annotation.StringRes;
  */
 public interface BaseContract {
 
-    interface View<T>{
+    interface View{
         void showError(@StringRes int str);
 
         void showError(String str);
 
         void showLoading();
-
-        void success(T data);
     }
 
     interface Presenter{
-        void attachView(View view);
-
         void detachView();
     }
 }

@@ -3,7 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="zqx.rj.com.seekingcat">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
     <application
         android:name="zqx.rj.com.base.app.BaseApplication"
@@ -21,9 +23,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity android:name=".SplashActivity" />
-        <activity android:name=".account.ui.LoginActivity"/>
+        <activity android:name=".account.ui.LoginActivity" />
+        <activity android:name=".publish.ui.activity.PublishActivity"/>
     </application>
 
 </manifest>

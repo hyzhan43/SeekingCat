@@ -15,25 +15,29 @@ import zqx.rj.com.base.mvp.BaseContract;
  * 描述：    TODO
  */
 
-public class BasePresenter implements BaseContract.Presenter {
+public class BasePresenter<T extends BaseContract.View> implements BaseContract.Presenter{
+
+    public BasePresenter(T view) {
+        attachView(view);
+    }
 
     // View 接口类型的弱引用
-    private Reference<BaseContract.View> mViewRef;
+    private Reference<T> mViewRef;
 
-    public void attachView(BaseContract.View view) {
+    public void attachView(T view) {
         mViewRef = new WeakReference<>(view);
     }
 
-    protected boolean isViewAttach(){
+    protected boolean isViewAttach() {
         return mViewRef != null && mViewRef.get() != null;
     }
 
-    public BaseContract.View getView() {
+    public T getView() {
         return mViewRef.get();
     }
 
     public void detachView() {
-        if(mViewRef != null){
+        if (mViewRef != null) {
             mViewRef.clear();
             mViewRef = null;
         }

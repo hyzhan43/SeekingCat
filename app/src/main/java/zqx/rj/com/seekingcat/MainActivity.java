@@ -20,6 +20,7 @@ import zqx.rj.com.base.activity.BaseActivity;
 import zqx.rj.com.base.fragment.BaseFragment;
 import zqx.rj.com.seekingcat.home.ui.fragment.HomeFragment;
 import zqx.rj.com.seekingcat.mine.view.MineFragmentImpl;
+import zqx.rj.com.seekingcat.publish.ui.activity.PublishActivity;
 
 public class MainActivity extends BaseActivity {
 
@@ -107,7 +108,7 @@ public class MainActivity extends BaseActivity {
 
     @OnClick(R.id.fab_publish)
     void onFloatButton(){
-        toast("发布");
+        startActivity(PublishActivity.class);
     }
 
 

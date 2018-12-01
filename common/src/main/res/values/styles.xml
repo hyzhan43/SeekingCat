@@ -20,9 +20,15 @@
     </style>
 
 
-    <!-- 透明 -->
-    <style name="LoadingDialog" parent="@android:style/Theme.Dialog">
+    <!-- 透明 dialog -->
+    <style name="Theme_Dialog" parent="@android:style/Theme.Dialog">
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:windowNoTitle">true</item>
+    </style>
+
+    <!--自定义 Dialog anim-->
+    <style name="pop_anim_style">
+        <item name="android:windowEnterAnimation">@anim/pop_in</item>
+        <item name="android:windowExitAnimation">@anim/pop_out</item>
     </style>
 </resources>

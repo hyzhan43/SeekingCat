@@ -2,13 +2,16 @@ package zqx.rj.com.seekingcat.home.model.bean;
 
 public class GoodsRsp {
 
+    public static final int LOSE_GOODS = 1;
+    public static final int SEARCH_GOODS = 2;
+
     private int id;
     private String name;
     private String description;
     private String phone;
     private String place;
     private String goodsUrl;
-    private String type;
+    private int type;
     private String follow;
     private String reward;
     private String originator;
@@ -63,11 +66,11 @@ public class GoodsRsp {
         this.goodsUrl = goodsUrl;
     }
 
-    public String getType() {
+    public int getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(int type) {
         this.type = type;
     }
 

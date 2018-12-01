@@ -1,6 +1,8 @@
 package zqx.rj.com.seekingcat.home.model.adapter;
 
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
+import android.widget.Button;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
@@ -38,11 +40,21 @@ public class GoodsAdapter extends BaseQuickAdapter<GoodsRsp, BaseViewHolder> {
         helper.setText(R.id.tv_goods_name, item.getName());
         helper.setText(R.id.tv_description, item.getDescription());
         helper.setText(R.id.tv_time, item.getCreateTime());
+
+        setButtonStyle((Button) helper.getView(R.id.btn_type), item.getType());
     }
 
     private void setImage(String url, ImageView imageView) {
         Glide.with(mContext)
                 .load(url)
                 .into(imageView);
+    }
+
+    private void setButtonStyle(Button btn, int type) {
+        if (type == GoodsRsp.SEARCH_GOODS) {
+            btn.setText(mContext.getString(R.string.search_for_notices));
+        } else {
+            btn.setText(mContext.getString(R.string.lost_and_found));
+        }
     }
 }

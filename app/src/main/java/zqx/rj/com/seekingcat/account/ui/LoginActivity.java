@@ -14,8 +14,8 @@ import zqx.rj.com.constants.Constants;
 import zqx.rj.com.utils.Preferences;
 import zqx.rj.com.utils.ToastUtil;
 
-public class LoginActivity extends MvpActivity<LoginRsp, LoginContract.Presenter>
-        implements LoginContract.View<LoginRsp> {
+public class LoginActivity extends MvpActivity<LoginContract.Presenter>
+        implements LoginContract.View{
 
     @BindView(R.id.tie_account)
     TextInputEditText mTieAccount;
@@ -25,7 +25,7 @@ public class LoginActivity extends MvpActivity<LoginRsp, LoginContract.Presenter
 
     @Override
     protected LoginContract.Presenter bindPresenter() {
-        return new LoginPresenter();
+        return new LoginPresenter(this);
     }
 
     @Override
@@ -54,12 +54,12 @@ public class LoginActivity extends MvpActivity<LoginRsp, LoginContract.Presenter
     }
 
     @Override
-    public void success(LoginRsp data) {
-
+    public void loginSuccess(String token) {
         // 存储 token
-        Preferences.putString(Constants.TOKEN, data.getToken());
+        Preferences.putString(Constants.TOKEN, token);
 
         startActivity(MainActivity.class);
         finish();
     }
+
 }

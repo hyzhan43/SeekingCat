@@ -11,7 +11,7 @@ public interface LoginContract {
         boolean checkAccountAndPwd(String phone, String password);
     }
 
-    interface View<T> extends BaseContract.View<T> {
-
+    interface View extends BaseContract.View {
+        void loginSuccess(String token);
     }
 }

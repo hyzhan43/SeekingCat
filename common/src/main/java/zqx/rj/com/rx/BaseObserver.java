@@ -1,10 +1,8 @@
 package zqx.rj.com.rx;
 
+import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
-import zqx.rj.com.base.mvp.BaseContract;
-import zqx.rj.com.common.R;
-import zqx.rj.com.model.entity.BaseResponse;
 import zqx.rj.com.utils.Log;
 
 /**
@@ -16,32 +14,21 @@ import zqx.rj.com.utils.Log;
  * 描述：    TODO
  */
 
-public class BaseObserver<T> implements Observer<BaseResponse<T>> {
-
-    private BaseContract.View mView;
-
-    public BaseObserver(BaseContract.View view) {
-        this.mView = view;
-    }
+public class BaseObserver<T> implements Observer<T> {
 
     @Override
     public void onSubscribe(Disposable d) {
+
     }
 
-    @SuppressWarnings("unchecked")
     @Override
-    public void onNext(BaseResponse<T> response) {
-        if (response.getCode() == BaseResponse.REQUEST_SUC) {
-            mView.success(response.getData());
-        } else {
-            mView.showError(response.getMsg());
-        }
+    public void onNext(T t) {
+
     }
 
     @Override
     public void onError(Throwable e) {
-        mView.showError(R.string.network_error);
-        Log.d("LST", "error -> " + e);
+        Log.d("e ->" + e);
     }
 
     @Override
