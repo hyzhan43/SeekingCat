@@ -1,28 +1,26 @@
-package zqx.rj.com.seekingcat.account.model.helper;
+package zqx.rj.com.seekingcat.mine.model.helper;
 
 import zqx.rj.com.constants.Constants;
 import zqx.rj.com.model.entity.BaseResponse;
 import zqx.rj.com.net.callback.Callback;
 import zqx.rj.com.rx.BaseObserver;
-import zqx.rj.com.seekingcat.account.model.bean.LoginRsp;
 import zqx.rj.com.seekingcat.common.BaseHelper;
-import zqx.rj.com.utils.Log;
+import zqx.rj.com.seekingcat.mine.model.bean.UserInfoRsp;
 import zqx.rj.com.utils.RxScheduler;
 
 /**
  * author：  HyZhan
- * created：2018/9/4 14:18
- * desc：    用户 辅助类
+ * create：  2018/12/4 15:07
+ * desc：    TODO
  */
+public class MineHelper extends BaseHelper {
 
-public class AccountHelper extends BaseHelper {
-
-    public static void login(String account, String password, final Callback<LoginRsp> callback) {
-        apiHelper().getLogin(account, password)
-                .compose(RxScheduler.<BaseResponse<LoginRsp>>ioToMain())
-                .subscribe(new BaseObserver<BaseResponse<LoginRsp>>() {
+    public static void getUserInfo(final Callback<UserInfoRsp> callback) {
+        apiHelper().getUserInfo()
+                .compose(RxScheduler.<BaseResponse<UserInfoRsp>>ioToMain())
+                .subscribe(new BaseObserver<BaseResponse<UserInfoRsp>>() {
                     @Override
-                    public void onNext(BaseResponse<LoginRsp> response) {
+                    public void onNext(BaseResponse<UserInfoRsp> response) {
                         super.onNext(response);
                         if (response.getCode() == BaseResponse.REQUEST_SUC) {
                             callback.onSuccess(response.getData());
@@ -37,9 +35,5 @@ public class AccountHelper extends BaseHelper {
                         callback.onFail(Constants.NETWORK_ERROR);
                     }
                 });
-    }
-
-    public static void register(String phone, String password) {
-
     }
 }

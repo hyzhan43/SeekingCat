@@ -12,6 +12,7 @@ package zqx.rj.com.model.entity;
 public class BaseResponse<T> {
 
     public static final int REQUEST_SUC = 0;
+    public static final int TOKEN_EXPIRE = 1002;
 
     private int code;
 

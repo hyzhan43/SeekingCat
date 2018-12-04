@@ -50,13 +50,15 @@ public class LoginActivity extends MvpActivity<LoginContract.Presenter>
      */
     @OnClick(R.id.tv_register)
     void onRegisterClick() {
-        ToastUtil.show(this, "注册");
+        toast("注册");
     }
 
     @Override
     public void loginSuccess(String token) {
         // 存储 token
         Preferences.putString(Constants.TOKEN, token);
+        // 标记已经登录
+        Preferences.putBoolean(Constants.IS_LOGIN, true);
 
         startActivity(MainActivity.class);
         finish();

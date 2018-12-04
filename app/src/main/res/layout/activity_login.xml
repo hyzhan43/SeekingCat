@@ -74,7 +74,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_margin="@dimen/len_28"
-        android:background="@drawable/white_round_bg"
+        android:background="@drawable/green_round_bg"
         android:gravity="center"
         android:text="@string/login"
         android:textColor="@color/white"

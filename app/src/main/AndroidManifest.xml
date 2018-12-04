@@ -4,8 +4,8 @@
     package="zqx.rj.com.seekingcat">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.CAMERA"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:name="zqx.rj.com.base.app.BaseApplication"
@@ -16,16 +16,17 @@
         android:supportsRtl="true"
         android:theme="@style/NoActionBar"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".MainActivity">
+        <activity android:name=".SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SplashActivity" />
         <activity android:name=".account.ui.LoginActivity" />
-        <activity android:name=".publish.ui.activity.PublishActivity"/>
+        <activity android:name=".MainActivity" />
+        <activity android:name=".publish.ui.activity.PublishActivity" />
+        <activity android:name=".mine.ui.activity.AboutActivity"></activity>
     </application>
 
 </manifest>

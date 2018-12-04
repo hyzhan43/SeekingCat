@@ -24,7 +24,7 @@ public class BasePresenter<T extends BaseContract.View> implements BaseContract.
     // View 接口类型的弱引用
     private Reference<T> mViewRef;
 
-    public void attachView(T view) {
+    private void attachView(T view) {
         mViewRef = new WeakReference<>(view);
     }
 

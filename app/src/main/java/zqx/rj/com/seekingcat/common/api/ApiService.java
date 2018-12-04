@@ -15,6 +15,7 @@ import zqx.rj.com.model.entity.BaseResponse;
 import zqx.rj.com.model.entity.PageRsp;
 import zqx.rj.com.seekingcat.account.model.bean.LoginRsp;
 import zqx.rj.com.seekingcat.home.model.bean.GoodsRsp;
+import zqx.rj.com.seekingcat.mine.model.bean.UserInfoRsp;
 
 /**
  * 项目名：  SeekingCat
@@ -41,12 +42,15 @@ public interface ApiService {
     // 发布物品
     @Multipart
     @POST("goods")
-    Observable<BaseResponse> publishGoods(@Part("name") String name,
-                                          @Part("description") String description,
-                                          @Part("phone") String phone,
-                                          @Part("place") String place,
-                                          @Part("type") Integer type,
-                                          @Part("reward") String reward,
+    Observable<BaseResponse> publishGoods(@Query("name") String name,
+                                          @Query("description") String description,
+                                          @Query("phone") String phone,
+                                          @Query("place") String place,
+                                          @Query("type") Integer type,
+                                          @Query("reward") String reward,
                                           @Part MultipartBody.Part imageFile
                                           );
+
+    @GET("user/info")
+    Observable<BaseResponse<UserInfoRsp>> getUserInfo();
 }

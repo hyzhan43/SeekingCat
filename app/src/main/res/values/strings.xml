@@ -28,4 +28,13 @@
     <string name="take_picture">拍照</string>
     <string name="goods_tips">信息不完整,请输入完整信息~</string>
     <string name="goods_file_empty">物品图片不能未空</string>
+    <string name="publish_count">发布数量</string>
+    <string name="zero">0</string>
+    <string name="follow_count">关注数量</string>
+    <string name="about">关于我</string>
+    <string name="setting">设置</string>
+    <string name="github">Github: https://github.com/hyzhan43</string>
+    <string name="csdn">CSDN: https://blog.csdn.net/weixin_40595516</string>
+    <string name="email">邮箱：hyzhan43@163.com</string>
+    <string name="publish_success">发布成功</string>
 </resources>

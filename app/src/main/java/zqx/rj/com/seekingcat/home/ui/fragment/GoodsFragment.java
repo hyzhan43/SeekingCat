@@ -20,6 +20,7 @@ import zqx.rj.com.seekingcat.home.contract.GoodsContract;
 import zqx.rj.com.seekingcat.home.model.adapter.GoodsAdapter;
 import zqx.rj.com.seekingcat.home.model.bean.GoodsRsp;
 import zqx.rj.com.seekingcat.home.presenter.GoodsPresenter;
+import zqx.rj.com.utils.Log;
 
 /**
  * author：  HyZhan
@@ -70,7 +71,7 @@ public class GoodsFragment extends MvpFragment<GoodsContract.Presenter>
     public void initData() {
         super.initData();
 
-        mPresenter.requestAllGoods(page);
+        mPresenter.requestAllGoods(0);
     }
 
     @Override

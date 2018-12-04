@@ -9,7 +9,6 @@ import zqx.rj.com.seekingcat.common.BaseHelper;
 import zqx.rj.com.model.entity.BaseResponse;
 import zqx.rj.com.model.entity.PageRsp;
 import zqx.rj.com.seekingcat.home.model.bean.GoodsRsp;
-import zqx.rj.com.utils.Log;
 import zqx.rj.com.utils.RxScheduler;
 
 /**
@@ -25,6 +24,7 @@ public class GoodsHelper extends BaseHelper {
                 .subscribe(new BaseObserver<BaseResponse<PageRsp<List<GoodsRsp>>>>() {
                     @Override
                     public void onNext(BaseResponse<PageRsp<List<GoodsRsp>>> response) {
+                        super.onNext(response);
                         if (response.getCode() == BaseResponse.REQUEST_SUC) {
                             callback.onSuccess(response.getData());
                         } else {

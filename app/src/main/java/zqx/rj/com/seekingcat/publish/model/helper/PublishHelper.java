@@ -9,6 +9,7 @@ import zqx.rj.com.net.callback.Callback;
 import zqx.rj.com.rx.BaseObserver;
 import zqx.rj.com.seekingcat.common.BaseHelper;
 import zqx.rj.com.seekingcat.publish.model.entity.request.GoodsModel;
+import zqx.rj.com.utils.Log;
 import zqx.rj.com.utils.RxScheduler;
 import zqx.rj.com.utils.UtilTools;
 
@@ -25,6 +26,8 @@ public class PublishHelper extends BaseHelper {
         // imageFile 对应 服务器文件 名称 key
         MultipartBody.Part body = UtilTools.fileToMultipartBody(file, "imageFile");
 
+        Log.d(goodsModel.getPhone());
+
         apiHelper().publishGoods(
                 goodsModel.getName(),
                 goodsModel.getDescription(),
@@ -37,6 +40,7 @@ public class PublishHelper extends BaseHelper {
                 .subscribe(new BaseObserver<BaseResponse>() {
                     @Override
                     public void onNext(BaseResponse response) {
+                        super.onNext(response);
                         if (response.getCode() == BaseResponse.REQUEST_SUC) {
                             callback.onSuccess(response);
                         } else {

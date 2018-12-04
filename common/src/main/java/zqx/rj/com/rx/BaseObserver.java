@@ -3,7 +3,10 @@ package zqx.rj.com.rx;
 import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
+import zqx.rj.com.constants.Constants;
+import zqx.rj.com.model.entity.BaseResponse;
 import zqx.rj.com.utils.Log;
+import zqx.rj.com.utils.Preferences;
 
 /**
  * 项目名：  SeekingCat
@@ -23,7 +26,11 @@ public class BaseObserver<T> implements Observer<T> {
 
     @Override
     public void onNext(T t) {
-
+        BaseResponse response = (BaseResponse)t;
+        if (response.getCode() == BaseResponse.TOKEN_EXPIRE){
+            // 如果 token 过期的话。就直接 设置未登录状态
+            Preferences.putBoolean(Constants.IS_LOGIN, false);
+        }
     }
 
     @Override

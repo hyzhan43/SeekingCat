@@ -22,7 +22,7 @@ public class ToastUtil {
     @SuppressLint("ShowToast")
     public static void show(Context context, String text) {
         if (mToast == null) {
-            mToast = Toast.makeText(context, text, TOAST_TIME);
+            mToast = Toast.makeText(context.getApplicationContext(), text, TOAST_TIME);
         } else {
             mToast.setText(text);
         }

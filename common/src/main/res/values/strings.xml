@@ -4,8 +4,6 @@
     <string name="time_down">%ds 跳过</string>
     <string name="title_activity_login">Sign in</string>
 
-
-    <string name="email">邮箱</string>
     <string name="phone">联系电话</string>
     <string name="login">登录</string>
     <string name="password">密码</string>
@@ -24,7 +22,6 @@
     <string name="corporation_news">社团动态</string>
     <string name="phone_exit">手机号码已存在</string>
     <string name="search">搜索</string>
-
 
 
     <string name="network_error">网络异常</string>

@@ -7,7 +7,10 @@ import android.widget.RelativeLayout;
 
 import butterknife.BindView;
 import zqx.rj.com.base.activity.BaseActivity;
+import zqx.rj.com.constants.Constants;
 import zqx.rj.com.seekingcat.account.ui.LoginActivity;
+import zqx.rj.com.utils.Log;
+import zqx.rj.com.utils.Preferences;
 
 /**
  * 闪屏页
@@ -36,7 +39,15 @@ public class SplashActivity extends BaseActivity {
             @Override
             public void onAnimationEnd(Animator animation) {
                 super.onAnimationEnd(animation);
-                startActivity(LoginActivity.class);
+
+                boolean isLogin = Preferences.getBoolean(Constants.IS_LOGIN, false);
+
+                if (isLogin) {
+                    startActivity(MainActivity.class);
+                } else {
+                    startActivity(LoginActivity.class);
+                }
+
                 finish();
             }
         });
