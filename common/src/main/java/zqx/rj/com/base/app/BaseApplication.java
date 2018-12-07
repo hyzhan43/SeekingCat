@@ -18,7 +18,7 @@ import zqx.rj.com.utils.Preferences;
  * 描述：    TODO
  */
 
-public class BaseApplication extends Application{
+public class BaseApplication extends Application {
 
     @Override
     public void onCreate() {

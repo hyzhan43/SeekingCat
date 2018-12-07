@@ -75,4 +75,6 @@ dependencies {
     // LoadSir
     api "com.kingja.loadsir:loadsir:$loadsir_version"
 
+    // takePhoto
+    api "com.jph.takephoto:takephoto_library:$takePhoto_version"
 }

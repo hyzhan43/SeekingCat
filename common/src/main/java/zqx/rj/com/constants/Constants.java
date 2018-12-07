@@ -23,7 +23,7 @@ public class Constants {
     public static final String TOKEN = "token";
     public static final String IS_LOGIN = "isLogin";
 
-    public static final String PHOTO_IMAGE_FILE_NAME = "goodsImg.jpg";
+    public static final String PHOTO_IMAGE_FILE_NAME = "cacheImg.jpg";
 
     public static final String ZOOM_IMAGE_FILE_NAME = "goods.jpg";
 

@@ -3,6 +3,7 @@ package zqx.rj.com.seekingcat.publish.ui.fragment;
 import android.support.design.widget.TextInputEditText;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 import zqx.rj.com.seekingcat.R;
 import zqx.rj.com.seekingcat.publish.model.entity.request.GoodsModel;
 
@@ -20,6 +21,9 @@ public class LoseGoodsFragment extends BaseGoodsFragment {
     public int getLayoutId() {
         return R.layout.fragment_goods_lose;
     }
+
+    @OnClick(R.id.tie_reward)
+
 
     @Override
     public void onPublish() {

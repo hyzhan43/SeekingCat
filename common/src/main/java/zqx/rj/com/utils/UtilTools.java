@@ -1,6 +1,9 @@
 package zqx.rj.com.utils;
 
 import android.graphics.Bitmap;
+import android.os.Environment;
+
+import com.jph.takephoto.model.CropOptions;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -50,5 +53,26 @@ public class UtilTools {
         RequestBody requestFile = RequestBody.create(MediaType.parse("image/jpg"), file);
 
         return MultipartBody.Part.createFormData(key, file.getName(), requestFile);
+    }
+
+    public static CropOptions getCropOptions() {
+        return new CropOptions.Builder()
+                .setAspectX(1)
+                .setAspectY(1)
+                .setWithOwnCrop(true)
+                .setOutputX(320)
+                .setOutputY(320)
+                .create();
+    }
+
+    public static File createFile(String dirName) {
+        File file = new File(Environment.getExternalStorageDirectory(),
+                "/" + dirName + "/" + System.currentTimeMillis() + ".jpg");
+
+        if (!file.getParentFile().exists()) {
+            file.getParentFile().mkdirs();
+        }
+
+        return file;
     }
 }

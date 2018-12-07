@@ -7,6 +7,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+
+import com.jph.takephoto.app.TakePhotoFragment;
+
 import butterknife.ButterKnife;
 import zqx.rj.com.utils.ToastUtil;
 

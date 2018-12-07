@@ -107,14 +107,16 @@ public class MainActivity extends BaseActivity {
     }
 
     @OnClick(R.id.fab_publish)
-    void onFloatButton(){
+    void onFloatButton() {
         startActivity(PublishActivity.class);
     }
 
 
-    class ViewPagerAdapter extends FragmentPagerAdapter{
+    class ViewPagerAdapter extends FragmentPagerAdapter {
 
-        ViewPagerAdapter(FragmentManager fm) { super(fm); }
+        ViewPagerAdapter(FragmentManager fm) {
+            super(fm);
+        }
 
         @Override
         public Fragment getItem(int i) {

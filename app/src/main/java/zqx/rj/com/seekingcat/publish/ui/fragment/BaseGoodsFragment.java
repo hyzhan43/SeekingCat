@@ -3,31 +3,38 @@ package zqx.rj.com.seekingcat.publish.ui.fragment;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
-import android.provider.MediaStore;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import com.jph.takephoto.app.TakePhoto;
+import com.jph.takephoto.app.TakePhotoImpl;
+import com.jph.takephoto.model.InvokeParam;
+import com.jph.takephoto.model.TContextWrap;
+import com.jph.takephoto.model.TResult;
+import com.jph.takephoto.permission.InvokeListener;
+import com.jph.takephoto.permission.PermissionManager;
+import com.jph.takephoto.permission.TakePhotoInvocationHandler;
+
 import java.io.File;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 import zqx.rj.com.base.mvp.MvpFragment;
-import zqx.rj.com.constants.Constants;
 import zqx.rj.com.seekingcat.MainActivity;
 import zqx.rj.com.seekingcat.R;
 import zqx.rj.com.seekingcat.publish.contract.PublishContract;
 import zqx.rj.com.seekingcat.publish.presenter.PublishPresenter;
+import zqx.rj.com.utils.GlideUtil;
+import zqx.rj.com.utils.Log;
 import zqx.rj.com.utils.UtilTools;
 import zqx.rj.com.widget.BottomDialog;
-
-import static android.app.Activity.RESULT_OK;
 
 /**
  * author：  HyZhan
@@ -35,7 +42,8 @@ import static android.app.Activity.RESULT_OK;
  * desc：    TODO
  */
 public abstract class BaseGoodsFragment extends MvpFragment<PublishContract.Presenter>
-        implements PublishContract.View, View.OnClickListener {
+        implements PublishContract.View, View.OnClickListener,
+        TakePhoto.TakeResultListener, InvokeListener {
 
     @BindView(R.id.tie_name)
     TextInputEditText mTieName;
@@ -52,10 +60,11 @@ public abstract class BaseGoodsFragment extends MvpFragment<PublishContract.Pres
     @BindView(R.id.iv_add)
     ImageView mIvAdd;
 
-    protected File goodsFile;
-    private File tempFile;
-
     private Dialog dialog;
+
+    private TakePhoto takePhoto;
+    private InvokeParam invokeParam;
+    protected File goodsFile;
 
     @Override
     protected PublishContract.Presenter bindPresenter() {
@@ -67,6 +76,8 @@ public abstract class BaseGoodsFragment extends MvpFragment<PublishContract.Pres
         super.initView(view);
 
         initDialog();
+
+        getTakePhoto();
     }
 
     private void initDialog() {
@@ -93,18 +104,19 @@ public abstract class BaseGoodsFragment extends MvpFragment<PublishContract.Pres
 
 
     /**
-     *  发布成功
+     * 发布成功
      */
     @Override
     public void publishSuccess() {
         toast(getString(R.string.publish_success));
 
         Activity activity = getActivity();
+        if (activity != null) {
+            Intent intent = new Intent(activity, MainActivity.class);
+            startActivity(intent);
 
-        Intent intent = new Intent(activity, MainActivity.class);
-        startActivity(intent);
-
-        activity.finish();
+            activity.finish();
+        }
     }
 
     @Override
@@ -124,97 +136,93 @@ public abstract class BaseGoodsFragment extends MvpFragment<PublishContract.Pres
 
     // 跳转到相机
     private void goToCamera() {
-        // 启动系统相机
-        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 
-        // 传递路径
-        File file = new File(Environment.getExternalStorageDirectory(),
-                Constants.PHOTO_IMAGE_FILE_NAME);
+        // 创建相机 剪切后的目录
+        File cameraFile = UtilTools.createFile("cameraTemp");
+        Uri uri = Uri.fromFile(cameraFile);
 
-        Uri uri = Uri.fromFile(file);
-        // 更改系统默认拍照存储路径
-        intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
-        startActivityForResult(intent, Constants.CAMERA_REQUEST_CODE);
+        // 启动相机, 并剪切图片
+        takePhoto.onPickFromCaptureWithCrop(uri, UtilTools.getCropOptions());
 
         dialog.dismiss();
     }
 
     // 跳转到相册
     private void goToAlbum() {
-        Intent intent = new Intent(Intent.ACTION_PICK);
-        // 选择照片
-        intent.setType("image/*");
-        startActivityForResult(intent, Constants.IMAGE_REQUEST_CODE);
+
+        File cropFile = UtilTools.createFile("album");
+        Uri uri = Uri.fromFile(cropFile);
+
+        TakePhoto takePhoto = getTakePhoto();
+        // 跳转到相册 并剪切图片
+        takePhoto.onPickFromGalleryWithCrop(uri, UtilTools.getCropOptions());
 
         dialog.dismiss();
     }
 
     @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        getTakePhoto().onCreate(savedInstanceState);
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        getTakePhoto().onSaveInstanceState(outState);
+    }
+
+    @Override
+    public void takeFail(TResult result, String msg) {
+        toast("失败：" + msg);
+        Log.d("图片失败 ：" + msg);
+    }
+
+    @Override
+    public void takeSuccess(TResult result) {
+
+        String path = result.getImage().getOriginalPath();
+        goodsFile = new File(path);
+
+        // 加载显示图片
+        GlideUtil.loadImage(getActivity(), path, mIvAdd);
+    }
+
+    @Override
+    public void takeCancel() {
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        //以下代码为处理Android6.0、7.0动态权限所需
+        PermissionManager.TPermissionType type = PermissionManager
+                .onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        PermissionManager.handlePermissionsResult(getActivity(), type,
+                invokeParam, this);
+    }
+
+    @Override
+    public PermissionManager.TPermissionType invoke(InvokeParam invokeParam) {
+        PermissionManager.TPermissionType type = PermissionManager.checkPermission(TContextWrap.of(this),
+                invokeParam.getMethod());
+        if (PermissionManager.TPermissionType.WAIT.equals(type)) {
+            this.invokeParam = invokeParam;
+        }
+        return type;
+    }
+
+    @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (resultCode == RESULT_OK) {
-            switch (requestCode) {
-                // 相机数据
-                case Constants.CAMERA_REQUEST_CODE:
-                    // 获取 拍照相片 原始文件
-                    tempFile = new File(Environment.getExternalStorageDirectory(),
-                            Constants.PHOTO_IMAGE_FILE_NAME);
-
-                    // 进行缩放 裁剪
-                    startPhotoZoom(Uri.fromFile(tempFile));
-                    break;
-                // 相册数据
-                case Constants.IMAGE_REQUEST_CODE:
-                    startPhotoZoom(data.getData());
-                    break;
-                case Constants.ZOOM_REQUEST_CODE:
-                    // 有可能点 舍去
-                    if (data != null) {
-                        // 拿到图片
-                        getZoomFile(data);
-
-                        // 既然已经设置了 图片，就把原来图片删除。
-                        if (tempFile != null) {
-                            tempFile.delete();
-                        }
-                    }
-                    break;
-            }
-        }
+        getTakePhoto().onActivityResult(requestCode, resultCode, data);
     }
 
-    private void startPhotoZoom(Uri uri) {
-        if (uri != null) {
-            // 设置裁剪行为
-            Intent intent = new Intent("com.android.camera.action.CROP");
-            // 裁剪数据和类型
-            intent.setDataAndType(uri, "image/*");
-            // 设置裁剪
-            intent.putExtra("crop", "true");
-            // 裁剪宽高比例
-            intent.putExtra("aspectX", 1);
-            intent.putExtra("aspectY", 1);
-            // 裁剪图片的质量 (分辨率)
-            intent.putExtra("outputX", 320);
-            intent.putExtra("outputY", 320);
-            // 发送数据 (固定写法 return-data)
-            intent.putExtra("return-data", true);
-
-            startActivityForResult(intent, Constants.ZOOM_REQUEST_CODE);
+    public TakePhoto getTakePhoto() {
+        if (takePhoto == null) {
+            takePhoto = (TakePhoto) TakePhotoInvocationHandler.of(this)
+                    .bind(new TakePhotoImpl(this, this));
         }
-    }
-
-    private void getZoomFile(Intent data) {
-        Bundle bundle = data.getExtras();
-        if (bundle != null) {
-            // 获取裁剪后的 bitmap
-            Bitmap goodsBitmap = bundle.getParcelable("data");
-            mIvAdd.setImageBitmap(goodsBitmap);
-
-            // 转化为  file
-            goodsFile = UtilTools.bitmapToFile(
-                    goodsBitmap,
-                    Environment.getExternalStorageDirectory().getPath(),
-                    Constants.ZOOM_IMAGE_FILE_NAME);       // 转化后的文件名
-        }
+        return takePhoto;
     }
 }
