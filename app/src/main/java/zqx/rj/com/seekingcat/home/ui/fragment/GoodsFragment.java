@@ -1,5 +1,6 @@
 package zqx.rj.com.seekingcat.home.ui.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -20,6 +21,7 @@ import zqx.rj.com.seekingcat.home.contract.GoodsContract;
 import zqx.rj.com.seekingcat.home.model.adapter.GoodsAdapter;
 import zqx.rj.com.seekingcat.home.model.bean.GoodsRsp;
 import zqx.rj.com.seekingcat.home.presenter.GoodsPresenter;
+import zqx.rj.com.seekingcat.home.ui.activity.GoodsDetailActivity;
 
 /**
  * author：  HyZhan
@@ -72,6 +74,19 @@ public class GoodsFragment extends MvpFragment<GoodsContract.Presenter>
         // 设置 加载更多
         adapter.setEnableLoadMore(true);
         adapter.setOnLoadMoreListener(this, mRvGoods);
+
+        adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+
+                Intent intent = new Intent(getActivity(), GoodsDetailActivity.class);
+                GoodsRsp goodsRsp = (GoodsRsp) adapter.getItem(position);
+                if (goodsRsp != null) {
+                    intent.putExtra("id", goodsRsp.getId());
+                    startActivity(intent);
+                }
+            }
+        });
     }
 
     @Override

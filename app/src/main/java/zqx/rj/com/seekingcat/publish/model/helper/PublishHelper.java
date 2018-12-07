@@ -37,22 +37,6 @@ public class PublishHelper extends BaseHelper {
                 goodsModel.getReward(),
                 body)
                 .compose(RxScheduler.<BaseResponse>ioToMain())
-                .subscribe(new BaseObserver<BaseResponse>() {
-                    @Override
-                    public void onNext(BaseResponse response) {
-                        super.onNext(response);
-                        if (response.getCode() == BaseResponse.REQUEST_SUC) {
-                            callback.onSuccess(response);
-                        } else {
-                            callback.onFail(response.getMsg());
-                        }
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        super.onError(e);
-                        callback.onFail(Constants.NETWORK_ERROR);
-                    }
-                });
+                .subscribe(new BaseObserver<BaseResponse>(callback));
     }
 }

@@ -6,7 +6,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -24,9 +23,6 @@ import zqx.rj.com.seekingcat.publish.ui.activity.PublishActivity;
 
 public class MainActivity extends BaseActivity {
 
-    @BindView(R.id.toolbar)
-    public Toolbar toolbar;
-
     @BindView(R.id.main_bottom_navigation)
     BottomNavigationView mBottomNavigationView;
 
@@ -38,8 +34,6 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void initView() {
 
-        // 设置 toolbar
-        setSupportActionBar(toolbar);
         initBottomNavigationBar();
         initFragments();
         initViewPager();
@@ -72,11 +66,9 @@ public class MainActivity extends BaseActivity {
                 switch (menuItem.getItemId()) {
                     case R.id.navigation_home:
                         mViewPager.setCurrentItem(0);
-                        toolbar.setTitle(getString(R.string.home));
                         return true;
                     case R.id.navigation_message:
                         mViewPager.setCurrentItem(1);
-                        toolbar.setTitle(getString(R.string.mine));
                         return true;
                 }
                 return false;

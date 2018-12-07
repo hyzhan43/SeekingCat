@@ -3,7 +3,6 @@ package zqx.rj.com.seekingcat.home.model.helper;
 import java.util.List;
 
 import io.reactivex.Observable;
-import zqx.rj.com.constants.Constants;
 import zqx.rj.com.net.callback.Callback;
 import zqx.rj.com.rx.BaseObserver;
 import zqx.rj.com.seekingcat.common.BaseHelper;
@@ -36,25 +35,15 @@ public class GoodsHelper extends BaseHelper {
                 break;
         }
 
-        if (observable != null){
+        if (observable != null) {
             observable.compose(RxScheduler.<BaseResponse<PageRsp<List<GoodsRsp>>>>ioToMain())
-                    .subscribe(new BaseObserver<BaseResponse<PageRsp<List<GoodsRsp>>>>() {
-                        @Override
-                        public void onNext(BaseResponse<PageRsp<List<GoodsRsp>>> response) {
-                            super.onNext(response);
-                            if (response.getCode() == BaseResponse.REQUEST_SUC) {
-                                callback.onSuccess(response.getData());
-                            } else {
-                                callback.onFail(response.getMsg());
-                            }
-                        }
-
-                        @Override
-                        public void onError(Throwable e) {
-                            super.onError(e);
-                            callback.onFail(Constants.NETWORK_ERROR);
-                        }
-                    });
+                    .subscribe(new BaseObserver<BaseResponse<PageRsp<List<GoodsRsp>>>>(callback));
         }
+    }
+
+    public static void getGoodsDetail(int id, final Callback<GoodsRsp> callback) {
+        apiHelper().getGoodsDetail(id)
+                .compose(RxScheduler.<BaseResponse<GoodsRsp>>ioToMain())
+                .subscribe(new BaseObserver<BaseResponse<GoodsRsp>>(callback));
     }
 }

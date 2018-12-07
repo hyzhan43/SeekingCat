@@ -61,4 +61,7 @@ public interface ApiService {
 
     @GET("user/info")
     Observable<BaseResponse<UserInfoRsp>> getUserInfo();
+
+    @GET("goods/{id}")
+    Observable<BaseResponse<GoodsRsp>> getGoodsDetail(@Path("id") int id);
 }

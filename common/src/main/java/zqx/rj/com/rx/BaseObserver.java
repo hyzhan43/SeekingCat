@@ -5,6 +5,7 @@ import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 import zqx.rj.com.constants.Constants;
 import zqx.rj.com.model.entity.BaseResponse;
+import zqx.rj.com.net.callback.Callback;
 import zqx.rj.com.utils.Log;
 import zqx.rj.com.utils.Preferences;
 
@@ -19,6 +20,12 @@ import zqx.rj.com.utils.Preferences;
 
 public class BaseObserver<T> implements Observer<T> {
 
+    private Callback callback;
+
+    public BaseObserver(Callback callback) {
+        this.callback = callback;
+    }
+
     @Override
     public void onSubscribe(Disposable d) {
 
@@ -30,12 +37,17 @@ public class BaseObserver<T> implements Observer<T> {
         if (response.getCode() == BaseResponse.TOKEN_EXPIRE){
             // 如果 token 过期的话。就直接 设置未登录状态
             Preferences.putBoolean(Constants.IS_LOGIN, false);
+        } else if (response.getCode() == BaseResponse.REQUEST_SUC) {
+            callback.onSuccess(response.getData());
+        } else {
+            callback.onFail(response.getMsg());
         }
     }
 
     @Override
     public void onError(Throwable e) {
         Log.d("e ->" + e);
+        callback.onFail(Constants.NETWORK_ERROR);
     }
 
     @Override

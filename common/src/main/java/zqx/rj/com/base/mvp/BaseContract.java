@@ -13,6 +13,8 @@ public interface BaseContract {
         void showError(String str);
 
         void showLoading();
+
+        void hideLoading();
     }
 
     interface Presenter{

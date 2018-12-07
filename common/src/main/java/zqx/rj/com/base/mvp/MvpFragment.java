@@ -31,6 +31,10 @@ public abstract class MvpFragment<T extends BaseContract.Presenter>
     }
 
     @Override
+    public void hideLoading() {
+    }
+
+    @Override
     public void showError(int str) {
         toast(getString(str));
     }

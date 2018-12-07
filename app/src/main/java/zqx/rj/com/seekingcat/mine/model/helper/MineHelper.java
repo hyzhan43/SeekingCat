@@ -18,22 +18,6 @@ public class MineHelper extends BaseHelper {
     public static void getUserInfo(final Callback<UserInfoRsp> callback) {
         apiHelper().getUserInfo()
                 .compose(RxScheduler.<BaseResponse<UserInfoRsp>>ioToMain())
-                .subscribe(new BaseObserver<BaseResponse<UserInfoRsp>>() {
-                    @Override
-                    public void onNext(BaseResponse<UserInfoRsp> response) {
-                        super.onNext(response);
-                        if (response.getCode() == BaseResponse.REQUEST_SUC) {
-                            callback.onSuccess(response.getData());
-                        } else {
-                            callback.onFail(response.getMsg());
-                        }
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        super.onError(e);
-                        callback.onFail(Constants.NETWORK_ERROR);
-                    }
-                });
+                .subscribe(new BaseObserver<BaseResponse<UserInfoRsp>>(callback));
     }
 }

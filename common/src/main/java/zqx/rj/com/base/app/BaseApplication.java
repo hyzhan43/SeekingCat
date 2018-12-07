@@ -27,6 +27,10 @@ public class BaseApplication extends Application {
     public void onCreate() {
         super.onCreate();
 
+        LoadSir.beginBuilder()
+                .addCallback(new LoadingCallback())
+                .commit();
+
         // 初始化 leak
         if (LeakCanary.isInAnalyzerProcess(this)) {
             return;
@@ -38,6 +42,5 @@ public class BaseApplication extends Application {
 
         // 初始化 SharedPreferences
         Preferences.setContext(this);
-
     }
 }

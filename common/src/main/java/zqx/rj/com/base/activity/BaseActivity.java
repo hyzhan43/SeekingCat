@@ -8,6 +8,11 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
+
+import com.kingja.loadsir.callback.Callback;
+import com.kingja.loadsir.core.LoadService;
+import com.kingja.loadsir.core.LoadSir;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -33,6 +38,8 @@ public abstract class BaseActivity extends AppCompatActivity {
 
         setContentView(getLayoutId());
 
+        initBefore();
+
         unbinder = ButterKnife.bind(this);
         context = this;
 
@@ -44,6 +51,10 @@ public abstract class BaseActivity extends AppCompatActivity {
         initData();
     }
 
+    protected void initBefore() {
+
+    }
+
     protected void initView() {
     }
 
@@ -53,7 +64,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     protected abstract int getLayoutId();
 
-    protected void setToolBarTitle(Toolbar toolbar, String title){
+    protected void setToolBarTitle(Toolbar toolbar, String title) {
         toolbar.setTitle(title);
 
         this.setSupportActionBar(toolbar);

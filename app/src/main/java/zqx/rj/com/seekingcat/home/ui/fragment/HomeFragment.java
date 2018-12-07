@@ -1,6 +1,5 @@
 package zqx.rj.com.seekingcat.home.ui.fragment;
 
-import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.view.View;
@@ -9,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import cn.hugeterry.coordinatortablayout.CoordinatorTabLayout;
 import zqx.rj.com.base.fragment.BaseFragment;
 import zqx.rj.com.seekingcat.R;
 import zqx.rj.com.seekingcat.home.model.adapter.HomeAdapter;
@@ -25,8 +25,8 @@ import zqx.rj.com.seekingcat.home.presenter.GoodsPresenter;
 
 public class HomeFragment extends BaseFragment {
 
-    @BindView(R.id.tl_category)
-    TabLayout mTlCategory;
+    @BindView(R.id.coordinator)
+    CoordinatorTabLayout mCoordinatorTabLayout;
 
     @BindView(R.id.vp_content)
     ViewPager mVpContent;
@@ -37,7 +37,16 @@ public class HomeFragment extends BaseFragment {
 
     @Override
     public void initView(View view) {
-        mTlCategory.setupWithViewPager(mVpContent);
+
+        int[] mImageArray = new int[]{
+                R.drawable.bg1,
+                R.drawable.bg2,
+                R.drawable.bg3
+        };
+
+        mCoordinatorTabLayout.setTitle(getString(R.string.app_name))
+                .setImageArray(mImageArray)
+                .setupWithViewPager(mVpContent);
     }
 
     @Override

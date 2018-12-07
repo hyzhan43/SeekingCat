@@ -28,7 +28,6 @@ import java.io.File;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-import cn.pedant.SweetAlert.SweetAlertDialog;
 import zqx.rj.com.base.mvp.MvpFragment;
 import zqx.rj.com.seekingcat.MainActivity;
 import zqx.rj.com.seekingcat.R;

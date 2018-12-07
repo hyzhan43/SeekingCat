@@ -17,26 +17,10 @@ import zqx.rj.com.utils.RxScheduler;
 
 public class AccountHelper extends BaseHelper {
 
-    public static void login(String account, String password, final Callback<LoginRsp> callback) {
+    public static void login(String account, String password, Callback<LoginRsp> callback) {
         apiHelper().getLogin(account, password)
                 .compose(RxScheduler.<BaseResponse<LoginRsp>>ioToMain())
-                .subscribe(new BaseObserver<BaseResponse<LoginRsp>>() {
-                    @Override
-                    public void onNext(BaseResponse<LoginRsp> response) {
-                        super.onNext(response);
-                        if (response.getCode() == BaseResponse.REQUEST_SUC) {
-                            callback.onSuccess(response.getData());
-                        } else {
-                            callback.onFail(response.getMsg());
-                        }
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        super.onError(e);
-                        callback.onFail(Constants.NETWORK_ERROR);
-                    }
-                });
+                .subscribe(new BaseObserver<BaseResponse<LoginRsp>>(callback));
     }
 
     public static void register(String phone, String password) {
