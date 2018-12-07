@@ -2,6 +2,8 @@ package zqx.rj.com.base.app;
 
 import android.app.Application;
 
+import com.kingja.loadsir.callback.SuccessCallback;
+import com.kingja.loadsir.core.LoadSir;
 import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.Logger;
 import com.squareup.leakcanary.LeakCanary;
