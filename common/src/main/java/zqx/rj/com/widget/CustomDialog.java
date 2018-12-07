@@ -19,14 +19,22 @@ import zqx.rj.com.common.R;
  * create：  2018/11/30 20:19
  * desc：    TODO
  */
-public class BottomDialog extends Dialog {
+public class CustomDialog extends Dialog {
 
     private View view;
+    private int gravity = Gravity.BOTTOM;
 
-    public BottomDialog(@NonNull Context context, View view, int style) {
+    public CustomDialog(@NonNull Context context, View view, int style) {
         super(context, style);
         this.view = view;
     }
+
+    public CustomDialog(@NonNull Context context, View view, int style, int gravity) {
+        super(context, style);
+        this.view = view;
+        this.gravity = gravity;
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +47,7 @@ public class BottomDialog extends Dialog {
         if (window == null)
             return;
 
-        window.setGravity(Gravity.BOTTOM);
+        window.setGravity(gravity);
         WindowManager.LayoutParams params = window.getAttributes();
         params.width = WindowManager.LayoutParams.MATCH_PARENT;
         params.height = WindowManager.LayoutParams.WRAP_CONTENT;

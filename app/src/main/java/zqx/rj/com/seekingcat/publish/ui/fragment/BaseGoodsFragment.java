@@ -3,11 +3,13 @@ package zqx.rj.com.seekingcat.publish.ui.fragment;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -26,6 +28,7 @@ import java.io.File;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import cn.pedant.SweetAlert.SweetAlertDialog;
 import zqx.rj.com.base.mvp.MvpFragment;
 import zqx.rj.com.seekingcat.MainActivity;
 import zqx.rj.com.seekingcat.R;
@@ -34,7 +37,7 @@ import zqx.rj.com.seekingcat.publish.presenter.PublishPresenter;
 import zqx.rj.com.utils.GlideUtil;
 import zqx.rj.com.utils.Log;
 import zqx.rj.com.utils.UtilTools;
-import zqx.rj.com.widget.BottomDialog;
+import zqx.rj.com.widget.CustomDialog;
 
 /**
  * author：  HyZhan
@@ -61,6 +64,7 @@ public abstract class BaseGoodsFragment extends MvpFragment<PublishContract.Pres
     ImageView mIvAdd;
 
     private Dialog dialog;
+    private Dialog mLoading;
 
     private TakePhoto takePhoto;
     private InvokeParam invokeParam;
@@ -76,15 +80,26 @@ public abstract class BaseGoodsFragment extends MvpFragment<PublishContract.Pres
         super.initView(view);
 
         initDialog();
-
+        initLoading();
         getTakePhoto();
+    }
+
+    private void initLoading() {
+
+        View view = LayoutInflater.from(getContext()).inflate(R.layout.dialog_loading, null);
+        mLoading = new CustomDialog(getActivity(),
+                view,
+                R.style.Theme_Dialog,
+                Gravity.CENTER);
+
+        mLoading.setCancelable(false);
     }
 
     private void initDialog() {
 
         View view = LayoutInflater.from(getContext()).inflate(R.layout.dialog_view, null);
 
-        dialog = new BottomDialog(getActivity(), view, R.style.Theme_Dialog);
+        dialog = new CustomDialog(getActivity(), view, R.style.Theme_Dialog);
 
         // TODO ButterKnife ??
         Button mBtnCamera = view.findViewById(R.id.btn_camera);
@@ -102,12 +117,13 @@ public abstract class BaseGoodsFragment extends MvpFragment<PublishContract.Pres
         dialog.show();
     }
 
-
     /**
      * 发布成功
      */
     @Override
     public void publishSuccess() {
+        mLoading.dismiss();
+
         toast(getString(R.string.publish_success));
 
         Activity activity = getActivity();
@@ -117,6 +133,23 @@ public abstract class BaseGoodsFragment extends MvpFragment<PublishContract.Pres
 
             activity.finish();
         }
+    }
+
+    @Override
+    public void onPublish() {
+        mLoading.show();
+    }
+
+    @Override
+    public void showError(String str) {
+        super.showError(str);
+        mLoading.dismiss();
+    }
+
+    @Override
+    public void showError(int str) {
+        super.showError(str);
+        mLoading.dismiss();
     }
 
     @Override

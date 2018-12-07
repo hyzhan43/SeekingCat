@@ -1,9 +1,11 @@
 package zqx.rj.com.seekingcat.publish.ui.fragment;
 
+import android.graphics.Color;
 import android.support.design.widget.TextInputEditText;
+import android.view.View;
 
 import butterknife.BindView;
-import butterknife.OnClick;
+import cn.pedant.SweetAlert.SweetAlertDialog;
 import zqx.rj.com.seekingcat.R;
 import zqx.rj.com.seekingcat.publish.model.entity.request.GoodsModel;
 
@@ -22,11 +24,10 @@ public class LoseGoodsFragment extends BaseGoodsFragment {
         return R.layout.fragment_goods_lose;
     }
 
-    @OnClick(R.id.tie_reward)
-
-
     @Override
     public void onPublish() {
+        super.onPublish();
+
         GoodsModel model = new GoodsModel();
 
         model.setName(mTieName.getText().toString());

@@ -1,10 +1,10 @@
 package zqx.rj.com.seekingcat.home.ui.fragment;
 
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -20,7 +20,6 @@ import zqx.rj.com.seekingcat.home.contract.GoodsContract;
 import zqx.rj.com.seekingcat.home.model.adapter.GoodsAdapter;
 import zqx.rj.com.seekingcat.home.model.bean.GoodsRsp;
 import zqx.rj.com.seekingcat.home.presenter.GoodsPresenter;
-import zqx.rj.com.utils.Log;
 
 /**
  * author：  HyZhan
@@ -40,9 +39,17 @@ public class GoodsFragment extends MvpFragment<GoodsContract.Presenter>
     private GoodsAdapter adapter;
 
     private int page = 0;
+    private int type;
 
-    public static Fragment getInstance() {
-        return new GoodsFragment();
+    public static Fragment getInstance(int type) {
+
+        GoodsFragment fragment = new GoodsFragment();
+
+        Bundle bundle = new Bundle();
+        bundle.putInt("type", type);
+
+        fragment.setArguments(bundle);
+        return fragment;
     }
 
     @Override
@@ -71,8 +78,14 @@ public class GoodsFragment extends MvpFragment<GoodsContract.Presenter>
     public void initData() {
         super.initData();
 
-        mPresenter.requestAllGoods(0);
+        Bundle bundle = getArguments();
+        if (bundle != null) {
+            type = bundle.getInt("type");
+
+            mPresenter.requestGoods(type, 0);
+        }
     }
+
 
     @Override
     protected GoodsContract.Presenter bindPresenter() {
@@ -105,7 +118,7 @@ public class GoodsFragment extends MvpFragment<GoodsContract.Presenter>
      */
     @Override
     public void onRefresh() {
-        mPresenter.requestAllGoods(0);
+        mPresenter.requestGoods(type, 0);
     }
 
     /**
@@ -113,7 +126,7 @@ public class GoodsFragment extends MvpFragment<GoodsContract.Presenter>
      */
     @Override
     public void onLoadMoreRequested() {
-        mPresenter.requestAllGoods(++page);
+        mPresenter.requestGoods(type, ++page);
     }
 
     @Override

@@ -40,7 +40,7 @@ public class GoodsAdapter extends BaseQuickAdapter<GoodsRsp, BaseViewHolder> {
 
         helper.setText(R.id.tv_goods_name, item.getName());
         helper.setText(R.id.tv_description, item.getDescription());
-        helper.setText(R.id.tv_time, item.getCreateTime());
+        helper.setText(R.id.tv_time, item.getPublishTime());
 
         setButtonStyle((Button) helper.getView(R.id.btn_type), item.getType());
     }

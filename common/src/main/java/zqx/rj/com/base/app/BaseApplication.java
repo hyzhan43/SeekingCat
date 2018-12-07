@@ -8,6 +8,7 @@ import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.Logger;
 import com.squareup.leakcanary.LeakCanary;
 
+import zqx.rj.com.callback.LoadingCallback;
 import zqx.rj.com.utils.Preferences;
 
 
@@ -37,5 +38,6 @@ public class BaseApplication extends Application {
 
         // 初始化 SharedPreferences
         Preferences.setContext(this);
+
     }
 }

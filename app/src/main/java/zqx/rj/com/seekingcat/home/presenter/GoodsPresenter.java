@@ -5,9 +5,9 @@ import java.util.List;
 import zqx.rj.com.base.mvp.BasePresenter;
 import zqx.rj.com.model.entity.PageRsp;
 import zqx.rj.com.net.callback.Callback;
+import zqx.rj.com.seekingcat.home.contract.GoodsContract;
 import zqx.rj.com.seekingcat.home.model.bean.GoodsRsp;
 import zqx.rj.com.seekingcat.home.model.helper.GoodsHelper;
-import zqx.rj.com.seekingcat.home.contract.GoodsContract;
 
 /**
  * author：  HyZhan
@@ -17,18 +17,22 @@ import zqx.rj.com.seekingcat.home.contract.GoodsContract;
 public class GoodsPresenter extends BasePresenter<GoodsContract.View>
         implements GoodsContract.Presenter, Callback<PageRsp<List<GoodsRsp>>> {
 
+    public static final int ALL = 0;
+    public static final int SEEK = 1;
+    public static final int LOSE = 2;
+
     public GoodsPresenter(GoodsContract.View view) {
         super(view);
     }
 
-    @Override
-    public void requestAllGoods(int page) {
-        GoodsHelper.getAllGoods(page, this);
+    public void requestGoods(int type, int page) {
+        GoodsHelper.getGoods(type, page, this);
     }
+
 
     @Override
     public void onSuccess(PageRsp<List<GoodsRsp>> listPageRsp) {
-        if (isViewAttach()){
+        if (isViewAttach()) {
             getView().onGetGoodsSucceed(listPageRsp);
         }
     }

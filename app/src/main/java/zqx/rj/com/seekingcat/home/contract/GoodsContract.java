@@ -9,7 +9,7 @@ import zqx.rj.com.seekingcat.home.model.bean.GoodsRsp;
 public interface GoodsContract {
 
     interface Presenter extends BaseContract.Presenter {
-        void requestAllGoods(int page);
+        void requestGoods(int type, int page);
     }
 
     interface View extends BaseContract.View {

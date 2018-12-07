@@ -1,6 +1,5 @@
 package zqx.rj.com.seekingcat.publish.ui.activity;
 
-
 import android.graphics.Color;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -95,6 +94,7 @@ public class PublishActivity extends BaseActivity {
 
     @OnClick(R.id.tv_publish)
     void onClickPublish() {
+
         if (type == GoodsModel.LOSE_GOODS) {
             mLoseFragment.onPublish();
         } else {

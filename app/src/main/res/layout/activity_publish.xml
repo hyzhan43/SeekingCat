@@ -40,6 +40,7 @@
                 android:text="@string/search_for_notices"
                 android:textColor="@color/colorPrimary"
                 tools:ignore="ButtonStyle" />
+
         </LinearLayout>
 
         <FrameLayout

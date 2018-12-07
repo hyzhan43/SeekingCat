@@ -16,7 +16,7 @@ public class GoodsRsp {
     private String reward;
     private String originator;
     private String originatorUrl;
-    private String createTime;
+    private String publishTime;
 
     public int getId() {
         return id;
@@ -106,11 +106,11 @@ public class GoodsRsp {
         this.originatorUrl = originatorUrl;
     }
 
-    public String getCreateTime() {
-        return createTime;
+    public String getPublishTime() {
+        return publishTime;
     }
 
-    public void setCreateTime(String createTime) {
-        this.createTime = createTime;
+    public void setPublishTime(String publishTime) {
+        this.publishTime = publishTime;
     }
 }

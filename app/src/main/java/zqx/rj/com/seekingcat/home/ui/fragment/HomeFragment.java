@@ -12,6 +12,7 @@ import butterknife.BindView;
 import zqx.rj.com.base.fragment.BaseFragment;
 import zqx.rj.com.seekingcat.R;
 import zqx.rj.com.seekingcat.home.model.adapter.HomeAdapter;
+import zqx.rj.com.seekingcat.home.presenter.GoodsPresenter;
 
 /**
  * 项目名：  SeekingCat
@@ -63,9 +64,9 @@ public class HomeFragment extends BaseFragment {
 
         List<Fragment> fragments = new ArrayList<>();
 
-        fragments.add(GoodsFragment.getInstance());
-        fragments.add(GoodsFragment.getInstance());
-        fragments.add(GoodsFragment.getInstance());
+        fragments.add(GoodsFragment.getInstance(GoodsPresenter.ALL));
+        fragments.add(GoodsFragment.getInstance(GoodsPresenter.SEEK));
+        fragments.add(GoodsFragment.getInstance(GoodsPresenter.LOSE));
 
         return fragments;
     }

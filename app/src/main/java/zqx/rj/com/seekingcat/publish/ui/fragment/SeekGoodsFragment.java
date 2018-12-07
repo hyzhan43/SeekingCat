@@ -17,6 +17,8 @@ public class SeekGoodsFragment extends BaseGoodsFragment {
 
     @Override
     public void onPublish() {
+        super.onPublish();
+
         GoodsModel model = new GoodsModel();
 
         model.setName(mTieName.getText().toString());

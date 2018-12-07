@@ -39,6 +39,14 @@ public interface ApiService {
     @GET("goods/list/{page}")
     Observable<BaseResponse<PageRsp<List<GoodsRsp>>>> getAllGoods(@Path("page") int page);
 
+    // 获取所有 失物招领信息
+    @GET("goods/lose/{page}")
+    Observable<BaseResponse<PageRsp<List<GoodsRsp>>>> getLoseGoods(@Path("page") int page);
+
+    // 获取所有 寻物启事信息
+    @GET("goods/seek/{page}")
+    Observable<BaseResponse<PageRsp<List<GoodsRsp>>>> getSeekGoods(@Path("page") int page);
+
     // 发布物品
     @Multipart
     @POST("goods")
