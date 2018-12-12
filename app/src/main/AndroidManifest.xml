@@ -16,8 +16,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/NoActionBar"
-        tools:ignore="GoogleAppIndexingWarning"
-        tools:replace="android:icon, android:theme">
+        tools:ignore="GoogleAppIndexingWarning">
         <activity android:name=".SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -30,6 +29,7 @@
         <activity android:name=".publish.ui.activity.PublishActivity" />
         <activity android:name=".mine.ui.activity.AboutActivity" />
         <activity android:name=".home.ui.activity.GoodsDetailActivity" />
+        <activity android:name=".common.search.ui.activity.SearchActivity"/>
     </application>
 
 </manifest>

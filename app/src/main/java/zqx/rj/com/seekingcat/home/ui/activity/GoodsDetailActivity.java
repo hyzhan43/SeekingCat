@@ -6,11 +6,9 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.kingja.loadsir.callback.SuccessCallback;
 
 import butterknife.BindView;
 import zqx.rj.com.base.mvp.MvpActivity;
-import zqx.rj.com.callback.LoadingCallback;
 import zqx.rj.com.seekingcat.R;
 import zqx.rj.com.seekingcat.home.contract.GoodsDetailContract;
 import zqx.rj.com.seekingcat.home.model.bean.GoodsRsp;

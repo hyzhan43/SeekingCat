@@ -11,7 +11,6 @@ import android.view.View;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 import zqx.rj.com.base.mvp.MvpFragment;
@@ -108,7 +107,7 @@ public class GoodsFragment extends MvpFragment<GoodsContract.Presenter>
     }
 
     @Override
-    public void onGetGoodsSucceed(PageRsp<List<GoodsRsp>> pageRsp) {
+    public void onGetGoodsSucceed(PageRsp<GoodsRsp> pageRsp) {
 
         // 如果是 下拉刷新的 直接 设置新的数据
         if (mRefreshLayout.isRefreshing()) {

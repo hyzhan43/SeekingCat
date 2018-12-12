@@ -2,11 +2,11 @@
 <resources>
     <string name="network_fail">网络异常</string>
 
-
+    <!--账户模块-->
     <string name="account">账号</string>
     <string name="register">注册</string>
     <string name="register_tip">没有账号,去注册</string>
-
+    <!--账户模块-->
 
     <string name="lost_and_found">失物招领</string>
     <string name="search_for_notices">寻物启事</string>
@@ -31,14 +31,25 @@
     <string name="publish_count">发布数量</string>
     <string name="zero">0</string>
     <string name="follow_count">关注数量</string>
+
+    <!--关于我-->
     <string name="about">关于我</string>
     <string name="setting">设置</string>
     <string name="github">Github: https://github.com/hyzhan43</string>
     <string name="csdn">CSDN: https://blog.csdn.net/weixin_40595516</string>
     <string name="email">邮箱：hyzhan43@163.com</string>
+    <!--关于我-->
+
+
     <string name="publish_success">发布成功</string>
     <string name="goods_detail">物品详情</string>
     <string name="goods_originator">发布者</string>
     <string name="goods_time">发布时间</string>
     <string name="reward">报酬</string>
+
+    <!--搜索模块-->
+    <string name="search_tips">请输入搜索物品</string>
+    <string name="history">历史记录</string>
+    <string name="clear_history">清空历史记录</string>
+    <!--搜索模块-->
 </resources>

@@ -1,5 +1,6 @@
 package zqx.rj.com.seekingcat;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
@@ -17,6 +18,7 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import zqx.rj.com.base.activity.BaseActivity;
 import zqx.rj.com.base.fragment.BaseFragment;
+import zqx.rj.com.seekingcat.common.search.ui.activity.SearchActivity;
 import zqx.rj.com.seekingcat.home.ui.fragment.HomeFragment;
 import zqx.rj.com.seekingcat.mine.ui.fragment.MineFragment;
 import zqx.rj.com.seekingcat.publish.ui.activity.PublishActivity;
@@ -86,7 +88,8 @@ public class MainActivity extends BaseActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_search:
-                Toast.makeText(this, "搜索", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(this, SearchActivity.class);
+                startActivity(intent);
                 break;
         }
 

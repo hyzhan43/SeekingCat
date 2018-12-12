@@ -2,13 +2,12 @@ package zqx.rj.com.base.app;
 
 import android.app.Application;
 
-import com.kingja.loadsir.callback.SuccessCallback;
-import com.kingja.loadsir.core.LoadSir;
 import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.Logger;
 import com.squareup.leakcanary.LeakCanary;
 
-import zqx.rj.com.callback.LoadingCallback;
+import org.litepal.LitePal;
+
 import zqx.rj.com.utils.Preferences;
 
 
@@ -27,10 +26,6 @@ public class BaseApplication extends Application {
     public void onCreate() {
         super.onCreate();
 
-        LoadSir.beginBuilder()
-                .addCallback(new LoadingCallback())
-                .commit();
-
         // 初始化 leak
         if (LeakCanary.isInAnalyzerProcess(this)) {
             return;
@@ -42,5 +37,8 @@ public class BaseApplication extends Application {
 
         // 初始化 SharedPreferences
         Preferences.setContext(this);
+
+        // 初始化 litePal 数据库
+        LitePal.initialize(this);
     }
 }

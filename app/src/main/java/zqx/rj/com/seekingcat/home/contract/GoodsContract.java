@@ -13,6 +13,6 @@ public interface GoodsContract {
     }
 
     interface View extends BaseContract.View {
-        void onGetGoodsSucceed(PageRsp<List<GoodsRsp>> pageRsp);
+        void onGetGoodsSucceed(PageRsp<GoodsRsp> pageRsp);
     }
 }

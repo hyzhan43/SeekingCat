@@ -15,7 +15,7 @@ import zqx.rj.com.seekingcat.home.model.helper.GoodsHelper;
  * desc：    TODO
  */
 public class GoodsPresenter extends BasePresenter<GoodsContract.View>
-        implements GoodsContract.Presenter, Callback<PageRsp<List<GoodsRsp>>> {
+        implements GoodsContract.Presenter, Callback<PageRsp<GoodsRsp>> {
 
     public static final int ALL = 0;
     public static final int SEEK = 1;
@@ -31,9 +31,9 @@ public class GoodsPresenter extends BasePresenter<GoodsContract.View>
 
 
     @Override
-    public void onSuccess(PageRsp<List<GoodsRsp>> listPageRsp) {
+    public void onSuccess(PageRsp<GoodsRsp> pageRsp) {
         if (isViewAttach()) {
-            getView().onGetGoodsSucceed(listPageRsp);
+            getView().onGetGoodsSucceed(pageRsp);
         }
     }
 
