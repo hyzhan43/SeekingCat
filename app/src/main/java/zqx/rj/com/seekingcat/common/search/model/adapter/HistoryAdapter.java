@@ -23,8 +23,10 @@ public class HistoryAdapter extends BaseQuickAdapter<Record, BaseViewHolder> {
 
     @Override
     protected void convert(BaseViewHolder helper, Record item) {
-        if (item != null){
-            helper.setText(R.id.tv_record, item.getRecord());
+        if (item != null) {
+            helper.setText(R.id.tv_record, item.getRecord())
+                    .addOnClickListener(R.id.iv_close);
         }
+
     }
 }

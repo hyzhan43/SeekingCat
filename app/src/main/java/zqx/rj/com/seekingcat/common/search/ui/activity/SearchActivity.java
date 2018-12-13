@@ -1,6 +1,7 @@
 package zqx.rj.com.seekingcat.common.search.ui.activity;
 
 import android.content.Intent;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
@@ -8,13 +9,12 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 
 import org.litepal.LitePal;
-import org.litepal.crud.callback.FindMultiCallback;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -37,6 +37,9 @@ public class SearchActivity extends MvpActivity<SearchContract.Presenter> implem
 
     @BindView(R.id.ll_history)
     LinearLayout mLlHistory;
+
+    @BindView(R.id.tv_clear_history)
+    TextView mTvClear;
 
     @BindView(R.id.rv_history)
     RecyclerView mRvHistory;
@@ -72,11 +75,17 @@ public class SearchActivity extends MvpActivity<SearchContract.Presenter> implem
 
         // 设置 历史记录
         List<Record> records = LitePal.findAll(Record.class);
-        mHistoryAdapter.setNewData(records);
+
+        if (!records.isEmpty()) {
+            hideHistory(false);
+            mHistoryAdapter.setNewData(records);
+        }
     }
 
     private void initHistory() {
         mRvHistory.setLayoutManager(new LinearLayoutManager(this));
+        mRvHistory.addItemDecoration(new DividerItemDecoration(this,
+                DividerItemDecoration.VERTICAL));
 
         mHistoryAdapter = new HistoryAdapter(R.layout.history_item, null);
         mRvHistory.setAdapter(mHistoryAdapter);
@@ -90,6 +99,26 @@ public class SearchActivity extends MvpActivity<SearchContract.Presenter> implem
                 if (record != null) {
                     // 设置到 SearchView 输入框, 并进行搜索
                     mSearchView.setQuery(record.getRecord(), true);
+
+                    // 由于搜索后会清除 关键词  所以在进行添加 关键词
+                    mSearchView.setQuery(record.getRecord(), false);
+                }
+            }
+        });
+
+
+        mHistoryAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+            @Override
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                switch (view.getId()) {
+                    case R.id.iv_close:
+                        // 删除 单条历史记录
+                        Record record = (Record) adapter.getItem(position);
+                        if (record != null){
+                            LitePal.delete(Record.class, record.getId());
+                            mHistoryAdapter.remove(position);
+                        }
+                        break;
                 }
             }
         });
@@ -128,16 +157,12 @@ public class SearchActivity extends MvpActivity<SearchContract.Presenter> implem
         mSearchView.setIconified(false);
         mSearchView.setQueryHint(getString(R.string.search_tips));
 
+        // 搜索框 输入监听
         mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 if (!query.isEmpty()) {
-                    mPresenter.searchGoods(page, query);
-                    // 加上这句。防止回车 调用两次 onQueryTextSubmit
-                    mSearchView.setIconified(true);
-
-                    // 添加历史搜索记录
-                    addHistoryRecord(query);
+                    searchGoods(query);
                 }
 
                 return false;
@@ -155,6 +180,15 @@ public class SearchActivity extends MvpActivity<SearchContract.Presenter> implem
                 return false;
             }
         });
+    }
+
+    private void searchGoods(String query) {
+        mPresenter.searchGoods(page, query);
+        // 加上这句。防止回车 调用两次 onQueryTextSubmit
+        mSearchView.setIconified(true);
+
+        // 添加历史搜索记录
+        addHistoryRecord(query);
     }
 
     // 添加历史搜索记录
@@ -179,15 +213,14 @@ public class SearchActivity extends MvpActivity<SearchContract.Presenter> implem
         } else {
 
             List<Record> records = mHistoryAdapter.getData();
-            int index = 0;
-            for (int i = 0; i < records.size(); i++) {
+            int i;
+            for (i = 0; i < records.size(); i++) {
                 if (records.get(i).getRecord().equals(query)) {
-                    index = i;
                     break;
                 }
             }
 
-            mHistoryAdapter.remove(index);
+            mHistoryAdapter.remove(i);
 
             // 否则就 移动 到 top
             mHistoryAdapter.addData(0, recordList.get(0));
@@ -203,6 +236,12 @@ public class SearchActivity extends MvpActivity<SearchContract.Presenter> implem
     @OnClick(R.id.tv_clear_history)
     void onClearHistory() {
         toast("清除");
+        // 清除数据库  record 表
+        LitePal.deleteAll(Record.class);
+
+        // 删除 RecyclerView 数据
+        mHistoryAdapter.getData().clear();
+        mHistoryAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -231,9 +270,11 @@ public class SearchActivity extends MvpActivity<SearchContract.Presenter> implem
         if (isHide) {
             mLlHistory.setVisibility(View.GONE);
             mRvHistory.setVisibility(View.GONE);
+            mTvClear.setVisibility(View.GONE);
         } else {
             mLlHistory.setVisibility(View.VISIBLE);
             mRvHistory.setVisibility(View.VISIBLE);
+            mTvClear.setVisibility(View.VISIBLE);
         }
     }
 }

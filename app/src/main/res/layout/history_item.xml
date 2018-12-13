@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="center_vertical"
-    android:padding="@dimen/len_4">
+    android:padding="@dimen/len_8">
 
     <ImageView
         android:layout_width="@dimen/len_16"
@@ -14,9 +14,18 @@
 
     <TextView
         android:id="@+id/tv_record"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/len_10"
+        android:layout_weight="1"
         android:text="@string/app_name" />
+
+    <ImageView
+        android:id="@+id/iv_close"
+        android:layout_width="@dimen/len_20"
+        android:layout_height="@dimen/len_20"
+        android:layout_marginEnd="@dimen/len_10"
+        android:src="@drawable/ic_close"
+        android:contentDescription="@string/app_name"/>
 
 </LinearLayout>
