@@ -23,12 +23,6 @@ public class Constants {
     public static final String TOKEN = "token";
     public static final String IS_LOGIN = "isLogin";
 
-    public static final String PHOTO_IMAGE_FILE_NAME = "cacheImg.jpg";
-
-    public static final String ZOOM_IMAGE_FILE_NAME = "goods.jpg";
-
-    public static final int CAMERA_REQUEST_CODE = 1;
-    public static final int IMAGE_REQUEST_CODE = 2;
-    public static final int ZOOM_REQUEST_CODE = 3;
-
+    public static final String NICK_NAME = "nickName";
+    public static final String AVATAR_URL = "avatarUrl";
 }

@@ -1,8 +1,6 @@
 package zqx.rj.com.seekingcat.common.api;
 
 
-import java.util.List;
-
 import io.reactivex.Observable;
 import okhttp3.MultipartBody;
 import retrofit2.http.GET;
@@ -37,15 +35,15 @@ public interface ApiService {
 
     // 获取所有 物品信息
     @GET("goods/list/{page}")
-    Observable<BaseResponse<PageRsp<List<GoodsRsp>>>> getAllGoods(@Path("page") int page);
+    Observable<BaseResponse<PageRsp<GoodsRsp>>> getAllGoods(@Path("page") int page);
 
     // 获取所有 失物招领信息
     @GET("goods/lose/{page}")
-    Observable<BaseResponse<PageRsp<List<GoodsRsp>>>> getLoseGoods(@Path("page") int page);
+    Observable<BaseResponse<PageRsp<GoodsRsp>>> getLoseGoods(@Path("page") int page);
 
     // 获取所有 寻物启事信息
     @GET("goods/seek/{page}")
-    Observable<BaseResponse<PageRsp<List<GoodsRsp>>>> getSeekGoods(@Path("page") int page);
+    Observable<BaseResponse<PageRsp<GoodsRsp>>> getSeekGoods(@Path("page") int page);
 
     // 发布物品
     @Multipart
@@ -57,11 +55,27 @@ public interface ApiService {
                                           @Query("type") Integer type,
                                           @Query("reward") String reward,
                                           @Part MultipartBody.Part imageFile
-                                          );
+    );
 
     @GET("user/info")
     Observable<BaseResponse<UserInfoRsp>> getUserInfo();
 
     @GET("goods/{id}")
     Observable<BaseResponse<GoodsRsp>> getGoodsDetail(@Path("id") int id);
+
+    @POST("goods/search/{page}")
+    Observable<BaseResponse<PageRsp<GoodsRsp>>> search(@Path("page") int page,
+                                                       @Query("keyword") String keyword);
+
+    @POST("goods/follow/{id}")
+    Observable<BaseResponse> followGoods(@Path("id") int id);
+
+    @POST("goods/unfollow/{id}")
+    Observable<BaseResponse> unFollowGoods(@Path("id") int id);
+
+    @GET("user/goods/{page}")
+    Observable<BaseResponse<PageRsp<GoodsRsp>>> getMyPublish(@Path("page") int page);
+
+    @GET("user/follow/{page}")
+    Observable<BaseResponse<PageRsp<GoodsRsp>>> getFollow(@Path("page") int page);
 }

@@ -1,5 +1,7 @@
 package zqx.rj.com.model.entity;
 
+import java.util.List;
+
 /**
  * author：  HyZhan
  * create：  2018/11/27 17:55
@@ -10,7 +12,7 @@ public class PageRsp<T> {
     private String pageCount;
     private String size;
     private String total;
-    private T datas;
+    private List<T> datas;
 
     public String getCurPage() {
         return curPage;
@@ -44,11 +46,11 @@ public class PageRsp<T> {
         this.total = total;
     }
 
-    public T getDatas() {
+    public List<T> getDatas() {
         return datas;
     }
 
-    public void setDatas(T datas) {
+    public void setDatas(List<T> datas) {
         this.datas = datas;
     }
 }

@@ -32,7 +32,7 @@ public class SplashActivity extends BaseActivity {
         // 透明度改变
         ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(mSplashView,
                 "alpha", 0.0f, 1.0f);
-        objectAnimator.setDuration(4000);
+        objectAnimator.setDuration(3000);
         objectAnimator.start();
 
         objectAnimator.addListener(new AnimatorListenerAdapter() {
