@@ -6,13 +6,14 @@ public class GoodsRsp {
     public static final int SEARCH_GOODS = 2;
 
     private int id;
+    private int goodsId;
     private String name;
     private String description;
     private String phone;
     private String place;
     private String goodsUrl;
     private int type;
-    private String follow;
+    private Boolean follow;
     private String reward;
     private String originator;
     private String originatorUrl;
@@ -24,6 +25,14 @@ public class GoodsRsp {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getGoodsId() {
+        return goodsId;
+    }
+
+    public void setGoodsId(int goodsId) {
+        this.goodsId = goodsId;
     }
 
     public String getName() {
@@ -74,11 +83,11 @@ public class GoodsRsp {
         this.type = type;
     }
 
-    public String getFollow() {
+    public Boolean getFollow() {
         return follow;
     }
 
-    public void setFollow(String follow) {
+    public void setFollow(Boolean follow) {
         this.follow = follow;
     }
 

@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 
 import butterknife.BindView;
+import butterknife.OnClick;
 import zqx.rj.com.base.mvp.MvpActivity;
 import zqx.rj.com.seekingcat.R;
 import zqx.rj.com.seekingcat.home.contract.GoodsDetailContract;
@@ -50,7 +51,12 @@ public class GoodsDetailActivity extends MvpActivity<GoodsDetailContract.Present
     @BindView(R.id.tv_description)
     TextView mTvDescription;
 
+    @BindView(R.id.iv_follow)
+    ImageView mIvFollow;
+
     private int id = 0;
+
+    private boolean isFollow;
 
     @Override
     protected int getLayoutId() {
@@ -91,6 +97,14 @@ public class GoodsDetailActivity extends MvpActivity<GoodsDetailContract.Present
             mBtnType.setText(getString(R.string.search_for_notices));
         }
 
+        if (goodsRsp.getFollow()){
+            isFollow = true;
+            mIvFollow.setImageResource(R.drawable.ic_followed);
+        } else {
+            isFollow = false;
+            mIvFollow.setImageResource(R.drawable.ic_follow);
+        }
+
         mTvName.setText(goodsRsp.getName());
         mTvPhone.setText(goodsRsp.getPhone());
         mTvPlace.setText(goodsRsp.getPlace());
@@ -104,5 +118,26 @@ public class GoodsDetailActivity extends MvpActivity<GoodsDetailContract.Present
     @Override
     protected GoodsDetailContract.Presenter bindPresenter() {
         return new GoodsDetailPresenter(this);
+    }
+
+    @OnClick(R.id.iv_follow)
+    void onFollowClick(){
+        if (isFollow){
+            mPresenter.unFollow(id);
+        }else {
+            mPresenter.follow(id);
+        }
+    }
+
+    @Override
+    public void followSuccess() {
+        mIvFollow.setImageResource(R.drawable.ic_followed);
+        toast(getString(R.string.follow_suc));
+    }
+
+    @Override
+    public void unFollowSuccess() {
+        mIvFollow.setImageResource(R.drawable.ic_follow);
+        toast(getString(R.string.unfollow_suc));
     }
 }

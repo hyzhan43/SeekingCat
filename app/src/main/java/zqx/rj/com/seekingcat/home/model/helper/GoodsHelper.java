@@ -44,4 +44,17 @@ public class GoodsHelper extends BaseHelper {
                 .compose(RxScheduler.<BaseResponse<GoodsRsp>>ioToMain())
                 .subscribe(new BaseObserver<BaseResponse<GoodsRsp>>(callback));
     }
+
+    // 发起关注
+    public static void followGoods(int id, final Callback<BaseResponse> callback) {
+        apiHelper().followGoods(id)
+                .compose(RxScheduler.<BaseResponse>ioToMain())
+                .subscribe(new BaseObserver<BaseResponse>(callback));
+    }
+
+    public static void unFollowGoods(int id, final Callback<BaseResponse> callback) {
+        apiHelper().unFollowGoods(id)
+                .compose(RxScheduler.<BaseResponse>ioToMain())
+                .subscribe(new BaseObserver<BaseResponse>(callback));
+    }
 }

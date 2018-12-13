@@ -67,4 +67,15 @@ public interface ApiService {
     Observable<BaseResponse<PageRsp<GoodsRsp>>> search(@Path("page") int page,
                                                        @Query("keyword") String keyword);
 
+    @POST("goods/follow/{id}")
+    Observable<BaseResponse> followGoods(@Path("id") int id);
+
+    @POST("goods/unfollow/{id}")
+    Observable<BaseResponse> unFollowGoods(@Path("id") int id);
+
+    @GET("user/goods/{page}")
+    Observable<BaseResponse<PageRsp<GoodsRsp>>> getMyPublish(@Path("page") int page);
+
+    @GET("user/follow/{page}")
+    Observable<BaseResponse<PageRsp<GoodsRsp>>> getFollow(@Path("page") int page);
 }

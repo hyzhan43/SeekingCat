@@ -51,5 +51,9 @@
     <string name="search_tips">请输入搜索物品</string>
     <string name="history">历史记录</string>
     <string name="clear_history">清空历史记录</string>
+    <string name="follow_suc">关注成功</string>
+    <string name="unfollow_suc">取消关注成功</string>
+    <string name="my_publish">我的发布</string>
+    <string name="my_follow">我的关注</string>
     <!--搜索模块-->
 </resources>

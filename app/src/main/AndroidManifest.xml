@@ -30,6 +30,8 @@
         <activity android:name=".mine.ui.activity.AboutActivity" />
         <activity android:name=".home.ui.activity.GoodsDetailActivity" />
         <activity android:name=".common.search.ui.activity.SearchActivity"/>
+        <activity android:name=".mine.ui.activity.MyPublishActivity"/>
+        <activity android:name=".mine.ui.activity.FollowActivity"/>
     </application>
 
 </manifest>
