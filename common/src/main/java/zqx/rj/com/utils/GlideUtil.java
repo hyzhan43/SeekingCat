@@ -7,8 +7,6 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 
-import java.io.File;
-
 import zqx.rj.com.common.R;
 
 /**
@@ -21,7 +19,8 @@ public class GlideUtil {
     public static void loadImage(Context context, String url, ImageView imageView) {
 
         RequestOptions options = new RequestOptions()
-                .placeholder(R.drawable.ic_image_loading);
+                .placeholder(R.drawable.ic_image_loading)
+                .error(R.drawable.ic_logo);
 
         Glide.with(context)
                 .load(url)

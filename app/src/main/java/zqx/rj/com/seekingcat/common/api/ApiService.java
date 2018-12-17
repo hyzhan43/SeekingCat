@@ -29,8 +29,13 @@ public interface ApiService {
 
     // 登录
     @POST("user/app/login")
-    Observable<BaseResponse<LoginRsp>> getLogin(@Query("account") String account,
-                                                @Query("password") String password);
+    Observable<BaseResponse<LoginRsp>> login(@Query("account") String account,
+                                             @Query("password") String password);
+
+    // 注册
+    @POST("user/app/register")
+    Observable<BaseResponse> register(@Query("account") String account,
+                                      @Query("password") String password);
 
 
     // 获取所有 物品信息

@@ -2,16 +2,19 @@ package zqx.rj.com.seekingcat.account;
 
 import zqx.rj.com.base.mvp.BaseContract;
 
-public interface LoginContract {
+/**
+ * author：  HyZhan
+ * create：  2018/12/17 21:15
+ * desc：    TODO
+ */
+public interface RegisterContract {
 
     interface Presenter extends BaseContract.Presenter {
 
-        void login(String phone, String password);
-
-        boolean checkAccountAndPwd(String phone, String password);
+        void register(String account, String password);
     }
 
     interface View extends BaseContract.View {
-        void loginSuccess(String token);
+        void registerSuc();
     }
 }

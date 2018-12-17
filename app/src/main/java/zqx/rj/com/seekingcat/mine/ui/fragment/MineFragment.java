@@ -2,6 +2,7 @@ package zqx.rj.com.seekingcat.mine.ui.fragment;
 
 import android.content.Intent;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -90,11 +91,16 @@ public class MineFragment extends MvpFragment<MineContract.Presenter>
         if (userInfoRsp == null)
             return;
 
+        String nickName = userInfoRsp.getNickName();
+        if (nickName == null) {
+            nickName = "未设置";
+        }
+
         // 存储个人信息
-        Preferences.putString(Constants.NICK_NAME, userInfoRsp.getNickName());
+        Preferences.putString(Constants.NICK_NAME, nickName);
         Preferences.putString(Constants.AVATAR_URL, userInfoRsp.getAvatarUrl());
 
-        mTvName.setText(userInfoRsp.getNickName());
+        mTvName.setText(nickName);
         // 显示头像
         GlideUtil.loadImage(getContext(), userInfoRsp.getAvatarUrl(), mCivPortrait);
         mTvPublishCount.setText(String.valueOf(userInfoRsp.getPublishCount()));
@@ -117,5 +123,10 @@ public class MineFragment extends MvpFragment<MineContract.Presenter>
     void onClickAbout() {
         Intent intent = new Intent(getActivity(), AboutActivity.class);
         startActivity(intent);
+    }
+
+    @OnClick(R.id.ll_setting)
+    void onClickSetting() {
+        toast("设置");
     }
 }

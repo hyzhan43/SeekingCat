@@ -6,6 +6,7 @@
     <string name="account">账号</string>
     <string name="register">注册</string>
     <string name="register_tip">没有账号,去注册</string>
+    <string name="already_account_tip">已有账号? 去登录</string>
     <!--账户模块-->
 
     <string name="lost_and_found">失物招领</string>
@@ -55,5 +56,6 @@
     <string name="unfollow_suc">取消关注成功</string>
     <string name="my_publish">我的发布</string>
     <string name="my_follow">我的关注</string>
+    <string name="register_suc">注册成功</string>
     <!--搜索模块-->
 </resources>

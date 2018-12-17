@@ -1,21 +1,21 @@
 package zqx.rj.com.seekingcat.account.ui;
 
+import android.content.Intent;
+import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 import zqx.rj.com.base.mvp.MvpActivity;
-import zqx.rj.com.seekingcat.account.model.bean.LoginRsp;
+import zqx.rj.com.constants.Constants;
 import zqx.rj.com.seekingcat.MainActivity;
 import zqx.rj.com.seekingcat.R;
 import zqx.rj.com.seekingcat.account.LoginContract;
 import zqx.rj.com.seekingcat.account.presenter.LoginPresenter;
-import zqx.rj.com.constants.Constants;
 import zqx.rj.com.utils.Preferences;
-import zqx.rj.com.utils.ToastUtil;
 
 public class LoginActivity extends MvpActivity<LoginContract.Presenter>
-        implements LoginContract.View{
+        implements LoginContract.View {
 
     @BindView(R.id.tie_account)
     TextInputEditText mTieAccount;
@@ -33,6 +33,25 @@ public class LoginActivity extends MvpActivity<LoginContract.Presenter>
         return R.layout.activity_login;
     }
 
+
+    @Override
+    protected void initView() {
+        super.initView();
+
+        // 获取 register 成功 传递过来的
+        Intent intent = getIntent();
+        if (intent != null) {
+            Bundle bundle = intent.getBundleExtra("bundle");
+            if (bundle != null) {
+                String account = bundle.getString("account");
+                String password = bundle.getString("password");
+
+                mTieAccount.setText(account);
+                mTiePassword.setText(password);
+            }
+        }
+    }
+
     /**
      * 登录
      */
@@ -42,7 +61,7 @@ public class LoginActivity extends MvpActivity<LoginContract.Presenter>
         String account = mTieAccount.getText().toString();
         String password = mTiePassword.getText().toString();
 
-        mPresenter.requestLogin(account, password);
+        mPresenter.login(account, password);
     }
 
     /**
@@ -50,7 +69,8 @@ public class LoginActivity extends MvpActivity<LoginContract.Presenter>
      */
     @OnClick(R.id.tv_register)
     void onRegisterClick() {
-        toast("注册");
+        startActivity(RegisterActivity.class);
+        finish();
     }
 
     @Override

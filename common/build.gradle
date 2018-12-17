@@ -79,5 +79,5 @@ dependencies {
     api "cn.hugeterry.coordinatortablayout:coordinatortablayout:$coordinatortab_version"
 
     // litePal
-    api 'org.litepal.android:java:3.0.0'
+    api "org.litepal.android:java:$litepal_version"
 }

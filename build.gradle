@@ -32,6 +32,8 @@ buildscript {
     ext.takePhoto_version = '4.0.3'
     // coordinatorTabLayout
     ext.coordinatortab_version = '1.2.2'
+    // litePal
+    ext.litepal_version = '3.0.0'
 
     repositories {
         google()

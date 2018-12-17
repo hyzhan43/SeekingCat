@@ -5,6 +5,7 @@ import zqx.rj.com.net.callback.Callback;
 import zqx.rj.com.seekingcat.mine.contract.MineContract;
 import zqx.rj.com.seekingcat.mine.model.bean.UserInfoRsp;
 import zqx.rj.com.seekingcat.mine.model.helper.MineHelper;
+import zqx.rj.com.utils.Log;
 
 /**
  * author：  HyZhan
@@ -35,6 +36,7 @@ public class MinePresenter extends BasePresenter<MineContract.View>
     public void onFail(String msg) {
         if (isViewAttach()){
             getView().showError(msg);
+            Log.d("LST", "msg = " + msg);
         }
     }
 }

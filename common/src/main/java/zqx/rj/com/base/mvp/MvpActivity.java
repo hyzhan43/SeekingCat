@@ -17,12 +17,10 @@ public abstract class MvpActivity<T extends BaseContract.Presenter>
 
     @Override
     public void showLoading() {
-
     }
 
     @Override
     public void hideLoading() {
-
     }
 
     @Override

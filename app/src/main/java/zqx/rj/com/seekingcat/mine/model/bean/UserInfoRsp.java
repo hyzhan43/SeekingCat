@@ -52,4 +52,15 @@ public class UserInfoRsp {
     public void setFollowCount(int followCount) {
         this.followCount = followCount;
     }
+
+    @Override
+    public String toString() {
+        return "UserInfoRsp{" +
+                "nickName='" + nickName + '\'' +
+                ", avatarUrl='" + avatarUrl + '\'' +
+                ", gender=" + gender +
+                ", publishCount=" + publishCount +
+                ", followCount=" + followCount +
+                '}';
+    }
 }
