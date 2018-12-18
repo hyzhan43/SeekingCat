@@ -1,6 +1,7 @@
 package zqx.rj.com.base.activity;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -11,6 +12,7 @@ import android.view.MenuItem;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import zqx.rj.com.utils.DialogBuilder;
 import zqx.rj.com.utils.ToastUtil;
 
 /**
@@ -27,6 +29,8 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected Activity context;
     private Unbinder unbinder;
 
+    protected Dialog mLoading;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,6 +43,9 @@ public abstract class BaseActivity extends AppCompatActivity {
         context = this;
 
         ActivityManager.addActivity(this);
+
+        // 初始化 loading
+        mLoading = new DialogBuilder(this).build();
 
         // 初始化控件
         initView();

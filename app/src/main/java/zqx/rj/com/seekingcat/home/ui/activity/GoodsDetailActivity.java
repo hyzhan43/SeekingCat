@@ -19,7 +19,7 @@ import zqx.rj.com.utils.GlideUtil;
 /**
  * author：  HyZhan
  * create：  2018/12/7 18:54
- * desc：    TODO
+ * desc：    物品详情页面
  */
 public class GoodsDetailActivity extends MvpActivity<GoodsDetailContract.Presenter>
         implements GoodsDetailContract.View {
@@ -67,7 +67,6 @@ public class GoodsDetailActivity extends MvpActivity<GoodsDetailContract.Present
     protected void initView() {
         super.initView();
 
-        showLoading();
         setToolBarTitle(toolbar, getString(R.string.goods_detail));
 
         Intent intent = getIntent();
@@ -80,7 +79,7 @@ public class GoodsDetailActivity extends MvpActivity<GoodsDetailContract.Present
     protected void initData() {
         super.initData();
 
-        mPresenter.requestGoodsDetail(id);
+        mPresenter.getGoodsDetail(id);
     }
 
     @Override
@@ -133,11 +132,15 @@ public class GoodsDetailActivity extends MvpActivity<GoodsDetailContract.Present
     public void followSuccess() {
         mIvFollow.setImageResource(R.drawable.ic_followed);
         toast(getString(R.string.follow_suc));
+
+        hideLoading();
     }
 
     @Override
     public void unFollowSuccess() {
         mIvFollow.setImageResource(R.drawable.ic_follow);
         toast(getString(R.string.unfollow_suc));
+
+        hideLoading();
     }
 }

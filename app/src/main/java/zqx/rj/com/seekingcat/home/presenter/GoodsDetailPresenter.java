@@ -19,59 +19,56 @@ public class GoodsDetailPresenter extends BasePresenter<GoodsDetailContract.View
         super(view);
     }
 
-    public void requestGoodsDetail(int id) {
-        GoodsHelper.getGoodsDetail(id, new Callback<GoodsRsp>() {
-            @Override
-            public void onSuccess(GoodsRsp goodsRsp) {
-                if (isViewAttach()) {
+    public void getGoodsDetail(int id) {
+        if (isViewAttach()) {
+            getView().showLoading();
+            GoodsHelper.getGoodsDetail(id, new Callback<GoodsRsp>() {
+                @Override
+                public void onSuccess(GoodsRsp goodsRsp) {
                     getView().loadGoodsDetailSuccess(goodsRsp);
                 }
-            }
 
-            @Override
-            public void onFail(String msg) {
-                if (isViewAttach()) {
+                @Override
+                public void onFail(String msg) {
                     getView().showError(msg);
                 }
-            }
-        });
+            });
+        }
     }
 
     @Override
     public void follow(int id) {
-        GoodsHelper.followGoods(id, new Callback<BaseResponse>() {
-            @Override
-            public void onSuccess(BaseResponse baseResponse) {
-                if (isViewAttach()) {
+        if (isViewAttach()) {
+            getView().showLoading();
+            GoodsHelper.followGoods(id, new Callback<BaseResponse>() {
+                @Override
+                public void onSuccess(BaseResponse baseResponse) {
                     getView().followSuccess();
                 }
-            }
 
-            @Override
-            public void onFail(String msg) {
-                if (isViewAttach()) {
+                @Override
+                public void onFail(String msg) {
                     getView().showError(msg);
                 }
-            }
-        });
+            });
+        }
     }
 
     @Override
     public void unFollow(int id) {
-        GoodsHelper.unFollowGoods(id, new Callback<BaseResponse>() {
-            @Override
-            public void onSuccess(BaseResponse baseResponse) {
-                if (isViewAttach()){
+        if (isViewAttach()) {
+            getView().showLoading();
+            GoodsHelper.unFollowGoods(id, new Callback<BaseResponse>() {
+                @Override
+                public void onSuccess(BaseResponse baseResponse) {
                     getView().unFollowSuccess();
                 }
-            }
 
-            @Override
-            public void onFail(String msg) {
-                if (isViewAttach()){
+                @Override
+                public void onFail(String msg) {
                     getView().showError(msg);
                 }
-            }
-        });
+            });
+        }
     }
 }

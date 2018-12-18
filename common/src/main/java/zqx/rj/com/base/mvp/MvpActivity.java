@@ -17,20 +17,24 @@ public abstract class MvpActivity<T extends BaseContract.Presenter>
 
     @Override
     public void showLoading() {
+        mLoading.show();
     }
 
     @Override
     public void hideLoading() {
+        mLoading.hide();
     }
 
     @Override
     public void showError(int str) {
         toast(getString(str));
+        mLoading.dismiss();
     }
 
     @Override
     public void showError(String str) {
         toast(str);
+        mLoading.dismiss();
     }
 
     @Override

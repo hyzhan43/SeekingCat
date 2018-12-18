@@ -38,5 +38,6 @@ public class PublishHelper extends BaseHelper {
                 body)
                 .compose(RxScheduler.<BaseResponse>ioToMain())
                 .subscribe(new BaseObserver<BaseResponse>(callback));
+
     }
 }

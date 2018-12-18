@@ -32,7 +32,7 @@
         <activity android:name=".common.search.ui.activity.SearchActivity" />
         <activity android:name=".mine.ui.activity.MyPublishActivity" />
         <activity android:name=".mine.ui.activity.FollowActivity" />
-        <activity android:name=".account.ui.RegisterActivity"/>
+        <activity android:name=".account.ui.RegisterActivity" />
     </application>
 
 </manifest>

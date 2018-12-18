@@ -21,23 +21,23 @@
             android:paddingTop="@dimen/len_10">
 
             <Button
-                android:id="@+id/btn_lose"
+                android:id="@+id/btn_seek"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/len_32"
                 android:layout_marginBottom="@dimen/len_10"
                 android:background="@drawable/left_round_bg_pressed"
                 android:padding="@dimen/len_4"
-                android:text="@string/lose_thing"
+                android:text="@string/search_for_notices"
                 android:textColor="@color/white"
                 tools:ignore="ButtonStyle" />
 
             <Button
-                android:id="@+id/btn_seek"
+                android:id="@+id/btn_lose"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/len_32"
                 android:layout_marginBottom="@dimen/len_10"
                 android:background="@drawable/right_round_bg_normal"
-                android:text="@string/search_for_notices"
+                android:text="@string/lose_thing"
                 android:textColor="@color/colorPrimary"
                 tools:ignore="ButtonStyle" />
 

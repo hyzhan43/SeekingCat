@@ -1,5 +1,8 @@
 package zqx.rj.com.seekingcat.publish.ui.fragment;
 
+import android.support.design.widget.TextInputEditText;
+
+import butterknife.BindView;
 import zqx.rj.com.seekingcat.R;
 import zqx.rj.com.seekingcat.publish.model.entity.request.GoodsModel;
 
@@ -10,9 +13,12 @@ import zqx.rj.com.seekingcat.publish.model.entity.request.GoodsModel;
  */
 public class SeekGoodsFragment extends BaseGoodsFragment {
 
+    @BindView(R.id.tie_reward)
+    TextInputEditText mTieReward;
+
     @Override
     public int getLayoutId() {
-        return R.layout.fragment_goods_seek;
+        return R.layout.fragment_goods_lose;
     }
 
     @Override
@@ -26,6 +32,7 @@ public class SeekGoodsFragment extends BaseGoodsFragment {
         model.setPhone(mTiePhone.getText().toString());
         model.setPlace(mTiePlace.getText().toString());
         model.setType(GoodsModel.SEEK_GOODS);
+        model.setReward(mTieReward.getText().toString());
         model.setImageFile(goodsFile);
 
         mPresenter.publishGoods(model);

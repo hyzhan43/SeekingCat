@@ -76,8 +76,6 @@ public abstract class GoodsActivity extends MvpActivity<GoodsContract.Presenter>
                 Intent intent = new Intent(GoodsActivity.this, GoodsDetailActivity.class);
                 GoodsRsp goodsRsp = (GoodsRsp) adapter.getItem(position);
                 if (goodsRsp != null) {
-
-                    Log.d("id = " + goodsRsp.getId());
                     intent.putExtra("id", goodsRsp.getId());
                     startActivity(intent);
                 }

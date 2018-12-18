@@ -40,5 +40,6 @@ public class BaseApplication extends Application {
 
         // 初始化 litePal 数据库
         LitePal.initialize(this);
+
     }
 }

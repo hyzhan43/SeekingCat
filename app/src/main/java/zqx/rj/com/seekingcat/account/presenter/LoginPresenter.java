@@ -10,7 +10,7 @@ import zqx.rj.com.seekingcat.account.model.bean.LoginRsp;
 import zqx.rj.com.seekingcat.account.model.helper.AccountHelper;
 
 public class LoginPresenter extends BasePresenter<LoginContract.View>
-        implements LoginContract.Presenter, Callback<LoginRsp> {
+        implements LoginContract.Presenter{
 
     public LoginPresenter(LoginContract.View view) {
         super(view);
@@ -22,10 +22,21 @@ public class LoginPresenter extends BasePresenter<LoginContract.View>
         if (!checkAccountAndPwd(phone, password))
             return;
 
-        if (!isViewAttach())
-            return;
+        if (isViewAttach()){
+            getView().showLoading();
+            AccountHelper.login(phone, password, new Callback<LoginRsp>() {
+                @Override
+                public void onSuccess(LoginRsp loginRsp) {
+                    getView().loginSuccess(loginRsp.getToken());
+                }
 
-        AccountHelper.login(phone, password, this);
+                @Override
+                public void onFail(String msg) {
+                    getView().showError(msg);
+                }
+            });
+        }
+
     }
 
     @Override
@@ -35,19 +46,5 @@ public class LoginPresenter extends BasePresenter<LoginContract.View>
             return false;
         }
         return true;
-    }
-
-    @Override
-    public void onSuccess(LoginRsp loginRsp) {
-        if (isViewAttach()) {
-            getView().loginSuccess(loginRsp.getToken());
-        }
-    }
-
-    @Override
-    public void onFail(String msg) {
-        if (isViewAttach()) {
-            getView().showError(msg);
-        }
     }
 }

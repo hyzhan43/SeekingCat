@@ -75,6 +75,8 @@ public class LoginActivity extends MvpActivity<LoginContract.Presenter>
 
     @Override
     public void loginSuccess(String token) {
+        hideLoading();
+
         // 存储 token
         Preferences.putString(Constants.TOKEN, token);
         // 标记已经登录

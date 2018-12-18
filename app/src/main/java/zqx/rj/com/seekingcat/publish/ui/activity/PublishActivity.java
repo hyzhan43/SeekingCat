@@ -12,8 +12,8 @@ import butterknife.OnClick;
 import zqx.rj.com.base.activity.BaseActivity;
 import zqx.rj.com.seekingcat.R;
 import zqx.rj.com.seekingcat.publish.model.entity.request.GoodsModel;
-import zqx.rj.com.seekingcat.publish.ui.fragment.LoseGoodsFragment;
 import zqx.rj.com.seekingcat.publish.ui.fragment.SeekGoodsFragment;
+import zqx.rj.com.seekingcat.publish.ui.fragment.LoseGoodsFragment;
 
 public class PublishActivity extends BaseActivity {
 
@@ -30,7 +30,7 @@ public class PublishActivity extends BaseActivity {
 
     private SeekGoodsFragment mSeekFragment;
 
-    private int type = GoodsModel.LOSE_GOODS;
+    private int type = GoodsModel.SEEK_GOODS;
 
     @Override
     protected int getLayoutId() {
@@ -41,10 +41,10 @@ public class PublishActivity extends BaseActivity {
     protected void initView() {
         super.initView();
 
-        mLoseFragment = new LoseGoodsFragment();
+        mSeekFragment = new SeekGoodsFragment();
 
         getSupportFragmentManager().beginTransaction()
-                .add(R.id.fl_content, mLoseFragment)
+                .add(R.id.fl_content, mSeekFragment)
                 .commit();
     }
 
@@ -53,15 +53,11 @@ public class PublishActivity extends BaseActivity {
 
         type = GoodsModel.SEEK_GOODS;
 
-        if (mSeekFragment == null)
-            mSeekFragment = new SeekGoodsFragment();
-
-
         mBtnSearch.setTextColor(Color.WHITE);
-        mBtnSearch.setBackgroundResource(R.drawable.right_round_bg_pressed);
+        mBtnSearch.setBackgroundResource(R.drawable.left_round_bg_pressed);
 
         mBtnLose.setTextColor(ContextCompat.getColor(this, R.color.colorPrimary));
-        mBtnLose.setBackgroundResource(R.drawable.left_round_bg_normal);
+        mBtnLose.setBackgroundResource(R.drawable.right_round_bg_normal);
 
         switchFragment(mLoseFragment, mSeekFragment);
     }
@@ -71,11 +67,14 @@ public class PublishActivity extends BaseActivity {
 
         type = GoodsModel.LOSE_GOODS;
 
+        if (mLoseFragment == null)
+            mLoseFragment = new LoseGoodsFragment();
+
         mBtnLose.setTextColor(Color.WHITE);
-        mBtnLose.setBackgroundResource(R.drawable.left_round_bg_pressed);
+        mBtnLose.setBackgroundResource(R.drawable.right_round_bg_pressed);
 
         mBtnSearch.setTextColor(ContextCompat.getColor(this, R.color.colorPrimary));
-        mBtnSearch.setBackgroundResource(R.drawable.right_round_bg_normal);
+        mBtnSearch.setBackgroundResource(R.drawable.left_round_bg_normal);
 
         switchFragment(mSeekFragment, mLoseFragment);
     }
@@ -94,7 +93,6 @@ public class PublishActivity extends BaseActivity {
 
     @OnClick(R.id.tv_publish)
     void onClickPublish() {
-
         if (type == GoodsModel.LOSE_GOODS) {
             mLoseFragment.onPublish();
         } else {

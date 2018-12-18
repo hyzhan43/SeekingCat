@@ -60,6 +60,8 @@ public class SearchActivity extends MvpActivity<SearchContract.Presenter> implem
     protected void initView() {
         super.initView();
 
+        showLoading();
+
         setToolBarTitle(toolbar, "搜索");
 
         // 初始化 搜索记录
@@ -80,6 +82,8 @@ public class SearchActivity extends MvpActivity<SearchContract.Presenter> implem
             hideHistory(false);
             mHistoryAdapter.setNewData(records);
         }
+
+        hideLoading();
     }
 
     private void initHistory() {
@@ -254,6 +258,9 @@ public class SearchActivity extends MvpActivity<SearchContract.Presenter> implem
      */
     @Override
     public void searchSuccess(List<GoodsRsp> goodsRspList) {
+
+        hideLoading();
+
         if (goodsRspList.isEmpty()) {
             toast("没有相关物品信息,请重新输入~");
             return;

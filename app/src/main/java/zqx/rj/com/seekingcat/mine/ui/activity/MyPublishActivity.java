@@ -43,6 +43,8 @@ public class MyPublishActivity extends GoodsActivity {
 
         pageRsp.setDatas(goodsRspList);
         addData(pageRsp);
+
+        hideLoading();
     }
 
     @Override

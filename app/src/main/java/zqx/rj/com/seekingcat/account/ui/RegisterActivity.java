@@ -46,6 +46,9 @@ public class RegisterActivity extends MvpActivity<RegisterContract.Presenter>
      */
     @Override
     public void registerSuc() {
+
+        hideLoading();
+
         toast(getString(R.string.register_suc));
 
         // 跳转到 LoginActivity

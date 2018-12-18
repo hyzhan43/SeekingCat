@@ -1,14 +1,11 @@
 package zqx.rj.com.seekingcat.common.search.presenter;
 
-import java.util.List;
-
 import zqx.rj.com.base.mvp.BasePresenter;
 import zqx.rj.com.model.entity.PageRsp;
 import zqx.rj.com.net.callback.Callback;
 import zqx.rj.com.seekingcat.common.search.contract.SearchContract;
 import zqx.rj.com.seekingcat.common.search.model.helper.SearchHelper;
 import zqx.rj.com.seekingcat.home.model.bean.GoodsRsp;
-import zqx.rj.com.utils.Log;
 
 /**
  * author:  HyZhan
@@ -16,7 +13,7 @@ import zqx.rj.com.utils.Log;
  * desc:    TODO
  */
 public class SearchPresenter extends BasePresenter<SearchContract.View> implements
-        SearchContract.Presenter, Callback<PageRsp<GoodsRsp>> {
+        SearchContract.Presenter {
 
     public SearchPresenter(SearchContract.View view) {
         super(view);
@@ -24,18 +21,19 @@ public class SearchPresenter extends BasePresenter<SearchContract.View> implemen
 
     @Override
     public void searchGoods(int page, String keyword) {
-        SearchHelper.search(page, keyword, this);
-    }
+        if (isViewAttach()) {
+            getView().showLoading();
+            SearchHelper.search(page, keyword, new Callback<PageRsp<GoodsRsp>>() {
+                @Override
+                public void onSuccess(PageRsp<GoodsRsp> pageRsp) {
+                    getView().searchSuccess(pageRsp.getDatas());
+                }
 
-    @Override
-    public void onSuccess(PageRsp<GoodsRsp> pageRsp) {
-        if (isViewAttach()){
-            getView().searchSuccess(pageRsp.getDatas());
+                @Override
+                public void onFail(String msg) {
+                    getView().showError(msg);
+                }
+            });
         }
-    }
-
-    @Override
-    public void onFail(String msg) {
-
     }
 }

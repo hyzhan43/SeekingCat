@@ -1,5 +1,6 @@
 package zqx.rj.com.base.fragment;
 
+import android.app.Dialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -11,6 +12,7 @@ import android.view.ViewGroup;
 import com.jph.takephoto.app.TakePhotoFragment;
 
 import butterknife.ButterKnife;
+import zqx.rj.com.utils.DialogBuilder;
 import zqx.rj.com.utils.ToastUtil;
 
 /**
@@ -26,6 +28,8 @@ public abstract class BaseFragment extends Fragment {
 
     protected View mRoot;
 
+    protected Dialog mLoading;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -38,6 +42,8 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        mLoading = new DialogBuilder(getActivity()).build();
 
         initView(mRoot);
         initData();

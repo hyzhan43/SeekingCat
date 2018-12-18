@@ -37,5 +37,6 @@ public class FollowActivity extends GoodsActivity {
     @Override
     public void getFollowSuc(PageRsp<GoodsRsp> pageRsp) {
         addData(pageRsp);
+        hideLoading();
     }
 }

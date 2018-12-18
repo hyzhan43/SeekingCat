@@ -12,7 +12,7 @@ import zqx.rj.com.seekingcat.account.model.helper.AccountHelper;
  * desc：    TODO
  */
 public class RegisterPresenter extends BasePresenter<RegisterContract.View>
-        implements RegisterContract.Presenter, Callback<BaseResponse> {
+        implements RegisterContract.Presenter {
 
     public RegisterPresenter(RegisterContract.View view) {
         super(view);
@@ -20,20 +20,20 @@ public class RegisterPresenter extends BasePresenter<RegisterContract.View>
 
     @Override
     public void register(String account, String password) {
-        AccountHelper.register(account, password, this);
-    }
 
-    @Override
-    public void onSuccess(BaseResponse response) {
-        if (isViewAttach()){
-            getView().registerSuc();
-        }
-    }
+        if (isViewAttach()) {
+            getView().showLoading();
+            AccountHelper.register(account, password, new Callback<BaseResponse>() {
+                @Override
+                public void onSuccess(BaseResponse baseResponse) {
+                    getView().registerSuc();
+                }
 
-    @Override
-    public void onFail(String msg) {
-        if (isViewAttach()){
-            getView().showError(msg);
+                @Override
+                public void onFail(String msg) {
+                    getView().showError(msg);
+                }
+            });
         }
     }
 }

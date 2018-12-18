@@ -11,7 +11,7 @@ import zqx.rj.com.seekingcat.home.model.bean.GoodsRsp;
 public interface GoodsDetailContract {
 
     interface Presenter extends BaseContract.Presenter {
-        void requestGoodsDetail(int id);
+        void getGoodsDetail(int id);
 
         void follow(int id);
 

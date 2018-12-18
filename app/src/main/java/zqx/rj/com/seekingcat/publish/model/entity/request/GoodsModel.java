@@ -75,4 +75,17 @@ public class GoodsModel {
     public void setImageFile(File imageFile) {
         this.imageFile = imageFile;
     }
+
+    @Override
+    public String toString() {
+        return "GoodsModel{" +
+                "name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", phone='" + phone + '\'' +
+                ", place='" + place + '\'' +
+                ", type=" + type +
+                ", reward='" + reward + '\'' +
+                ", imageFile=" + imageFile +
+                '}';
+    }
 }

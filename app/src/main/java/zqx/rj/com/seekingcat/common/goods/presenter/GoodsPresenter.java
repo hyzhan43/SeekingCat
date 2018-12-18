@@ -21,39 +21,37 @@ public class GoodsPresenter extends BasePresenter<GoodsContract.View>
 
     @Override
     public void getMyPublish(int page) {
-        GoodsHelper.getMyPublish(page, new Callback<PageRsp<GoodsRsp>>() {
-            @Override
-            public void onSuccess(PageRsp<GoodsRsp> pageRsp) {
-                if (isViewAttach()) {
+        if (isViewAttach()) {
+            getView().showLoading();
+            GoodsHelper.getMyPublish(page, new Callback<PageRsp<GoodsRsp>>() {
+                @Override
+                public void onSuccess(PageRsp<GoodsRsp> pageRsp) {
                     getView().getMyPublishSuc(pageRsp);
                 }
-            }
 
-            @Override
-            public void onFail(String msg) {
-                if (isViewAttach()) {
+                @Override
+                public void onFail(String msg) {
                     getView().showError(msg);
                 }
-            }
-        });
+            });
+        }
     }
 
     @Override
     public void getFollow(int page) {
-        GoodsHelper.getFollow(page, new Callback<PageRsp<GoodsRsp>>() {
-            @Override
-            public void onSuccess(PageRsp<GoodsRsp> pageRsp) {
-                if (isViewAttach()) {
+        if (isViewAttach()) {
+            getView().showLoading();
+            GoodsHelper.getFollow(page, new Callback<PageRsp<GoodsRsp>>() {
+                @Override
+                public void onSuccess(PageRsp<GoodsRsp> pageRsp) {
                     getView().getFollowSuc(pageRsp);
                 }
-            }
 
-            @Override
-            public void onFail(String msg) {
-                if (isViewAttach()) {
+                @Override
+                public void onFail(String msg) {
                     getView().showError(msg);
                 }
-            }
-        });
+            });
+        }
     }
 }

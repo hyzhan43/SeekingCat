@@ -3,14 +3,12 @@ package zqx.rj.com.seekingcat.publish.ui.fragment;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
 import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -33,10 +31,10 @@ import zqx.rj.com.seekingcat.MainActivity;
 import zqx.rj.com.seekingcat.R;
 import zqx.rj.com.seekingcat.publish.contract.PublishContract;
 import zqx.rj.com.seekingcat.publish.presenter.PublishPresenter;
+import zqx.rj.com.utils.DialogBuilder;
 import zqx.rj.com.utils.GlideUtil;
 import zqx.rj.com.utils.Log;
 import zqx.rj.com.utils.UtilTools;
-import zqx.rj.com.widget.CustomDialog;
 
 /**
  * author：  HyZhan
@@ -62,8 +60,7 @@ public abstract class BaseGoodsFragment extends MvpFragment<PublishContract.Pres
     @BindView(R.id.iv_add)
     ImageView mIvAdd;
 
-    private Dialog dialog;
-    private Dialog mLoading;
+    private Dialog mPictureDialog;
 
     private TakePhoto takePhoto;
     private InvokeParam invokeParam;
@@ -78,42 +75,32 @@ public abstract class BaseGoodsFragment extends MvpFragment<PublishContract.Pres
     public void initView(View view) {
         super.initView(view);
 
-        initDialog();
-        initLoading();
+        initPictureDialog();
         getTakePhoto();
     }
 
-    private void initLoading() {
+    private void initPictureDialog() {
 
-        View view = LayoutInflater.from(getContext()).inflate(R.layout.dialog_loading, null);
-        mLoading = new CustomDialog(getActivity(),
-                view,
-                R.style.Theme_Dialog,
-                Gravity.CENTER);
-
-        mLoading.setCancelable(false);
-    }
-
-    private void initDialog() {
-
-        View view = LayoutInflater.from(getContext()).inflate(R.layout.dialog_view, null);
-
-        dialog = new CustomDialog(getActivity(), view, R.style.Theme_Dialog);
+        mPictureDialog = new DialogBuilder(getActivity())
+                .setLayoutId(R.layout.dialog_view)
+                .setGravity(Gravity.BOTTOM)
+                .setCancelable(true)
+                .build();
 
         // TODO ButterKnife ??
-        Button mBtnCamera = view.findViewById(R.id.btn_camera);
+        Button mBtnCamera = mPictureDialog.findViewById(R.id.btn_camera);
         mBtnCamera.setOnClickListener(this);
 
-        Button mBtnAlbum = view.findViewById(R.id.btn_album);
+        Button mBtnAlbum = mPictureDialog.findViewById(R.id.btn_album);
         mBtnAlbum.setOnClickListener(this);
 
-        Button mBtnCancel = view.findViewById(R.id.btn_cancel);
+        Button mBtnCancel = mPictureDialog.findViewById(R.id.btn_cancel);
         mBtnCancel.setOnClickListener(this);
     }
 
     @OnClick(R.id.iv_add)
     void onAddClick() {
-        dialog.show();
+        mPictureDialog.show();
     }
 
     /**
@@ -134,21 +121,12 @@ public abstract class BaseGoodsFragment extends MvpFragment<PublishContract.Pres
         }
     }
 
+    /**
+     *  点击发布
+     */
     @Override
     public void onPublish() {
-        mLoading.show();
-    }
-
-    @Override
-    public void showError(String str) {
-        super.showError(str);
-        mLoading.dismiss();
-    }
-
-    @Override
-    public void showError(int str) {
-        super.showError(str);
-        mLoading.dismiss();
+        showLoading();
     }
 
     @Override
@@ -161,7 +139,7 @@ public abstract class BaseGoodsFragment extends MvpFragment<PublishContract.Pres
                 goToAlbum();
                 break;
             case R.id.btn_cancel:
-                dialog.dismiss();
+                mPictureDialog.dismiss();
                 break;
         }
     }
@@ -176,7 +154,7 @@ public abstract class BaseGoodsFragment extends MvpFragment<PublishContract.Pres
         // 启动相机, 并剪切图片
         takePhoto.onPickFromCaptureWithCrop(uri, UtilTools.getCropOptions());
 
-        dialog.dismiss();
+        mPictureDialog.dismiss();
     }
 
     // 跳转到相册
@@ -189,7 +167,7 @@ public abstract class BaseGoodsFragment extends MvpFragment<PublishContract.Pres
         // 跳转到相册 并剪切图片
         takePhoto.onPickFromGalleryWithCrop(uri, UtilTools.getCropOptions());
 
-        dialog.dismiss();
+        mPictureDialog.dismiss();
     }
 
     @Override

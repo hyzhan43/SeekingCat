@@ -43,7 +43,7 @@ public class GoodsAdapter extends BaseQuickAdapter<GoodsRsp, BaseViewHolder> {
     }
 
     private void setButtonStyle(Button btn, int type) {
-        if (type == GoodsRsp.SEARCH_GOODS) {
+        if (type == GoodsRsp.SEEK_GOODS) {
             btn.setText(mContext.getString(R.string.search_for_notices));
         } else {
             btn.setText(mContext.getString(R.string.lost_and_found));
