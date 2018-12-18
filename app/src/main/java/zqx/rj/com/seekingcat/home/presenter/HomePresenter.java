@@ -1,31 +1,29 @@
 package zqx.rj.com.seekingcat.home.presenter;
 
-import java.util.List;
-
 import zqx.rj.com.base.mvp.BasePresenter;
 import zqx.rj.com.model.entity.PageRsp;
 import zqx.rj.com.net.callback.Callback;
-import zqx.rj.com.seekingcat.home.contract.GoodsContract;
-import zqx.rj.com.seekingcat.home.model.bean.GoodsRsp;
-import zqx.rj.com.seekingcat.home.model.helper.GoodsHelper;
+import zqx.rj.com.seekingcat.common.goods.model.helper.GoodsHelper;
+import zqx.rj.com.seekingcat.home.contract.HomeContract;
+import zqx.rj.com.seekingcat.common.goods.model.bean.GoodsRsp;
 
 /**
  * author：  HyZhan
  * create：  2018/11/28 20:03
  * desc：    TODO
  */
-public class GoodsPresenter extends BasePresenter<GoodsContract.View>
-        implements GoodsContract.Presenter, Callback<PageRsp<GoodsRsp>> {
+public class HomePresenter extends BasePresenter<HomeContract.View>
+        implements HomeContract.Presenter, Callback<PageRsp<GoodsRsp>> {
 
     public static final int ALL = 0;
     public static final int SEEK = 1;
     public static final int LOSE = 2;
 
-    public GoodsPresenter(GoodsContract.View view) {
+    public HomePresenter(HomeContract.View view) {
         super(view);
     }
 
-    public void requestGoods(int type, int page) {
+    public void getGoods(int type, int page) {
         GoodsHelper.getGoods(type, page, this);
     }
 
@@ -33,7 +31,7 @@ public class GoodsPresenter extends BasePresenter<GoodsContract.View>
     @Override
     public void onSuccess(PageRsp<GoodsRsp> pageRsp) {
         if (isViewAttach()) {
-            getView().onGetGoodsSucceed(pageRsp);
+            getView().getGoodsSucceed(pageRsp);
         }
     }
 

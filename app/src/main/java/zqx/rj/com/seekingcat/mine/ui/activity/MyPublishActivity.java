@@ -6,7 +6,9 @@ import zqx.rj.com.constants.Constants;
 import zqx.rj.com.model.entity.PageRsp;
 import zqx.rj.com.seekingcat.R;
 import zqx.rj.com.seekingcat.common.goods.ui.activity.GoodsActivity;
-import zqx.rj.com.seekingcat.home.model.bean.GoodsRsp;
+import zqx.rj.com.seekingcat.common.goods.model.bean.GoodsRsp;
+import zqx.rj.com.seekingcat.mine.contract.MyPublishContract;
+import zqx.rj.com.seekingcat.mine.presenter.MyPublishPresenter;
 import zqx.rj.com.utils.Preferences;
 
 /**
@@ -14,12 +16,15 @@ import zqx.rj.com.utils.Preferences;
  * create:  2018/12/13 11:22
  * desc:    TODO
  */
-public class MyPublishActivity extends GoodsActivity {
+public class MyPublishActivity extends GoodsActivity<MyPublishContract.Presenter>
+        implements MyPublishContract.View {
 
     private int page = 0;
 
     @Override
-    protected void loadData() {
+    protected void initData() {
+        super.initData();
+
         // 获取 我发布的 数据
         mPresenter.getMyPublish(0);
     }
@@ -43,8 +48,6 @@ public class MyPublishActivity extends GoodsActivity {
 
         pageRsp.setDatas(goodsRspList);
         addData(pageRsp);
-
-        hideLoading();
     }
 
     @Override
@@ -55,6 +58,11 @@ public class MyPublishActivity extends GoodsActivity {
     @Override
     public void onRefresh() {
         mPresenter.getMyPublish(0);
+    }
+
+    @Override
+    protected MyPublishContract.Presenter bindPresenter() {
+        return new MyPublishPresenter(this);
     }
 }
 

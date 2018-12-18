@@ -10,7 +10,7 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import java.util.List;
 
 import zqx.rj.com.seekingcat.R;
-import zqx.rj.com.seekingcat.home.model.bean.GoodsRsp;
+import zqx.rj.com.seekingcat.common.goods.model.bean.GoodsRsp;
 import zqx.rj.com.seekingcat.publish.model.entity.request.GoodsModel;
 import zqx.rj.com.utils.GlideUtil;
 

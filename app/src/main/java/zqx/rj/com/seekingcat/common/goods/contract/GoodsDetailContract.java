@@ -1,7 +1,7 @@
-package zqx.rj.com.seekingcat.home.contract;
+package zqx.rj.com.seekingcat.common.goods.contract;
 
 import zqx.rj.com.base.mvp.BaseContract;
-import zqx.rj.com.seekingcat.home.model.bean.GoodsRsp;
+import zqx.rj.com.seekingcat.common.goods.model.bean.GoodsRsp;
 
 /**
  * author：  HyZhan

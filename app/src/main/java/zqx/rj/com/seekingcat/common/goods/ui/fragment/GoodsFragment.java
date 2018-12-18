@@ -11,22 +11,21 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import java.util.ArrayList;
 
 import butterknife.BindView;
+import zqx.rj.com.base.mvp.BaseContract;
 import zqx.rj.com.base.mvp.MvpFragment;
+import zqx.rj.com.model.entity.PageRsp;
 import zqx.rj.com.seekingcat.R;
-import zqx.rj.com.seekingcat.common.goods.contract.GoodsContract;
 import zqx.rj.com.seekingcat.common.goods.model.adapter.GoodsAdapter;
-import zqx.rj.com.seekingcat.common.goods.presenter.GoodsPresenter;
-import zqx.rj.com.seekingcat.home.model.bean.GoodsRsp;
-import zqx.rj.com.seekingcat.home.ui.activity.GoodsDetailActivity;
+import zqx.rj.com.seekingcat.common.goods.model.bean.GoodsRsp;
+import zqx.rj.com.seekingcat.common.goods.ui.activity.GoodsDetailActivity;
 
 /**
  * author:  HyZhan
  * create:  2018/12/13 11:34
  * desc:    通用 物品列表 基类
  */
-public abstract class GoodsFragment extends MvpFragment<GoodsContract.Presenter>
-        implements GoodsContract.View, SwipeRefreshLayout.OnRefreshListener,
-        BaseQuickAdapter.RequestLoadMoreListener {
+public abstract class GoodsFragment<T extends BaseContract.Presenter> extends MvpFragment<T>
+        implements SwipeRefreshLayout.OnRefreshListener, BaseQuickAdapter.RequestLoadMoreListener {
 
     @BindView(R.id.rv_goods)
     RecyclerView mRvGoods;
@@ -34,12 +33,7 @@ public abstract class GoodsFragment extends MvpFragment<GoodsContract.Presenter>
     @BindView(R.id.srl_refresh)
     SwipeRefreshLayout mRefreshLayout;
 
-    private GoodsAdapter adapter;
-
-    // 页数
-    private int page = 0;
-
-    private int type;
+    private GoodsAdapter mGoodsAdapter;
 
     @Override
     public int getLayoutId() {
@@ -55,14 +49,14 @@ public abstract class GoodsFragment extends MvpFragment<GoodsContract.Presenter>
         mRefreshLayout.setOnRefreshListener(this);
 
         mRvGoods.setLayoutManager(new LinearLayoutManager(getActivity()));
-        adapter = new GoodsAdapter(R.layout.goods_item, new ArrayList<GoodsRsp>());
-        mRvGoods.setAdapter(adapter);
+        mGoodsAdapter = new GoodsAdapter(R.layout.goods_item, new ArrayList<GoodsRsp>());
+        mRvGoods.setAdapter(mGoodsAdapter);
 
         // 设置 加载更多
-        adapter.setEnableLoadMore(true);
-        adapter.setOnLoadMoreListener(this, mRvGoods);
+        mGoodsAdapter.setEnableLoadMore(true);
+        mGoodsAdapter.setOnLoadMoreListener(this, mRvGoods);
 
-        adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+        mGoodsAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
 
@@ -76,29 +70,48 @@ public abstract class GoodsFragment extends MvpFragment<GoodsContract.Presenter>
         });
     }
 
+    /**
+     *  设置数据
+     */
+    protected void addData(PageRsp<GoodsRsp> pageRsp) {
+        // 如果是 下拉刷新的 直接 设置新的数据
+        if (mRefreshLayout.isRefreshing()) {
+            mRefreshLayout.setRefreshing(false);
+            mGoodsAdapter.setNewData(pageRsp.getDatas());
+            mGoodsAdapter.loadMoreComplete();
+            return;
+        }
 
-    @Override
-    protected GoodsContract.Presenter bindPresenter() {
-        return new GoodsPresenter(this);
+        // 如果为空的话，就直接 显示加载完毕
+        if (pageRsp.getDatas().isEmpty()) {
+            mGoodsAdapter.loadMoreEnd();
+            return;
+        }
+
+        // 否则 就是添加数据
+        mGoodsAdapter.addData(pageRsp.getDatas());
+        mGoodsAdapter.loadMoreComplete();
     }
-
 
     /**
      * 下拉刷新
      */
-    @Override
-    public void onRefresh() {
-    }
+    public abstract void onRefresh();
 
     /**
      * 上拉加载更多
      */
-    @Override
-    public void onLoadMoreRequested() {
-    }
+    public abstract void onLoadMoreRequested();
 
     @Override
     public void showError(String str) {
+        super.showError(str);
+        if (mRefreshLayout.isRefreshing())
+            mRefreshLayout.setRefreshing(false);
+    }
+
+    @Override
+    public void showError(int str) {
         super.showError(str);
         if (mRefreshLayout.isRefreshing())
             mRefreshLayout.setRefreshing(false);

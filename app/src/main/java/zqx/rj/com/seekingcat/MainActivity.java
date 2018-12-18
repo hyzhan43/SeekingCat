@@ -17,7 +17,7 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import zqx.rj.com.base.activity.BaseActivity;
 import zqx.rj.com.base.fragment.BaseFragment;
-import zqx.rj.com.seekingcat.common.search.ui.activity.SearchActivity;
+import zqx.rj.com.seekingcat.search.ui.activity.SearchActivity;
 import zqx.rj.com.seekingcat.home.ui.fragment.HomeFragment;
 import zqx.rj.com.seekingcat.mine.ui.fragment.MineFragment;
 import zqx.rj.com.seekingcat.publish.ui.activity.PublishActivity;

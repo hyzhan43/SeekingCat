@@ -28,11 +28,10 @@
         <activity android:name=".MainActivity" />
         <activity android:name=".publish.ui.activity.PublishActivity" />
         <activity android:name=".mine.ui.activity.AboutActivity" />
-        <activity android:name=".home.ui.activity.GoodsDetailActivity" />
-        <activity android:name=".common.search.ui.activity.SearchActivity" />
+        <activity android:name=".common.goods.ui.activity.GoodsDetailActivity" />
+        <activity android:name=".search.ui.activity.SearchActivity" />
         <activity android:name=".mine.ui.activity.MyPublishActivity" />
         <activity android:name=".mine.ui.activity.FollowActivity" />
         <activity android:name=".account.ui.RegisterActivity" />
     </application>
-
 </manifest>

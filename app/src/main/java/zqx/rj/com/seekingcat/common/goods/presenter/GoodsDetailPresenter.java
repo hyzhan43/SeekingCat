@@ -1,11 +1,11 @@
-package zqx.rj.com.seekingcat.home.presenter;
+package zqx.rj.com.seekingcat.common.goods.presenter;
 
 import zqx.rj.com.base.mvp.BasePresenter;
 import zqx.rj.com.model.entity.BaseResponse;
 import zqx.rj.com.net.callback.Callback;
-import zqx.rj.com.seekingcat.home.contract.GoodsDetailContract;
-import zqx.rj.com.seekingcat.home.model.bean.GoodsRsp;
-import zqx.rj.com.seekingcat.home.model.helper.GoodsHelper;
+import zqx.rj.com.seekingcat.common.goods.contract.GoodsDetailContract;
+import zqx.rj.com.seekingcat.common.goods.model.bean.GoodsRsp;
+import zqx.rj.com.seekingcat.common.goods.model.helper.GoodsHelper;
 
 /**
  * author：  HyZhan

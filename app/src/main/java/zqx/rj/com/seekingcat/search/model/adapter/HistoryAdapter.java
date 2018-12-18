@@ -1,4 +1,4 @@
-package zqx.rj.com.seekingcat.common.search.model.adapter;
+package zqx.rj.com.seekingcat.search.model.adapter;
 
 import android.support.annotation.Nullable;
 
@@ -8,7 +8,7 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import java.util.List;
 
 import zqx.rj.com.seekingcat.R;
-import zqx.rj.com.seekingcat.common.search.model.db.Record;
+import zqx.rj.com.seekingcat.search.model.db.Record;
 
 /**
  * author:  HyZhan

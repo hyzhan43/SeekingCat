@@ -1,9 +1,10 @@
-package zqx.rj.com.seekingcat.common.search.contract;
+package zqx.rj.com.seekingcat.search.contract;
 
 import java.util.List;
 
 import zqx.rj.com.base.mvp.BaseContract;
-import zqx.rj.com.seekingcat.home.model.bean.GoodsRsp;
+import zqx.rj.com.model.entity.PageRsp;
+import zqx.rj.com.seekingcat.common.goods.model.bean.GoodsRsp;
 
 /**
  * author:  HyZhan
@@ -17,6 +18,6 @@ public interface SearchContract {
     }
 
     interface View extends BaseContract.View {
-        void searchSuccess(List<GoodsRsp> goodsRspList);
+        void searchSuccess(PageRsp<GoodsRsp> pageRsp);
     }
 }

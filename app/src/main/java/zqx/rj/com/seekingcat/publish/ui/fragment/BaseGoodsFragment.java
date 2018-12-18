@@ -108,7 +108,7 @@ public abstract class BaseGoodsFragment extends MvpFragment<PublishContract.Pres
      */
     @Override
     public void publishSuccess() {
-        mLoading.dismiss();
+        hideLoading();
 
         toast(getString(R.string.publish_success));
 

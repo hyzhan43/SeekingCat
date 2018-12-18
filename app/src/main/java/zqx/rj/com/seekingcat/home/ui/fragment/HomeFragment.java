@@ -12,7 +12,7 @@ import cn.hugeterry.coordinatortablayout.CoordinatorTabLayout;
 import zqx.rj.com.base.fragment.BaseFragment;
 import zqx.rj.com.seekingcat.R;
 import zqx.rj.com.seekingcat.home.model.adapter.HomeAdapter;
-import zqx.rj.com.seekingcat.home.presenter.GoodsPresenter;
+import zqx.rj.com.seekingcat.home.presenter.HomePresenter;
 
 /**
  * 项目名：  SeekingCat
@@ -73,9 +73,9 @@ public class HomeFragment extends BaseFragment {
 
         List<Fragment> fragments = new ArrayList<>();
 
-        fragments.add(GoodsFragment.getInstance(GoodsPresenter.ALL));
-        fragments.add(GoodsFragment.getInstance(GoodsPresenter.SEEK));
-        fragments.add(GoodsFragment.getInstance(GoodsPresenter.LOSE));
+        fragments.add(HomeGoodsFragment.getInstance(HomePresenter.ALL));
+        fragments.add(HomeGoodsFragment.getInstance(HomePresenter.SEEK));
+        fragments.add(HomeGoodsFragment.getInstance(HomePresenter.LOSE));
 
         return fragments;
     }

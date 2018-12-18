@@ -1,4 +1,4 @@
-package zqx.rj.com.seekingcat.home.ui.activity;
+package zqx.rj.com.seekingcat.common.goods.ui.activity;
 
 import android.content.Intent;
 import android.support.v7.widget.Toolbar;
@@ -6,14 +6,14 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-
 import butterknife.BindView;
 import butterknife.OnClick;
 import zqx.rj.com.base.mvp.MvpActivity;
 import zqx.rj.com.seekingcat.R;
-import zqx.rj.com.seekingcat.home.contract.GoodsDetailContract;
-import zqx.rj.com.seekingcat.home.model.bean.GoodsRsp;
-import zqx.rj.com.seekingcat.home.presenter.GoodsDetailPresenter;
+import zqx.rj.com.seekingcat.common.goods.contract.GoodsDetailContract;
+import zqx.rj.com.seekingcat.common.goods.model.bean.GoodsRsp;
+import zqx.rj.com.seekingcat.common.goods.presenter.GoodsDetailPresenter;
+import zqx.rj.com.seekingcat.publish.model.entity.request.GoodsModel;
 import zqx.rj.com.utils.GlideUtil;
 
 /**
@@ -90,13 +90,15 @@ public class GoodsDetailActivity extends MvpActivity<GoodsDetailContract.Present
 
         GlideUtil.loadImage(this, goodsRsp.getGoodsUrl(), mIvGoods);
 
-        if (goodsRsp.getType() == GoodsRsp.LOSE_GOODS) {
+        if (goodsRsp.getType() == GoodsModel.LOSE_GOODS) {
             mBtnType.setText(getString(R.string.lost_and_found));
+            mBtnType.setBackgroundResource(R.drawable.red_round_bg);
         } else {
             mBtnType.setText(getString(R.string.search_for_notices));
+            mBtnType.setBackgroundResource(R.drawable.green_round_bg);
         }
 
-        if (goodsRsp.getFollow()){
+        if (goodsRsp.getFollow()) {
             isFollow = true;
             mIvFollow.setImageResource(R.drawable.ic_followed);
         } else {
@@ -120,10 +122,10 @@ public class GoodsDetailActivity extends MvpActivity<GoodsDetailContract.Present
     }
 
     @OnClick(R.id.iv_follow)
-    void onFollowClick(){
-        if (isFollow){
+    void onFollowClick() {
+        if (isFollow) {
             mPresenter.unFollow(id);
-        }else {
+        } else {
             mPresenter.follow(id);
         }
     }

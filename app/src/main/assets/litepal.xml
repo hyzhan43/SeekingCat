@@ -17,7 +17,7 @@
     -->
 
     <list>
-        <mapping class="zqx.rj.com.seekingcat.common.search.model.db.Record"/>
+        <mapping class="zqx.rj.com.seekingcat.search.model.db.Record"/>
     </list>
 
 </litepal>

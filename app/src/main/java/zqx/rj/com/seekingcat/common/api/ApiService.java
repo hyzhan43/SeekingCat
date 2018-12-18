@@ -12,7 +12,7 @@ import retrofit2.http.Query;
 import zqx.rj.com.model.entity.BaseResponse;
 import zqx.rj.com.model.entity.PageRsp;
 import zqx.rj.com.seekingcat.account.model.bean.LoginRsp;
-import zqx.rj.com.seekingcat.home.model.bean.GoodsRsp;
+import zqx.rj.com.seekingcat.common.goods.model.bean.GoodsRsp;
 import zqx.rj.com.seekingcat.mine.model.bean.UserInfoRsp;
 
 /**

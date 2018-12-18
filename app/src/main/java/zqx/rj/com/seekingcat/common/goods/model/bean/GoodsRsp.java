@@ -1,9 +1,6 @@
-package zqx.rj.com.seekingcat.home.model.bean;
+package zqx.rj.com.seekingcat.common.goods.model.bean;
 
 public class GoodsRsp {
-
-    public static final int LOSE_GOODS = 1;
-    public static final int SEEK_GOODS = 2;
 
     private int id;
     private int goodsId;

@@ -1,11 +1,9 @@
-package zqx.rj.com.seekingcat.common.search.ui.activity;
+package zqx.rj.com.seekingcat.search.ui.activity;
 
-import android.content.Intent;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -19,21 +17,17 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-import zqx.rj.com.base.mvp.MvpActivity;
+import zqx.rj.com.model.entity.PageRsp;
 import zqx.rj.com.seekingcat.R;
-import zqx.rj.com.seekingcat.common.search.contract.SearchContract;
-import zqx.rj.com.seekingcat.common.search.model.adapter.HistoryAdapter;
-import zqx.rj.com.seekingcat.common.search.model.db.Record;
-import zqx.rj.com.seekingcat.common.search.presenter.SearchPresenter;
-import zqx.rj.com.seekingcat.home.model.adapter.GoodsAdapter;
-import zqx.rj.com.seekingcat.home.model.bean.GoodsRsp;
-import zqx.rj.com.seekingcat.home.ui.activity.GoodsDetailActivity;
+import zqx.rj.com.seekingcat.common.goods.model.bean.GoodsRsp;
+import zqx.rj.com.seekingcat.common.goods.ui.activity.GoodsActivity;
+import zqx.rj.com.seekingcat.search.contract.SearchContract;
+import zqx.rj.com.seekingcat.search.model.adapter.HistoryAdapter;
+import zqx.rj.com.seekingcat.search.model.db.Record;
+import zqx.rj.com.seekingcat.search.presenter.SearchPresenter;
 
-public class SearchActivity extends MvpActivity<SearchContract.Presenter> implements
+public class SearchActivity extends GoodsActivity<SearchContract.Presenter> implements
         SearchContract.View {
-
-    @BindView(R.id.toolbar)
-    Toolbar toolbar;
 
     @BindView(R.id.ll_history)
     LinearLayout mLlHistory;
@@ -43,13 +37,11 @@ public class SearchActivity extends MvpActivity<SearchContract.Presenter> implem
 
     @BindView(R.id.rv_history)
     RecyclerView mRvHistory;
+
     private int page = 0;
+    private boolean isFirst = true;
     private SearchView mSearchView;
     private HistoryAdapter mHistoryAdapter;
-
-    @BindView(R.id.rv_goods)
-    RecyclerView mRvGoods;
-    private GoodsAdapter mGoodsAdapter;
 
     @Override
     protected int getLayoutId() {
@@ -60,15 +52,8 @@ public class SearchActivity extends MvpActivity<SearchContract.Presenter> implem
     protected void initView() {
         super.initView();
 
-        showLoading();
-
-        setToolBarTitle(toolbar, "搜索");
-
         // 初始化 搜索记录
         initHistory();
-
-        // 初始化 搜索结果
-        initSearchResult();
     }
 
     @Override
@@ -82,8 +67,11 @@ public class SearchActivity extends MvpActivity<SearchContract.Presenter> implem
             hideHistory(false);
             mHistoryAdapter.setNewData(records);
         }
+    }
 
-        hideLoading();
+    @Override
+    protected String getGoodsTitle() {
+        return getString(R.string.search);
     }
 
     private void initHistory() {
@@ -118,7 +106,7 @@ public class SearchActivity extends MvpActivity<SearchContract.Presenter> implem
                     case R.id.iv_close:
                         // 删除 单条历史记录
                         Record record = (Record) adapter.getItem(position);
-                        if (record != null){
+                        if (record != null) {
                             LitePal.delete(Record.class, record.getId());
                             mHistoryAdapter.remove(position);
                         }
@@ -128,23 +116,6 @@ public class SearchActivity extends MvpActivity<SearchContract.Presenter> implem
         });
     }
 
-    private void initSearchResult() {
-        mRvGoods.setLayoutManager(new LinearLayoutManager(this));
-        mGoodsAdapter = new GoodsAdapter(R.layout.goods_item, null);
-        mRvGoods.setAdapter(mGoodsAdapter);
-
-        mGoodsAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                GoodsRsp goodsRsp = (GoodsRsp) adapter.getItem(position);
-                if (goodsRsp != null) {
-                    Intent intent = new Intent(SearchActivity.this, GoodsDetailActivity.class);
-                    intent.putExtra("id", goodsRsp.getId());
-                    startActivity(intent);
-                }
-            }
-        });
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -166,7 +137,11 @@ public class SearchActivity extends MvpActivity<SearchContract.Presenter> implem
             @Override
             public boolean onQueryTextSubmit(String query) {
                 if (!query.isEmpty()) {
+                    isFirst = true;
+
                     searchGoods(query);
+                    // 由于搜索后会清除 关键词  所以在进行添加 关键词
+                    mSearchView.setQuery(query, false);
                 }
 
                 return false;
@@ -187,7 +162,7 @@ public class SearchActivity extends MvpActivity<SearchContract.Presenter> implem
     }
 
     private void searchGoods(String query) {
-        mPresenter.searchGoods(page, query);
+        mPresenter.searchGoods(0, query);
         // 加上这句。防止回车 调用两次 onQueryTextSubmit
         mSearchView.setIconified(true);
 
@@ -257,19 +232,24 @@ public class SearchActivity extends MvpActivity<SearchContract.Presenter> implem
      * 搜索成功
      */
     @Override
-    public void searchSuccess(List<GoodsRsp> goodsRspList) {
+    public void searchSuccess(PageRsp<GoodsRsp> pageRsp) {
 
-        hideLoading();
+        if (isFirst) {
+            // 如果第一次 添加数据 就设置新数据
+            // 就是 keyword 变化了
+            mGoodsAdapter.setNewData(pageRsp.getDatas());
+            mGoodsAdapter.loadMoreComplete();
 
-        if (goodsRspList.isEmpty()) {
-            toast("没有相关物品信息,请重新输入~");
-            return;
+            isFirst = false;
+        } else {
+            // 否则 就直接添加数据 (keyword 不变)
+            addData(pageRsp);
         }
+
+        mRvGoods.setVisibility(View.VISIBLE);
 
         // 隐藏历史记录
         hideHistory(true);
-        mGoodsAdapter.setNewData(goodsRspList);
-        mRvGoods.setVisibility(View.VISIBLE);
     }
 
     // 是否隐藏历史记录
@@ -282,6 +262,22 @@ public class SearchActivity extends MvpActivity<SearchContract.Presenter> implem
             mLlHistory.setVisibility(View.VISIBLE);
             mRvHistory.setVisibility(View.VISIBLE);
             mTvClear.setVisibility(View.VISIBLE);
+        }
+    }
+
+    @Override
+    public void onRefresh() {
+        String query = mSearchView.getQuery().toString();
+        if (!query.isEmpty()) {
+            mPresenter.searchGoods(0, query);
+        }
+    }
+
+    @Override
+    public void onLoadMoreRequested() {
+        String query = mSearchView.getQuery().toString();
+        if (!query.isEmpty()) {
+            mPresenter.searchGoods(++page, query);
         }
     }
 }

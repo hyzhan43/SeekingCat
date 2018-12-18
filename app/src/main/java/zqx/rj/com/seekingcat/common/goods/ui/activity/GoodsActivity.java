@@ -10,24 +10,20 @@ import android.view.View;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 
 import butterknife.BindView;
+import zqx.rj.com.base.mvp.BaseContract;
 import zqx.rj.com.base.mvp.MvpActivity;
 import zqx.rj.com.model.entity.PageRsp;
 import zqx.rj.com.seekingcat.R;
-import zqx.rj.com.seekingcat.common.goods.contract.GoodsContract;
 import zqx.rj.com.seekingcat.common.goods.model.adapter.GoodsAdapter;
-import zqx.rj.com.seekingcat.common.goods.presenter.GoodsPresenter;
-import zqx.rj.com.seekingcat.home.model.bean.GoodsRsp;
-import zqx.rj.com.seekingcat.home.ui.activity.GoodsDetailActivity;
-import zqx.rj.com.utils.Log;
+import zqx.rj.com.seekingcat.common.goods.model.bean.GoodsRsp;
 
 /**
  * author:  HyZhan
  * create:  2018/12/13 11:11
- * desc:    通用 物品列表 基类
+ * desc:    通用 物品列表 抽象类
  */
-public abstract class GoodsActivity extends MvpActivity<GoodsContract.Presenter>
-        implements GoodsContract.View, BaseQuickAdapter.RequestLoadMoreListener,
-        SwipeRefreshLayout.OnRefreshListener {
+public abstract class GoodsActivity<T extends BaseContract.Presenter> extends MvpActivity<T>
+        implements BaseQuickAdapter.RequestLoadMoreListener, SwipeRefreshLayout.OnRefreshListener {
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -36,14 +32,9 @@ public abstract class GoodsActivity extends MvpActivity<GoodsContract.Presenter>
     SwipeRefreshLayout mRefreshLayout;
 
     @BindView(R.id.rv_goods)
-    RecyclerView mRvGoods;
+    public RecyclerView mRvGoods;
 
     protected GoodsAdapter mGoodsAdapter;
-
-    @Override
-    protected GoodsContract.Presenter bindPresenter() {
-        return new GoodsPresenter(this);
-    }
 
     @Override
     protected int getLayoutId() {
@@ -83,15 +74,6 @@ public abstract class GoodsActivity extends MvpActivity<GoodsContract.Presenter>
         });
     }
 
-    @Override
-    protected void initData() {
-        super.initData();
-
-        loadData();
-    }
-
-    protected abstract void loadData();
-
     // 获取 title
     protected abstract String getGoodsTitle();
 
@@ -118,19 +100,17 @@ public abstract class GoodsActivity extends MvpActivity<GoodsContract.Presenter>
         mGoodsAdapter.loadMoreComplete();
     }
 
-    /**
-     * 获取 我的发布 成功
-     */
     @Override
-    public void getMyPublishSuc(PageRsp<GoodsRsp> pageRsp) {
-
+    public void showError(String str) {
+        super.showError(str);
+        if (mRefreshLayout.isRefreshing())
+            mRefreshLayout.setRefreshing(false);
     }
 
-    /**
-     *  获取 我的关注 成功
-     */
     @Override
-    public void getFollowSuc(PageRsp<GoodsRsp> pageRsp) {
-
+    public void showError(int str) {
+        super.showError(str);
+        if (mRefreshLayout.isRefreshing())
+            mRefreshLayout.setRefreshing(false);
     }
 }

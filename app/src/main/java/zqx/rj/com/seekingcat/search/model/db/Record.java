@@ -1,4 +1,4 @@
-package zqx.rj.com.seekingcat.common.search.model.db;
+package zqx.rj.com.seekingcat.search.model.db;
 
 import org.litepal.crud.LitePalSupport;
 
