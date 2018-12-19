@@ -2,8 +2,11 @@ package zqx.rj.com.seekingcat.mine.ui.fragment;
 
 import android.content.Intent;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import butterknife.BindView;
@@ -107,13 +110,13 @@ public class MineFragment extends MvpFragment<MineContract.Presenter>
         mTvFollowCount.setText(String.valueOf(userInfoRsp.getFollowCount()));
     }
 
-    @OnClick(R.id.ll_publish)
+    @OnClick({R.id.tv_publish, R.id.tv_publish_count})
     void onClickPublish() {
         Intent intent = new Intent(getActivity(), MyPublishActivity.class);
         startActivity(intent);
     }
 
-    @OnClick(R.id.ll_follow)
+    @OnClick({R.id.tv_follow, R.id.tv_follow_count})
     void onClickFollow() {
         Intent intent = new Intent(getActivity(), FollowActivity.class);
         startActivity(intent);
@@ -128,5 +131,10 @@ public class MineFragment extends MvpFragment<MineContract.Presenter>
     @OnClick(R.id.ll_setting)
     void onClickSetting() {
         toast("设置");
+    }
+
+    @OnClick(R.id.tv_logout)
+    void onClickLogout(){
+        toast("退出登录");
     }
 }
