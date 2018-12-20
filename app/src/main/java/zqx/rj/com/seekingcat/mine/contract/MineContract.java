@@ -12,9 +12,13 @@ public interface MineContract {
 
     interface Presenter extends BaseContract.Presenter {
         void getUserInfo();
+
+        void updateNickName(String nickname);
     }
 
     interface View extends BaseContract.View {
         void getUserInfoSuccess(UserInfoRsp userInfoRsp);
+
+        void updateNickNameSuccess();
     }
 }

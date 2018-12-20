@@ -61,5 +61,6 @@
     <string name="my_finish">我完成的</string>
     <string name="my_cancel">我取消的</string>
     <string name="my_delete">我删除的</string>
+    <string name="nickname">请输入昵称</string>
     <!--搜索模块-->
 </resources>

@@ -83,4 +83,10 @@ public interface ApiService {
 
     @GET("user/follow/{page}")
     Observable<BaseResponse<PageRsp<GoodsRsp>>> getFollow(@Path("page") int page);
+
+    @POST("user/info")
+    Observable<BaseResponse> updateNickName(@Query("nickName") String nickname);
+
+    @POST("user/info")
+    Observable<BaseResponse> updatePortrait(@Query("avatarUrl") String avatarUrl);
 }

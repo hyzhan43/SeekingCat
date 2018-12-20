@@ -20,4 +20,11 @@ public class MineHelper extends BaseHelper {
                 .compose(RxScheduler.<BaseResponse<UserInfoRsp>>ioToMain())
                 .subscribe(new BaseObserver<BaseResponse<UserInfoRsp>>(callback));
     }
+
+    public static void updateNickName(String nickname, Callback<BaseResponse> callback) {
+        apiHelper().updateNickName(nickname)
+                .compose(RxScheduler.<BaseResponse>ioToMain())
+                .subscribe(new BaseObserver<BaseResponse>(callback));
+    }
+
 }

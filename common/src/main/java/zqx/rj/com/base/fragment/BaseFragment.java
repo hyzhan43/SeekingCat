@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 
 
 import com.jph.takephoto.app.TakePhotoFragment;
+import com.jph.takephoto.app.TakePhotoFragmentActivity;
 
 import butterknife.ButterKnife;
 import zqx.rj.com.utils.DialogBuilder;
@@ -24,7 +25,7 @@ import zqx.rj.com.utils.ToastUtil;
  * 描述：    TODO
  */
 
-public abstract class BaseFragment extends Fragment {
+public abstract class BaseFragment extends TakePhotoFragment {
 
     protected View mRoot;
 
