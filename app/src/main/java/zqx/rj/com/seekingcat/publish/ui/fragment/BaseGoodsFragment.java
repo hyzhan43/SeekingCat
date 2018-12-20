@@ -82,8 +82,9 @@ public abstract class BaseGoodsFragment extends MvpFragment<PublishContract.Pres
     private void initPictureDialog() {
 
         mPictureDialog = new DialogBuilder(getActivity())
-                .setLayoutId(R.layout.dialog_view)
+                .setLayoutId(R.layout.dialog_photoview)
                 .setGravity(Gravity.BOTTOM)
+                .setAnimation(R.style.pop_anim_style)
                 .setCancelable(true)
                 .build();
 

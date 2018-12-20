@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
 import android.support.annotation.LayoutRes;
+import android.support.annotation.StyleRes;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,6 +30,11 @@ public class DialogBuilder {
     private boolean cancelable = false;
     private String message = "正在加载...";
     private int gravity = Gravity.CENTER;
+
+    /**
+     *  dialog 动画
+     */
+    private int animaStyle;
 
     private int width = WindowManager.LayoutParams.MATCH_PARENT;
     private int height = WindowManager.LayoutParams.WRAP_CONTENT;
@@ -75,6 +81,11 @@ public class DialogBuilder {
         return this;
     }
 
+    public DialogBuilder setAnimation(@StyleRes int animaStyle ){
+        this.animaStyle = animaStyle;
+        return this;
+    }
+
     public Dialog build() {
         final Dialog dialog = new Dialog(context, themeResId);
 
@@ -89,7 +100,7 @@ public class DialogBuilder {
             params.width = width;
             params.height = height;
             window.setAttributes(params);
-            window.setWindowAnimations(R.style.pop_anim_style);
+            window.setWindowAnimations(animaStyle);
         }
 
         return dialog;
