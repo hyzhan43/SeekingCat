@@ -11,6 +11,11 @@ android {
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [AROUTER_MODULE_NAME: project.getName()]
+            }
+        }
     }
 
     buildTypes {
@@ -80,4 +85,12 @@ dependencies {
 
     // litePal
     api "org.litepal.android:java:$litepal_version"
+
+    // ARouter
+    api "com.alibaba:arouter-api:$arouter_api_version"
+    annotationProcessor "com.alibaba:arouter-compiler:$arouter_compiler_version"
+
+    // Bugly
+    api "com.tencent.bugly:crashreport_upgrade:$bugly_update_version"
+    api "com.tencent.bugly:nativecrashreport:$bugly_native_version"
 }

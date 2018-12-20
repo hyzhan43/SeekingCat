@@ -3,6 +3,7 @@ package zqx.rj.com.utils;
 import android.graphics.Bitmap;
 import android.os.Environment;
 
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.jph.takephoto.model.CropOptions;
 
 import java.io.BufferedOutputStream;
@@ -75,4 +76,5 @@ public class UtilTools {
 
         return file;
     }
+
 }

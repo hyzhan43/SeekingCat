@@ -34,6 +34,12 @@ buildscript {
     ext.coordinatortab_version = '1.2.2'
     // litePal
     ext.litepal_version = '3.0.0'
+    // ARouter
+    ext.arouter_api_version = '1.4.1'
+    ext.arouter_compiler_version = '1.2.2'
+    // Bugly
+    ext.bugly_update_version = '1.3.6'
+    ext.bugly_native_version = '3.6.0'
 
     repositories {
         google()

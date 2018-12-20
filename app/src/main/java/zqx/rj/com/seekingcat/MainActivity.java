@@ -10,6 +10,9 @@ import android.support.v4.view.ViewPager;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.alibaba.android.arouter.launcher.ARouter;
+import com.tencent.bugly.crashreport.CrashReport;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,6 +24,7 @@ import zqx.rj.com.seekingcat.search.ui.activity.SearchActivity;
 import zqx.rj.com.seekingcat.home.ui.fragment.HomeFragment;
 import zqx.rj.com.seekingcat.mine.ui.fragment.MineFragment;
 import zqx.rj.com.seekingcat.publish.ui.activity.PublishActivity;
+import zqx.rj.com.utils.UtilTools;
 
 public class MainActivity extends BaseActivity {
 

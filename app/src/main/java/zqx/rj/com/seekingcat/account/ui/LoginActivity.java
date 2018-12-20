@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
 
+import com.alibaba.android.arouter.facade.annotation.Route;
+
 import butterknife.BindView;
 import butterknife.OnClick;
 import zqx.rj.com.base.mvp.MvpActivity;
@@ -14,6 +16,7 @@ import zqx.rj.com.seekingcat.account.LoginContract;
 import zqx.rj.com.seekingcat.account.presenter.LoginPresenter;
 import zqx.rj.com.utils.Preferences;
 
+@Route(path = "/login/activity")
 public class LoginActivity extends MvpActivity<LoginContract.Presenter>
         implements LoginContract.View {
 

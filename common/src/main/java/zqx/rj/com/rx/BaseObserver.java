@@ -1,5 +1,7 @@
 package zqx.rj.com.rx;
 
+import com.alibaba.android.arouter.launcher.ARouter;
+
 import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
@@ -33,10 +35,12 @@ public class BaseObserver<T> implements Observer<T> {
 
     @Override
     public void onNext(T t) {
-        BaseResponse response = (BaseResponse)t;
-        if (response.getCode() == BaseResponse.TOKEN_EXPIRE){
+        BaseResponse response = (BaseResponse) t;
+        if (response.getCode() == BaseResponse.TOKEN_EXPIRE) {
             // 如果 token 过期的话。就直接 设置未登录状态
             Preferences.putBoolean(Constants.IS_LOGIN, false);
+            // 通过 ARouter 跳转 到 loginActivity
+            ARouter.getInstance().build("/login/activity").navigation();
         } else if (response.getCode() == BaseResponse.REQUEST_SUC) {
             callback.onSuccess(response.getData());
         } else {

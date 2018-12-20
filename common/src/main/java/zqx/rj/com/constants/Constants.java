@@ -13,8 +13,9 @@ public class Constants {
 
     public static final String NETWORK_ERROR = "网络异常";
 
-    public static final String BASE_URL = "http://203.195.193.66:8080/api/";
+//    public static final String BASE_URL = "http://203.195.193.66:8080/api/";
 //    public static final String BASE_URL = "http://110.64.211.50:8080/api/";
+    public static final String BASE_URL = "https://seek.yonjim.com:8443/api/";
 
     public static final String LOGIN_KEY = "user/app/login";
 
