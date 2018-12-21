@@ -260,7 +260,6 @@ public class MineFragment extends MvpFragment<MineContract.Presenter>
                             showLoading();
                             // 更新 nickname
                             newName = mEtNewName.getText().toString();
-                            toast(newName);
                             mPresenter.updateNickName(newName);
                         }
                     })
@@ -309,6 +308,7 @@ public class MineFragment extends MvpFragment<MineContract.Presenter>
         // 加载显示 更新后的头像
         GlideUtil.loadImage(getActivity(), path, mCivPortrait);
 
+        toast("修改为：" + newName);
         // TODO 上传头像 到 服务器
     }
 

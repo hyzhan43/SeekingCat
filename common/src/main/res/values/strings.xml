@@ -1,30 +1,88 @@
 <resources>
     <string name="app_name">寻物猫</string>
     <string name="splash_text">快来寻找，属于你的东西吧~</string>
-    <string name="time_down">%ds 跳过</string>
-    <string name="title_activity_login">Sign in</string>
 
-    <string name="phone">联系电话</string>
+
+    <!--账户模块-->
     <string name="login">登录</string>
     <string name="password">密码</string>
-    <string name="login_loading">正在登录</string>
-    <string name="home">首页</string>
+    <string name="account">账号</string>
+    <string name="register">注册</string>
     <string name="login_tip">请输入账号或密码</string>
-    <string name="discovery">发现</string>
-    <string name="msg">消息</string>
-    <string name="publish">发布</string>
+    <string name="register_tip">没有账号,去注册</string>
+    <string name="already_account_tip">已有账号? 去登录</string>
+    <string name="register_suc">注册成功</string>
+    <!--账户模块-->
+
+
+    <!--首页-->
+    <string name="home">首页</string>
+    <string name="lost_and_found">失物招领</string>
+    <string name="search_for_notices">寻物启事</string>
+    <string name="news">最新动态</string>
+    <string name="test_time">2018-11-28</string>
+    <string name="test_description">描述按实际滴哦千万吨级哦请问建瓯请问大家请问将启动去都叫我大家去大家轻拍描述按实际滴哦千万吨级哦请问建瓯请问大家请问将启动去都叫我大家去大家轻拍</string>
+    <string name="place">地点</string>
+    <string name="test_category">失物招领</string>
+    <string name="goods_name">物品名称</string>
+    <string name="goods_description">物品描述</string>
+    <string name="lose_place">丢失地点</string>
+    <string name="goods_reward">(选填)报酬</string>
+    <string name="goods_image">请选择物品图片</string>
+    <string name="seek_place">拾到地点</string>
+    <string name="album">相册</string>
+    <string name="take_picture">拍照</string>
+    <string name="goods_tips">信息不完整,请输入完整信息~</string>
+    <string name="goods_file_empty">物品图片不能未空</string>
+    <string name="phone">联系电话</string>
+    <!--首页-->
+
+    <!--我的-->
     <string name="mine">我的</string>
-    <string name="school">广东农工商职业技术学院</string>
-    <string name="school_news">校园新闻</string>
-    <string name="input_lose_thing">请输入丢失物品</string>
-    <string name="lose_thing">失物招领</string>
-    <string name="money_changer">兑换中心</string>
-    <string name="corporation_news">社团动态</string>
-    <string name="phone_exit">手机号码已存在</string>
+    <string name="about">关于我</string>
+    <string name="setting">设置</string>
+    <string name="github">Github: https://github.com/hyzhan43</string>
+    <string name="csdn">CSDN: https://blog.csdn.net/weixin_40595516</string>
+    <string name="email">邮箱：hyzhan43@163.com</string>
+    <string name="logout">退出登录</string>
+    <string name="my_finish">我完成的</string>
+    <string name="my_cancel">我取消的</string>
+    <string name="my_delete">我删除的</string>
+    <string name="nickname">请输入昵称</string>
+    <string name="my_publish">我的发布</string>
+    <string name="my_follow">我的关注</string>
+    <string name="publish_count">发布数量</string>
+    <string name="zero">0</string>
+    <string name="follow_count">关注数量</string>
+    <string name="publish_empty_tips">没有相关发布信息~</string>
+    <string name="follow_empty_tips">没有相关关注信息，快去关注啦~</string>
+    <!--我的-->
+
+
+    <!--发布模块-->
+    <string name="publish">发布</string>
+    <string name="publish_success">发布成功</string>
+    <string name="goods_detail">物品详情</string>
+    <string name="goods_originator">发布者</string>
+    <string name="goods_time">发布时间</string>
+    <string name="reward">报酬</string>
+    <string name="follow_suc">关注成功</string>
+    <string name="unfollow_suc">取消关注成功</string>
+    <!--发布模块-->
+
+
+    <!--搜索模块-->
     <string name="search">搜索</string>
+    <string name="search_tips">请输入搜索物品</string>
+    <string name="history">历史记录</string>
+    <string name="clear_history">清空历史记录</string>
+    <string name="search_result_empty_tips">没有相关物品信息，换个关键词试试</string>
+    <!--搜索模块-->
 
 
-    <string name="network_error">网络异常</string>
     <string name="cancel">取消</string>
     <string name="loading">正在加载…</string>
+    <string name="empty_data">没有相关数据</string>
+    <string name="edit">编辑</string>
+    <string name="finish">完成</string>
 </resources>

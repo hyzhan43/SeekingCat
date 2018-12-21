@@ -52,6 +52,8 @@ public class SearchActivity extends GoodsActivity<SearchContract.Presenter> impl
     protected void initView() {
         super.initView();
 
+        setEmptyViewTips(getString(R.string.search_result_empty_tips));
+
         // 初始化 搜索记录
         initHistory();
     }

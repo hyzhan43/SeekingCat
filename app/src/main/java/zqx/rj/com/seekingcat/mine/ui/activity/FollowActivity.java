@@ -18,6 +18,13 @@ public class FollowActivity extends GoodsActivity<FollowContract.Presenter>
     private int page = 0;
 
     @Override
+    protected void initView() {
+        super.initView();
+
+        setEmptyViewTips(getString(R.string.follow_empty_tips));
+    }
+
+    @Override
     protected void initData() {
         super.initData();
 

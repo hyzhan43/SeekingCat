@@ -15,6 +15,8 @@ public class GoodsRsp {
     private String originator;
     private String originatorUrl;
     private String publishTime;
+    private Boolean edit = false;
+    private Boolean choose = false;
 
     public int getId() {
         return id;
@@ -118,5 +120,21 @@ public class GoodsRsp {
 
     public void setPublishTime(String publishTime) {
         this.publishTime = publishTime;
+    }
+
+    public Boolean getEdit() {
+        return edit;
+    }
+
+    public void setEdit(Boolean edit) {
+        this.edit = edit;
+    }
+
+    public Boolean getChoose() {
+        return choose;
+    }
+
+    public void setChoose(Boolean choose) {
+        this.choose = choose;
     }
 }

@@ -1,6 +1,7 @@
 package zqx.rj.com.seekingcat.common.goods.model.adapter;
 
 import android.support.annotation.Nullable;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
@@ -30,17 +31,25 @@ public class GoodsAdapter extends BaseQuickAdapter<GoodsRsp, BaseViewHolder> {
         if (item == null || helper == null)
             return;
 
-        // 发布者
-        helper.setText(R.id.tv_name, item.getOriginator());
-
         GlideUtil.loadImage(mContext, item.getOriginatorUrl(), (ImageView) helper.getView(R.id.civ_portrait));
         GlideUtil.loadImage(mContext, item.getGoodsUrl(), (ImageView) helper.getView(R.id.iv_goods));
 
-        helper.setText(R.id.tv_goods_name, item.getName());
-        helper.setText(R.id.tv_description, item.getDescription());
-        helper.setText(R.id.tv_time, item.getPublishTime());
+        // 发布者
+        helper.setText(R.id.tv_name, item.getOriginator())
+                .setText(R.id.tv_goods_name, item.getName())
+                .setText(R.id.tv_description, item.getDescription())
+                .setText(R.id.tv_time, item.getPublishTime())
+                .setChecked(R.id.rb_choose, false)
+                .addOnClickListener(R.id.rb_choose);     // 默认不选中
 
         setButtonStyle((Button) helper.getView(R.id.btn_type), item.getType());
+
+        // 是否显示 radioButton
+        if (item.getEdit()) {
+            helper.getView(R.id.rb_choose).setVisibility(View.VISIBLE);
+        } else {
+            helper.getView(R.id.rb_choose).setVisibility(View.GONE);
+        }
     }
 
     private void setButtonStyle(Button btn, int type) {

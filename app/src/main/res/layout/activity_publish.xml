@@ -37,7 +37,7 @@
                 android:layout_height="@dimen/len_32"
                 android:layout_marginBottom="@dimen/len_10"
                 android:background="@drawable/right_round_bg_normal"
-                android:text="@string/lose_thing"
+                android:text="@string/lost_and_found"
                 android:textColor="@color/colorPrimary"
                 tools:ignore="ButtonStyle" />
 
