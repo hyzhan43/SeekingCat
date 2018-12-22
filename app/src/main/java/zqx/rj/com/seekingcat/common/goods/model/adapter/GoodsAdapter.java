@@ -22,6 +22,8 @@ import zqx.rj.com.utils.GlideUtil;
  */
 public class GoodsAdapter extends BaseQuickAdapter<GoodsRsp, BaseViewHolder> {
 
+    public boolean isShowButton = false;
+
     public GoodsAdapter(int layoutResId, @Nullable List<GoodsRsp> data) {
         super(layoutResId, data);
     }
@@ -39,13 +41,13 @@ public class GoodsAdapter extends BaseQuickAdapter<GoodsRsp, BaseViewHolder> {
                 .setText(R.id.tv_goods_name, item.getName())
                 .setText(R.id.tv_description, item.getDescription())
                 .setText(R.id.tv_time, item.getPublishTime())
-                .setChecked(R.id.rb_choose, false)
+                .setChecked(R.id.rb_choose, item.getChoose())
                 .addOnClickListener(R.id.rb_choose);     // 默认不选中
 
         setButtonStyle((Button) helper.getView(R.id.btn_type), item.getType());
 
         // 是否显示 radioButton
-        if (item.getEdit()) {
+        if (isShowButton) {
             helper.getView(R.id.rb_choose).setVisibility(View.VISIBLE);
         } else {
             helper.getView(R.id.rb_choose).setVisibility(View.GONE);

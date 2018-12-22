@@ -1,9 +1,11 @@
 package zqx.rj.com.seekingcat.mine.ui.activity;
 
+import android.view.MenuItem;
+
 import zqx.rj.com.model.entity.PageRsp;
 import zqx.rj.com.seekingcat.R;
-import zqx.rj.com.seekingcat.common.goods.ui.activity.GoodsActivity;
 import zqx.rj.com.seekingcat.common.goods.model.bean.GoodsRsp;
+import zqx.rj.com.seekingcat.common.goods.ui.activity.GoodsEditActivity;
 import zqx.rj.com.seekingcat.mine.contract.FollowContract;
 import zqx.rj.com.seekingcat.mine.presenter.FollowPresenter;
 
@@ -12,7 +14,7 @@ import zqx.rj.com.seekingcat.mine.presenter.FollowPresenter;
  * create:  2018/12/13 11:24
  * desc:    TODO
  */
-public class FollowActivity extends GoodsActivity<FollowContract.Presenter>
+public class FollowActivity extends GoodsEditActivity<FollowContract.Presenter>
         implements FollowContract.View {
 
     private int page = 0;
@@ -22,6 +24,20 @@ public class FollowActivity extends GoodsActivity<FollowContract.Presenter>
         super.initView();
 
         setEmptyViewTips(getString(R.string.follow_empty_tips));
+    }
+
+    @Override
+    protected int getMenuId() {
+        return R.menu.menu_toolbar_edit;
+    }
+
+    @Override
+    protected void onItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.action_edit:
+                showOrHideButton(item);
+                break;
+        }
     }
 
     @Override
