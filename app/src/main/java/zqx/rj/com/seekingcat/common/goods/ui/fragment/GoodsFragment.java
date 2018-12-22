@@ -55,7 +55,7 @@ public abstract class GoodsFragment<T extends BaseContract.Presenter> extends Mv
         // 设置 加载更多
         mGoodsAdapter.setEnableLoadMore(true);
         mGoodsAdapter.setOnLoadMoreListener(this, mRvGoods);
-
+        mGoodsAdapter.disableLoadMoreIfNotFullPage();
         mGoodsAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {

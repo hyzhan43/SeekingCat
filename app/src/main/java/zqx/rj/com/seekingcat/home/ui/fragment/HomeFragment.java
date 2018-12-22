@@ -47,6 +47,9 @@ public class HomeFragment extends BaseFragment {
         mCoordinatorTabLayout.setTitle(getString(R.string.app_name))
                 .setImageArray(mImageArray)
                 .setupWithViewPager(mVpContent);
+
+        // 设置 viewPage 预加载 2个页面, 默认从0开始
+        mVpContent.setOffscreenPageLimit(2);
     }
 
     @Override
