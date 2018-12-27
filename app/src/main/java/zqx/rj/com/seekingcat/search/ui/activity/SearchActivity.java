@@ -13,6 +13,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 
 import org.litepal.LitePal;
 
+import java.util.Collections;
 import java.util.List;
 
 import butterknife.BindView;
@@ -64,6 +65,9 @@ public class SearchActivity extends GoodsActivity<SearchContract.Presenter> impl
 
         // 设置 历史记录
         List<Record> records = LitePal.findAll(Record.class);
+
+        // 倒序排列
+        Collections.reverse(records);
 
         if (!records.isEmpty()) {
             hideHistory(false);
