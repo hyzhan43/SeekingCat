@@ -7,8 +7,11 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AlertDialog;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import com.alibaba.android.arouter.launcher.ARouter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,10 +20,12 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import zqx.rj.com.base.activity.BaseActivity;
 import zqx.rj.com.base.fragment.BaseFragment;
+import zqx.rj.com.constants.Constants;
 import zqx.rj.com.seekingcat.search.ui.activity.SearchActivity;
 import zqx.rj.com.seekingcat.home.ui.fragment.HomeFragment;
 import zqx.rj.com.seekingcat.mine.ui.fragment.MineFragment;
 import zqx.rj.com.seekingcat.publish.ui.activity.PublishActivity;
+import zqx.rj.com.utils.Preferences;
 
 public class MainActivity extends BaseActivity {
 
@@ -31,6 +36,9 @@ public class MainActivity extends BaseActivity {
     ViewPager mViewPager;
 
     private List<BaseFragment> fragments;
+
+    // 发布提示 dialog
+    private AlertDialog mDialog;
 
     @Override
     protected void initView() {
@@ -102,9 +110,25 @@ public class MainActivity extends BaseActivity {
 
     @OnClick(R.id.fab_publish)
     void onFloatButton() {
-        startActivity(PublishActivity.class);
+        String avatarUrl = Preferences.getString(Constants.AVATAR_URL, "");
+        String nickName = Preferences.getString(Constants.NICK_NAME, "");
+        if (avatarUrl.isEmpty() || nickName.isEmpty()) {
+            if (mDialog == null) {
+                mDialog = initPublishDialog();
+            }
+            mDialog.show();
+        } else {
+            startActivity(PublishActivity.class);
+        }
     }
 
+    private AlertDialog initPublishDialog() {
+        return new AlertDialog.Builder(this)
+                .setTitle(getString(R.string.reminder))
+                .setMessage(getString(R.string.publish_tips))
+                .setPositiveButton(getString(R.string.ok), null)
+                .create();
+    }
 
     class ViewPagerAdapter extends FragmentPagerAdapter {
 

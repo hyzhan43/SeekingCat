@@ -2,12 +2,17 @@ package zqx.rj.com.seekingcat.mine.ui.activity;
 
 import android.view.MenuItem;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import butterknife.OnClick;
 import zqx.rj.com.model.entity.PageRsp;
 import zqx.rj.com.seekingcat.R;
 import zqx.rj.com.seekingcat.common.goods.model.bean.GoodsRsp;
 import zqx.rj.com.seekingcat.common.goods.ui.activity.GoodsEditActivity;
 import zqx.rj.com.seekingcat.mine.contract.FollowContract;
 import zqx.rj.com.seekingcat.mine.presenter.FollowPresenter;
+import zqx.rj.com.utils.Log;
 
 /**
  * author:  HyZhan
@@ -33,8 +38,12 @@ public class FollowActivity extends GoodsEditActivity<FollowContract.Presenter>
 
     @Override
     protected void onItemSelected(MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.action_edit:
+                if (mGoodsAdapter.getData().isEmpty()) {
+                    toast(getString(R.string.follow_empty_tips));
+                    return;
+                }
                 showOrHideButton(item);
                 break;
         }
@@ -44,12 +53,13 @@ public class FollowActivity extends GoodsEditActivity<FollowContract.Presenter>
     protected void initData() {
         super.initData();
 
-        mPresenter.getFollow(0);
+        mPresenter.getFollow(page);
     }
 
     @Override
     public void onRefresh() {
-        mPresenter.getFollow(0);
+        page = 0;
+        mPresenter.getFollow(page);
     }
 
     @Override
@@ -70,5 +80,30 @@ public class FollowActivity extends GoodsEditActivity<FollowContract.Presenter>
     @Override
     protected FollowContract.Presenter bindPresenter() {
         return new FollowPresenter(this);
+    }
+
+    @OnClick(R.id.btn_delete)
+    void onClickDelete() {
+
+        List<Integer> goodsIdList = new ArrayList<>();
+        for (GoodsRsp goodsRsp : mGoodsAdapter.getData()) {
+            // 获取 选中的 item
+            if (goodsRsp.getChoose()) {
+                goodsIdList.add(goodsRsp.getId());
+            }
+        }
+
+        if (goodsIdList.isEmpty()){
+            toast(getString(R.string.delete_tips));
+            return;
+        }
+
+        Log.d("id = " + goodsIdList);
+        mPresenter.deleteMyFollow(goodsIdList);
+    }
+
+    @Override
+    public void deleteSuc() {
+//        mGoodsAdapter.remove();
     }
 }

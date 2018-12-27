@@ -2,6 +2,8 @@ package zqx.rj.com.base.mvp;
 
 import android.support.annotation.StringRes;
 
+import java.util.List;
+
 /**
  *  MVP 基本契约
  */

@@ -5,7 +5,6 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,9 +20,11 @@ import java.io.File;
 import butterknife.BindView;
 import butterknife.OnClick;
 import de.hdodenhof.circleimageview.CircleImageView;
+import zqx.rj.com.base.activity.ActivityManager;
 import zqx.rj.com.base.mvp.MvpFragment;
 import zqx.rj.com.constants.Constants;
 import zqx.rj.com.seekingcat.R;
+import zqx.rj.com.seekingcat.account.ui.LoginActivity;
 import zqx.rj.com.seekingcat.mine.contract.MineContract;
 import zqx.rj.com.seekingcat.mine.model.bean.UserInfoRsp;
 import zqx.rj.com.seekingcat.mine.presenter.MinePresenter;
@@ -44,7 +45,7 @@ import zqx.rj.com.utils.UtilTools;
 
 public class MineFragment extends MvpFragment<MineContract.Presenter>
         implements MineContract.View, View.OnClickListener,
-        TakePhoto.TakeResultListener{
+        TakePhoto.TakeResultListener {
 
     @BindView(R.id.civ_portrait)
     CircleImageView mCivPortrait;
@@ -58,9 +59,6 @@ public class MineFragment extends MvpFragment<MineContract.Presenter>
     @BindView(R.id.tv_follow_count)
     TextView mTvFollowCount;
 
-    @BindView(R.id.srl_refresh)
-    SwipeRefreshLayout mRefreshLayout;
-
     private Dialog mPortraitDialog;
 
     // 昵称 dialog
@@ -69,8 +67,8 @@ public class MineFragment extends MvpFragment<MineContract.Presenter>
     // 更新后的 用户名
     private String newName;
 
-    // 更新后的 头像文件
-    private File goodsFile;
+    // 头像路径
+    private String mPortraitPath;
 
     public static MineFragment getInstance() {
         return new MineFragment();
@@ -90,15 +88,15 @@ public class MineFragment extends MvpFragment<MineContract.Presenter>
     public void initView(View view) {
         super.initView(view);
 
-        // 设置 刷新进度条颜色。
-        mRefreshLayout.setColorSchemeResources(R.color.colorPrimary);
+        // 设置 图片压缩策略
+        getTakePhoto().onEnableCompress(UtilTools.getConfig(), true);
 
-        mRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                mPresenter.getUserInfo();
-            }
-        });
+        // 显示昵称
+        mTvName.setText(Preferences.getString(Constants.ACCOUNT, ""));
+        // 显示头像
+        GlideUtil.loadImage(getContext(),
+                Preferences.getString(Constants.AVATAR_URL, ""),
+                mCivPortrait);
     }
 
     @Override
@@ -110,10 +108,6 @@ public class MineFragment extends MvpFragment<MineContract.Presenter>
 
     @Override
     public void getUserInfoSuccess(UserInfoRsp userInfoRsp) {
-
-        if (mRefreshLayout.isRefreshing()) {
-            mRefreshLayout.setRefreshing(false);
-        }
 
         if (userInfoRsp == null)
             return;
@@ -200,12 +194,12 @@ public class MineFragment extends MvpFragment<MineContract.Presenter>
         File cropFile = UtilTools.createFile("album");
         Uri uri = Uri.fromFile(cropFile);
 
-        TakePhoto takePhoto = getTakePhoto();
         // 跳转到相册 并剪切图片
-        takePhoto.onPickFromGalleryWithCrop(uri, UtilTools.getCropOptions());
+        getTakePhoto().onPickFromGalleryWithCrop(uri, UtilTools.getCropOptions());
 
         mPortraitDialog.dismiss();
     }
+
 
     /**
      * 点击 用户名
@@ -227,7 +221,7 @@ public class MineFragment extends MvpFragment<MineContract.Presenter>
      * 更新用户信息 成功
      */
     @Override
-    public void updateNickNameSuccess() {
+    public void updateNickNameSuc() {
         hideLoading();
 
         mTvName.setText(newName);
@@ -281,6 +275,12 @@ public class MineFragment extends MvpFragment<MineContract.Presenter>
         startActivity(intent);
     }
 
+    @OnClick(R.id.ll_my_publish)
+    void onClickMyPublish() {
+        Intent intent = new Intent(getActivity(), MyPublishActivity.class);
+        startActivity(intent);
+    }
+
     @OnClick(R.id.ll_about)
     void onClickAbout() {
         Intent intent = new Intent(getActivity(), AboutActivity.class);
@@ -294,22 +294,47 @@ public class MineFragment extends MvpFragment<MineContract.Presenter>
 
     @OnClick(R.id.tv_logout)
     void onClickLogout() {
-        toast("退出登录");
+
+        new AlertDialog.Builder(getActivity())
+                .setTitle("退出当前账号")
+                .setMessage("确定要退出吗？")
+                .setNegativeButton("取消", null)
+                .setPositiveButton("确定退出", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        toast("退出登录");
+                        // 标记 未登录
+                        Preferences.putBoolean(Constants.IS_LOGIN, false);
+
+                        Intent intent = new Intent(getActivity(), LoginActivity.class);
+                        startActivity(intent);
+
+                        ActivityManager.finishAll();
+                    }
+                })
+                .create()
+                .show();
     }
 
     /**
-     *  头像 选择成功回调
+     * 头像 选择成功回调
      */
     @Override
     public void takeSuccess(TResult result) {
-        String path = result.getImage().getOriginalPath();
-        goodsFile = new File(path);
+        // 获取压缩后的图片 path
+        mPortraitPath = result.getImage().getCompressPath();
+        // 更新后的 头像文件
+        File goodsFile = new File(mPortraitPath);
+        Log.d("LST", "length = " + goodsFile.length());
+        // 上传头像 到 服务器
+        mPresenter.updatePortrait(goodsFile);
+    }
 
+    @Override
+    public void updatePortraitSuc() {
         // 加载显示 更新后的头像
-        GlideUtil.loadImage(getActivity(), path, mCivPortrait);
-
-        toast("修改为：" + newName);
-        // TODO 上传头像 到 服务器
+        GlideUtil.loadImage(getActivity(), mPortraitPath, mCivPortrait);
+        hideLoading();
     }
 
     @Override

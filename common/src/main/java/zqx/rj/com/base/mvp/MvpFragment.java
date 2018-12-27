@@ -47,4 +47,12 @@ public abstract class MvpFragment<T extends BaseContract.Presenter>
         mLoading.dismiss();
     }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        if (mPresenter != null) {
+            mPresenter.detachView();
+            mPresenter = null;
+        }
+    }
 }

@@ -1,5 +1,7 @@
 package zqx.rj.com.seekingcat.mine.contract;
 
+import java.io.File;
+
 import zqx.rj.com.base.mvp.BaseContract;
 import zqx.rj.com.seekingcat.mine.model.bean.UserInfoRsp;
 
@@ -14,11 +16,15 @@ public interface MineContract {
         void getUserInfo();
 
         void updateNickName(String nickname);
+
+        void updatePortrait(File goodsFile);
     }
 
     interface View extends BaseContract.View {
         void getUserInfoSuccess(UserInfoRsp userInfoRsp);
 
-        void updateNickNameSuccess();
+        void updateNickNameSuc();
+
+        void updatePortraitSuc();
     }
 }

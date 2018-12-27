@@ -1,11 +1,15 @@
 package zqx.rj.com.seekingcat.mine.presenter;
 
+import java.io.File;
+
+import okhttp3.MultipartBody;
 import zqx.rj.com.base.mvp.BasePresenter;
 import zqx.rj.com.model.entity.BaseResponse;
 import zqx.rj.com.net.callback.Callback;
 import zqx.rj.com.seekingcat.mine.contract.MineContract;
 import zqx.rj.com.seekingcat.mine.model.bean.UserInfoRsp;
 import zqx.rj.com.seekingcat.mine.model.helper.MineHelper;
+import zqx.rj.com.utils.UtilTools;
 
 /**
  * author：  HyZhan
@@ -42,7 +46,28 @@ public class MinePresenter extends BasePresenter<MineContract.View>
             MineHelper.updateNickName(nickname, new Callback<BaseResponse>() {
                 @Override
                 public void onSuccess(BaseResponse baseResponse) {
-                    getView().updateNickNameSuccess();
+                    getView().updateNickNameSuc();
+                }
+
+                @Override
+                public void onFail(String msg) {
+                    getView().showError(msg);
+                }
+            });
+        }
+    }
+
+    @Override
+    public void updatePortrait(File goodsFile) {
+        // avatarFile 对应 服务器文件 名称 key
+        MultipartBody.Part body = UtilTools.fileToMultipartBody(goodsFile, "avatarFile");
+
+        if (isViewAttach()) {
+            getView().showLoading();
+            MineHelper.updatePortrait(body, new Callback<BaseResponse>() {
+                @Override
+                public void onSuccess(BaseResponse baseResponse) {
+                    getView().updatePortraitSuc();
                 }
 
                 @Override

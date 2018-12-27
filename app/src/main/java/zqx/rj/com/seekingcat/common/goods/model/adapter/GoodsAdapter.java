@@ -5,6 +5,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import com.chad.library.adapter.base.BaseItemDraggableAdapter;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 
@@ -14,6 +15,7 @@ import zqx.rj.com.seekingcat.R;
 import zqx.rj.com.seekingcat.common.goods.model.bean.GoodsRsp;
 import zqx.rj.com.seekingcat.publish.model.entity.request.GoodsModel;
 import zqx.rj.com.utils.GlideUtil;
+import zqx.rj.com.utils.Log;
 
 /**
  * author:  HyZhan
@@ -23,6 +25,8 @@ import zqx.rj.com.utils.GlideUtil;
 public class GoodsAdapter extends BaseQuickAdapter<GoodsRsp, BaseViewHolder> {
 
     public boolean isShowButton = false;
+
+    private boolean isShowState = false;
 
     public GoodsAdapter(int layoutResId, @Nullable List<GoodsRsp> data) {
         super(layoutResId, data);
@@ -42,7 +46,9 @@ public class GoodsAdapter extends BaseQuickAdapter<GoodsRsp, BaseViewHolder> {
                 .setText(R.id.tv_description, item.getDescription())
                 .setText(R.id.tv_time, item.getPublishTime())
                 .setChecked(R.id.rb_choose, item.getChoose())
-                .addOnClickListener(R.id.rb_choose);     // 默认不选中
+                .addOnClickListener(R.id.rb_choose)
+                .addOnClickListener(R.id.btn_found)
+                .addOnClickListener(R.id.btn_delete);// 默认不选中
 
         setButtonStyle((Button) helper.getView(R.id.btn_type), item.getType());
 
@@ -52,6 +58,25 @@ public class GoodsAdapter extends BaseQuickAdapter<GoodsRsp, BaseViewHolder> {
         } else {
             helper.getView(R.id.rb_choose).setVisibility(View.GONE);
         }
+
+        // 根据 state 来判断是否显示  button
+        if (isShowState) {
+            Log.d("state = " + isShowState);
+            switch (item.getState()) {
+                case GoodsRsp.GOODS_FOUND:
+                    helper.getView(R.id.btn_delete).setVisibility(View.VISIBLE);
+                    helper.getView(R.id.btn_found).setVisibility(View.GONE);
+                    break;
+                case GoodsRsp.GOODS_NOT_FOUND:
+                    helper.getView(R.id.btn_delete).setVisibility(View.GONE);
+                    helper.getView(R.id.btn_found).setVisibility(View.VISIBLE);
+                    break;
+            }
+        }
+    }
+
+    public void isShowState(boolean showState) {
+        isShowState = showState;
     }
 
     private void setButtonStyle(Button btn, int type) {

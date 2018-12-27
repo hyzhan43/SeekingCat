@@ -42,6 +42,7 @@ public abstract class MvpActivity<T extends BaseContract.Presenter>
         super.onDestroy();
         if (mPresenter != null) {
             mPresenter.detachView();
+            mPresenter = null;
         }
     }
 }

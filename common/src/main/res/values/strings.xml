@@ -45,7 +45,7 @@
     <string name="csdn">CSDN: https://blog.csdn.net/weixin_40595516</string>
     <string name="email">邮箱：hyzhan43@163.com</string>
     <string name="logout">退出登录</string>
-    <string name="my_finish">我完成的</string>
+    <string name="my_already_found">我找到的</string>
     <string name="my_cancel">我取消的</string>
     <string name="my_delete">我删除的</string>
     <string name="nickname">请输入昵称</string>
@@ -86,4 +86,17 @@
     <string name="edit">编辑</string>
     <string name="finish">完成</string>
     <string name="delete">删除</string>
+    <string name="confirm_delete">确认删除吗？</string>
+    <string name="not_found">未找到</string>
+    <string name="all_choose">全选</string>
+    <string name="whole">全部</string>
+    <string name="already_found">已找到</string>
+    <string name="delete_record">删除记录</string>
+    <string name="reminder">温馨提示</string>
+    <string name="publish_tips">请完善个人信息(头像、昵称) \n才可以发布信息哦~</string>
+    <string name="delete_tips">请选择需要取消关注的物品</string>
+    <string name="ok">好的</string>
+    <string name="confirm_found">确认已找到？</string>
+    <string name="great">真棒</string>
+    <string name="delete_suc">删除成功~</string>
 </resources>

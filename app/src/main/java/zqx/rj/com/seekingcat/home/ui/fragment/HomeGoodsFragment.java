@@ -4,9 +4,9 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 
 import zqx.rj.com.model.entity.PageRsp;
+import zqx.rj.com.seekingcat.common.goods.model.bean.GoodsRsp;
 import zqx.rj.com.seekingcat.common.goods.ui.fragment.GoodsFragment;
 import zqx.rj.com.seekingcat.home.contract.HomeContract;
-import zqx.rj.com.seekingcat.common.goods.model.bean.GoodsRsp;
 import zqx.rj.com.seekingcat.home.presenter.HomePresenter;
 
 /**
@@ -38,8 +38,9 @@ public class HomeGoodsFragment extends GoodsFragment<HomeContract.Presenter>
 
         Bundle bundle = getArguments();
         if (bundle != null) {
+            page = 0;
             type = bundle.getInt("type");
-            mPresenter.getGoods(type, 0);
+            mPresenter.getGoods(type, page);
         }
     }
 
@@ -55,7 +56,8 @@ public class HomeGoodsFragment extends GoodsFragment<HomeContract.Presenter>
 
     @Override
     public void onRefresh() {
-        mPresenter.getGoods(type, 0);
+        page = 0;
+        mPresenter.getGoods(type, page);
     }
 
     @Override

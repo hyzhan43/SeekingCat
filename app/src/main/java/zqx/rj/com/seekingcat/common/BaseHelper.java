@@ -1,8 +1,7 @@
 package zqx.rj.com.seekingcat.common;
 
-import zqx.rj.com.model.entity.BaseResponse;
-import zqx.rj.com.seekingcat.common.api.ApiService;
 import zqx.rj.com.net.retrofit.RetrofitFactory;
+import zqx.rj.com.seekingcat.common.api.ApiService;
 
 public class BaseHelper {
 

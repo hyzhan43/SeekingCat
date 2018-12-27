@@ -1,10 +1,14 @@
 package zqx.rj.com.seekingcat.common.goods.ui.fragment;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 
@@ -33,7 +37,9 @@ public abstract class GoodsFragment<T extends BaseContract.Presenter> extends Mv
     @BindView(R.id.srl_refresh)
     SwipeRefreshLayout mRefreshLayout;
 
-    private GoodsAdapter mGoodsAdapter;
+    protected GoodsAdapter mGoodsAdapter;
+
+    private TextView mTvTips;
 
     @Override
     public int getLayoutId() {
@@ -55,7 +61,8 @@ public abstract class GoodsFragment<T extends BaseContract.Presenter> extends Mv
         // 设置 加载更多
         mGoodsAdapter.setEnableLoadMore(true);
         mGoodsAdapter.setOnLoadMoreListener(this, mRvGoods);
-        mGoodsAdapter.disableLoadMoreIfNotFullPage();
+//         默认第一次加载会进入回调(加载更多)，如果不需要可以配置：
+//        mGoodsAdapter.disableLoadMoreIfNotFullPage();
         mGoodsAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
@@ -68,10 +75,74 @@ public abstract class GoodsFragment<T extends BaseContract.Presenter> extends Mv
                 }
             }
         });
+
+        mGoodsAdapter.setEmptyView(getEmptyView());
+
+        mGoodsAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+            @Override
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+
+                GoodsRsp goodsRsp = (GoodsRsp) adapter.getItem(position);
+                if (goodsRsp == null)
+                    return;
+
+                switch (view.getId()) {
+                    case R.id.btn_delete:
+                        showDeleteDialog(goodsRsp.getId());
+                        break;
+                    case R.id.btn_found:
+                        showFoundDialog(goodsRsp.getId());
+                        break;
+                }
+            }
+        });
+    }
+
+    private void showDeleteDialog(final int id) {
+
+        new AlertDialog.Builder(getActivity())
+                .setTitle(getString(R.string.reminder))
+                .setMessage(getString(R.string.confirm_delete))
+                .setNeutralButton(getString(R.string.cancel), null)
+                .setPositiveButton(getString(R.string.delete), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        confirmDeleteClick(id);
+                    }
+                })
+                .create()
+                .show();
     }
 
     /**
-     *  设置数据
+     * 确认已经删除
+     */
+    protected void confirmDeleteClick(int goodsId) {
+    }
+
+    private void showFoundDialog(final int id) {
+        new AlertDialog.Builder(getActivity())
+                .setTitle(getString(R.string.reminder))
+                .setMessage(getString(R.string.confirm_found))
+                .setNeutralButton(getString(R.string.cancel), null)
+                .setPositiveButton(getString(R.string.already_found), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        confirmFoundClick(id);
+                    }
+                })
+                .create()
+                .show();
+    }
+
+    /**
+     * 确认已经找到
+     */
+    protected void confirmFoundClick(int goodsId) {
+    }
+
+    /**
+     * 设置数据
      */
     protected void addData(PageRsp<GoodsRsp> pageRsp) {
         // 如果是 下拉刷新的 直接 设置新的数据
@@ -115,5 +186,15 @@ public abstract class GoodsFragment<T extends BaseContract.Presenter> extends Mv
         super.showError(str);
         if (mRefreshLayout.isRefreshing())
             mRefreshLayout.setRefreshing(false);
+    }
+
+    private View getEmptyView() {
+        View EmptyView = LayoutInflater.from(getActivity()).inflate(R.layout.emtpy_view, null);
+        mTvTips = EmptyView.findViewById(R.id.tv_tips);
+        return EmptyView;
+    }
+
+    public void setEmptyViewTips(String msg) {
+        mTvTips.setText(msg);
     }
 }

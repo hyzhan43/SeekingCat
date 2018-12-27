@@ -164,6 +164,7 @@ public class SearchActivity extends GoodsActivity<SearchContract.Presenter> impl
     }
 
     private void searchGoods(String query) {
+        showLoading();
         mPresenter.searchGoods(0, query);
         // 加上这句。防止回车 调用两次 onQueryTextSubmit
         mSearchView.setIconified(true);
@@ -235,6 +236,7 @@ public class SearchActivity extends GoodsActivity<SearchContract.Presenter> impl
      */
     @Override
     public void searchSuccess(PageRsp<GoodsRsp> pageRsp) {
+        hideLoading();
 
         if (isFirst) {
             // 如果第一次 添加数据 就设置新数据

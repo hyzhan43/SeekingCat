@@ -23,7 +23,11 @@ public class Constants {
 
     public static final String TOKEN = "token";
     public static final String IS_LOGIN = "isLogin";
+    public static final String PASSWORD = "password";
+    public static final String ACCOUNT = "account";
+
 
     public static final String NICK_NAME = "nickName";
     public static final String AVATAR_URL = "avatarUrl";
+
 }

@@ -12,10 +12,18 @@ import zqx.rj.com.seekingcat.common.goods.model.bean.GoodsRsp;
 public interface MyPublishContract {
 
     interface Presenter extends BaseContract.Presenter {
-        void getMyPublish(int page);
+        void getMyPublish(int page, Integer state);
+
+        void foundGoods(int goodsId);
+
+        void deleteMyPublishGoods(int goodsId);
     }
 
     interface View extends BaseContract.View {
         void getMyPublishSuc(PageRsp<GoodsRsp> pageRsp);
+
+        void foundSuc();
+
+        void deletePublishSuc();
     }
 }

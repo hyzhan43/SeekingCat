@@ -8,12 +8,16 @@ import android.widget.RadioButton;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.OnClick;
 import zqx.rj.com.base.mvp.BaseContract;
 import zqx.rj.com.model.entity.PageRsp;
 import zqx.rj.com.seekingcat.R;
 import zqx.rj.com.seekingcat.common.goods.model.bean.GoodsRsp;
+import zqx.rj.com.utils.Log;
 
 /**
  * author:  HyZhan
@@ -88,6 +92,12 @@ public abstract class GoodsEditActivity<T extends BaseContract.Presenter> extend
         // 如果是编辑状态   就显示出  radioButton
         if (!isEdit) {
             mGoodsAdapter.isShowButton = true;
+
+            if (mRbAllChoose.isChecked()) {
+                for (GoodsRsp goodsRsp : pageRsp.getDatas()) {
+                    goodsRsp.setChoose(true);
+                }
+            }
         }
 
         super.addData(pageRsp);
@@ -104,8 +114,7 @@ public abstract class GoodsEditActivity<T extends BaseContract.Presenter> extend
             mGoodsAdapter.notifyDataSetChanged();
 
             // 重置 未选中
-            isAllChoose = false;
-
+            mRbAllChoose.setChecked(false);
             // 显示 底部 编辑bar
             mLlEditBar.setVisibility(View.VISIBLE);
         } else {
@@ -113,7 +122,6 @@ public abstract class GoodsEditActivity<T extends BaseContract.Presenter> extend
             item.setTitle(getString(R.string.edit));
             mGoodsAdapter.isShowButton = false;
 
-            // 重置 未选中
             isAllChoose = false;
 
             // 重置 radioButton
@@ -130,19 +138,16 @@ public abstract class GoodsEditActivity<T extends BaseContract.Presenter> extend
         setRadioChoose(isAllChoose);
     }
 
-    private void setRadioChoose(Boolean isChoose) {
+    private void setRadioChoose(boolean isChoose) {
+
         for (GoodsRsp goodsRsp : mGoodsAdapter.getData()) {
             if (goodsRsp.getChoose() != isChoose) {
                 goodsRsp.setChoose(isChoose);
             }
         }
+
         mRbAllChoose.setChecked(isChoose);
 
         mGoodsAdapter.notifyDataSetChanged();
-    }
-
-    @OnClick(R.id.btn_delete)
-    void onClickDelete() {
-        toast("删除");
     }
 }

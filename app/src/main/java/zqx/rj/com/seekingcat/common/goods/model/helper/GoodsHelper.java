@@ -1,5 +1,7 @@
 package zqx.rj.com.seekingcat.common.goods.model.helper;
 
+import java.util.List;
+
 import io.reactivex.Observable;
 import zqx.rj.com.model.entity.BaseResponse;
 import zqx.rj.com.model.entity.PageRsp;
@@ -17,10 +19,25 @@ import zqx.rj.com.utils.RxScheduler;
  */
 public class GoodsHelper extends BaseHelper {
 
-    public static void getMyPublish(int page, Callback<PageRsp<GoodsRsp>> callback) {
-        apiHelper().getMyPublish(page)
-                .compose(RxScheduler.<BaseResponse<PageRsp<GoodsRsp>>>ioToMain())
-                .subscribe(new BaseObserver<BaseResponse<PageRsp<GoodsRsp>>>(callback));
+    public static void getMyPublish(int page, Integer state, Callback<PageRsp<GoodsRsp>> callback) {
+
+        Observable<BaseResponse<PageRsp<GoodsRsp>>> observable = null;
+        switch (state) {
+            case GoodsRsp.GOODS_ALL:
+                observable = apiHelper().getMyPublish(page);
+                break;
+            case GoodsRsp.GOODS_FOUND:
+                observable = apiHelper().getFound(page);
+                break;
+            case GoodsRsp.GOODS_NOT_FOUND:
+                observable = apiHelper().getUnFound(page);
+                break;
+        }
+
+        if (observable != null) {
+            observable.compose(RxScheduler.<BaseResponse<PageRsp<GoodsRsp>>>ioToMain())
+                    .subscribe(new BaseObserver<BaseResponse<PageRsp<GoodsRsp>>>(callback));
+        }
     }
 
     public static void getFollow(int page, Callback<PageRsp<GoodsRsp>> callback) {
@@ -64,8 +81,30 @@ public class GoodsHelper extends BaseHelper {
                 .subscribe(new BaseObserver<BaseResponse>(callback));
     }
 
+    // 取消关注
     public static void unFollowGoods(int id, final Callback<BaseResponse> callback) {
         apiHelper().unFollowGoods(id)
+                .compose(RxScheduler.<BaseResponse>ioToMain())
+                .subscribe(new BaseObserver<BaseResponse>(callback));
+    }
+
+    // 批量取消关注
+    public static void deleteFollow(List<Integer> goodsIdList, final Callback<BaseResponse> callback) {
+        apiHelper().deleteFollow(goodsIdList)
+                .compose(RxScheduler.<BaseResponse>ioToMain())
+                .subscribe(new BaseObserver<BaseResponse>(callback));
+    }
+
+    // 找到物品/失主
+    public static void foundGoods(int goodsId, Callback<BaseResponse> callback) {
+        apiHelper().foundGoods(goodsId)
+                .compose(RxScheduler.<BaseResponse>ioToMain())
+                .subscribe(new BaseObserver<BaseResponse>(callback));
+    }
+
+    // 删除用户发布
+    public static void deleteMyPublishGoods(int goodsId, Callback<BaseResponse> callback) {
+        apiHelper().deletePublishGoods(goodsId)
                 .compose(RxScheduler.<BaseResponse>ioToMain())
                 .subscribe(new BaseObserver<BaseResponse>(callback));
     }

@@ -76,7 +76,10 @@ public abstract class BaseGoodsFragment extends MvpFragment<PublishContract.Pres
         super.initView(view);
 
         initPictureDialog();
+
         getTakePhoto();
+        // 设置 图片压缩策略
+        takePhoto.onEnableCompress(UtilTools.getConfig(), true);
     }
 
     private void initPictureDialog() {
@@ -164,7 +167,6 @@ public abstract class BaseGoodsFragment extends MvpFragment<PublishContract.Pres
         File cropFile = UtilTools.createFile("album");
         Uri uri = Uri.fromFile(cropFile);
 
-        TakePhoto takePhoto = getTakePhoto();
         // 跳转到相册 并剪切图片
         takePhoto.onPickFromGalleryWithCrop(uri, UtilTools.getCropOptions());
 
@@ -192,7 +194,8 @@ public abstract class BaseGoodsFragment extends MvpFragment<PublishContract.Pres
     @Override
     public void takeSuccess(TResult result) {
 
-        String path = result.getImage().getOriginalPath();
+        // 获取 压缩后的 图片path
+        String path = result.getImage().getCompressPath();
         goodsFile = new File(path);
 
         // 加载显示图片

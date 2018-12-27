@@ -31,4 +31,11 @@
         <item name="android:windowEnterAnimation">@anim/pop_in</item>
         <item name="android:windowExitAnimation">@anim/pop_out</item>
     </style>
+
+    <!--物品类型(state) 样式-->
+    <style name="buttonTypeStyle" parent="Base.Widget.AppCompat.Button">
+        <item name="android:textSize">@dimen/font_12</item>
+        <item name="android:layout_width">@dimen/len_64</item>
+        <item name="android:layout_height">@dimen/len_28</item>
+    </style>
 </resources>

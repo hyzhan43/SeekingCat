@@ -2,8 +2,11 @@ package zqx.rj.com.seekingcat.common.goods.model.bean;
 
 public class GoodsRsp {
 
+    public static final int GOODS_ALL = -1;
+    public static final int GOODS_FOUND = 1;
+    public static final int GOODS_NOT_FOUND = 0;
+
     private int id;
-    private int goodsId;
     private String name;
     private String description;
     private String phone;
@@ -11,6 +14,8 @@ public class GoodsRsp {
     private String goodsUrl;
     private int type;
     private Boolean follow;
+    // 设置默认值是 -1
+    private int state = -1;
     private String reward;
     private String originator;
     private String originatorUrl;
@@ -23,14 +28,6 @@ public class GoodsRsp {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public int getGoodsId() {
-        return goodsId;
-    }
-
-    public void setGoodsId(int goodsId) {
-        this.goodsId = goodsId;
     }
 
     public String getName() {
@@ -95,6 +92,14 @@ public class GoodsRsp {
 
     public void setReward(String reward) {
         this.reward = reward;
+    }
+
+    public int getState() {
+        return state;
+    }
+
+    public void setState(int state) {
+        this.state = state;
     }
 
     public String getOriginator() {

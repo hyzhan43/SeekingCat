@@ -31,10 +31,10 @@ public class BaseApplication extends Application {
         super.onCreate();
 
         // 初始化 leak
-        if (LeakCanary.isInAnalyzerProcess(this)) {
-            return;
-        }
-        LeakCanary.install(this);
+//        if (LeakCanary.isInAnalyzerProcess(this)) {
+//            return;
+//        }
+//        LeakCanary.install(this);
 
         // 初始化 Logger
         Logger.addLogAdapter(new AndroidLogAdapter());

@@ -1,5 +1,6 @@
 package zqx.rj.com.seekingcat.mine.model.helper;
 
+import okhttp3.MultipartBody;
 import zqx.rj.com.constants.Constants;
 import zqx.rj.com.model.entity.BaseResponse;
 import zqx.rj.com.net.callback.Callback;
@@ -27,4 +28,9 @@ public class MineHelper extends BaseHelper {
                 .subscribe(new BaseObserver<BaseResponse>(callback));
     }
 
+    public static void updatePortrait(MultipartBody.Part body, Callback<BaseResponse> callback) {
+        apiHelper().updatePortrait(body)
+                .compose(RxScheduler.<BaseResponse>ioToMain())
+                .subscribe(new BaseObserver<BaseResponse>(callback));
+    }
 }

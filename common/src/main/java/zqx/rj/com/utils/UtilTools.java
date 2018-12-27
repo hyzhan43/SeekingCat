@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.os.Environment;
 
 import com.alibaba.android.arouter.launcher.ARouter;
+import com.jph.takephoto.compress.CompressConfig;
 import com.jph.takephoto.model.CropOptions;
 
 import java.io.BufferedOutputStream;
@@ -56,6 +57,9 @@ public class UtilTools {
         return MultipartBody.Part.createFormData(key, file.getName(), requestFile);
     }
 
+    /**
+     * 图片剪切配置
+     */
     public static CropOptions getCropOptions() {
         return new CropOptions.Builder()
                 .setAspectX(1)
@@ -63,6 +67,16 @@ public class UtilTools {
                 .setWithOwnCrop(true)
                 .setOutputX(320)
                 .setOutputY(320)
+                .create();
+    }
+
+    /**
+     * 图片压缩配置
+     */
+    public static CompressConfig getConfig() {
+        return new CompressConfig.Builder()
+                .setMaxSize(50 * 1024)
+                .setMaxPixel(800)
                 .create();
     }
 

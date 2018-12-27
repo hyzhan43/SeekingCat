@@ -40,7 +40,10 @@ public class BaseObserver<T> implements Observer<T> {
             // 如果 token 过期的话。就直接 设置未登录状态
             Preferences.putBoolean(Constants.IS_LOGIN, false);
             // 通过 ARouter 跳转 到 loginActivity
-            ARouter.getInstance().build("/login/activity").navigation();
+            ARouter.getInstance().build("/login/activity")
+                    .withString("loginExpire", "登录已过期, 请重新登录")
+                    .navigation();
+
         } else if (response.getCode() == BaseResponse.REQUEST_SUC) {
             callback.onSuccess(response.getData());
         } else {

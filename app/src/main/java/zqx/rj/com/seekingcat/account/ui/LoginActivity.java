@@ -4,7 +4,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
 
+import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.alibaba.android.arouter.launcher.ARouter;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -26,6 +28,12 @@ public class LoginActivity extends MvpActivity<LoginContract.Presenter>
     @BindView(R.id.tie_password)
     TextInputEditText mTiePassword;
 
+    /**
+     * 登录过期 提示
+     */
+    @Autowired
+    String loginExpire;
+
     @Override
     protected LoginContract.Presenter bindPresenter() {
         return new LoginPresenter(this);
@@ -40,6 +48,17 @@ public class LoginActivity extends MvpActivity<LoginContract.Presenter>
     @Override
     protected void initView() {
         super.initView();
+
+        mTieAccount.setText(Preferences.getString(Constants.ACCOUNT, ""));
+        mTiePassword.setText(Preferences.getString(Constants.PASSWORD, ""));
+
+        ARouter.getInstance().inject(this);
+        // token 过期 会跳转过来重新登录
+        if (loginExpire != null) {
+            mTieAccount.setText(Preferences.getString(Constants.ACCOUNT, ""));
+            mTiePassword.setText(Preferences.getString(Constants.PASSWORD, ""));
+            toast(loginExpire);
+        }
 
         // 获取 register 成功 传递过来的
         Intent intent = getIntent();
@@ -84,6 +103,9 @@ public class LoginActivity extends MvpActivity<LoginContract.Presenter>
         Preferences.putString(Constants.TOKEN, token);
         // 标记已经登录
         Preferences.putBoolean(Constants.IS_LOGIN, true);
+        // 存储 账号密码 方便过期登录
+        Preferences.putString(Constants.ACCOUNT, mTieAccount.getText().toString());
+        Preferences.putString(Constants.PASSWORD, mTiePassword.getText().toString());
 
         startActivity(MainActivity.class);
         finish();

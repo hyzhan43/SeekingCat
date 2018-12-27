@@ -1,6 +1,8 @@
 package zqx.rj.com.seekingcat.common.api;
 
 
+import java.util.List;
+
 import io.reactivex.Observable;
 import okhttp3.MultipartBody;
 import retrofit2.http.GET;
@@ -72,14 +74,29 @@ public interface ApiService {
     Observable<BaseResponse<PageRsp<GoodsRsp>>> search(@Path("page") int page,
                                                        @Query("keyword") String keyword);
 
+    @POST("goods/finish/{id}")
+    Observable<BaseResponse> foundGoods(@Path("id") int id);
+
+    @POST("user/publish/delete/{id}")
+    Observable<BaseResponse> deletePublishGoods(@Path("id") int id);
+
     @POST("goods/follow/{id}")
     Observable<BaseResponse> followGoods(@Path("id") int id);
 
     @POST("goods/unfollow/{id}")
     Observable<BaseResponse> unFollowGoods(@Path("id") int id);
 
-    @GET("user/goods/{page}")
+    @POST("goods/unfollow/list")
+    Observable<BaseResponse> deleteFollow(@Query("goodsIds") List<Integer> goodsIds);
+
+    @GET("user/publish/{page}")
     Observable<BaseResponse<PageRsp<GoodsRsp>>> getMyPublish(@Path("page") int page);
+
+    @GET("user/found/{page}")
+    Observable<BaseResponse<PageRsp<GoodsRsp>>> getFound(@Path("page") int page);
+
+    @GET("user/unfound/{page}")
+    Observable<BaseResponse<PageRsp<GoodsRsp>>> getUnFound(@Path("page") int page);
 
     @GET("user/follow/{page}")
     Observable<BaseResponse<PageRsp<GoodsRsp>>> getFollow(@Path("page") int page);
@@ -87,6 +104,9 @@ public interface ApiService {
     @POST("user/info")
     Observable<BaseResponse> updateNickName(@Query("nickName") String nickname);
 
+    @Multipart
     @POST("user/info")
-    Observable<BaseResponse> updatePortrait(@Query("avatarUrl") String avatarUrl);
+    Observable<BaseResponse> updatePortrait(@Part MultipartBody.Part avatarFile);
+
+
 }
