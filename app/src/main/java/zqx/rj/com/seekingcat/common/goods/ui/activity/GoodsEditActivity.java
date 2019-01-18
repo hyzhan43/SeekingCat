@@ -51,14 +51,16 @@ public abstract class GoodsEditActivity<T extends BaseContract.Presenter> extend
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
 
-                // 选中 radioButton
-                RadioButton radioButton = (RadioButton) view;
+                if (view instanceof RadioButton){
+                    // 选中 radioButton
+                    RadioButton radioButton = (RadioButton) view;
 
-                GoodsRsp goodsRsp = mGoodsAdapter.getItem(position);
-                if (goodsRsp != null) {
-                    Boolean isChoose = goodsRsp.getChoose();
-                    radioButton.setChecked(!isChoose);
-                    goodsRsp.setChoose(!isChoose);
+                    GoodsRsp goodsRsp = mGoodsAdapter.getItem(position);
+                    if (goodsRsp != null) {
+                        Boolean isChoose = goodsRsp.getChoose();
+                        radioButton.setChecked(!isChoose);
+                        goodsRsp.setChoose(!isChoose);
+                    }
                 }
             }
         });

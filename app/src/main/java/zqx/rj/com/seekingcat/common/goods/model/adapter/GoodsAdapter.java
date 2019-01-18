@@ -48,9 +48,14 @@ public class GoodsAdapter extends BaseQuickAdapter<GoodsRsp, BaseViewHolder> {
                 .setChecked(R.id.rb_choose, item.getChoose())
                 .addOnClickListener(R.id.rb_choose)
                 .addOnClickListener(R.id.btn_found)
-                .addOnClickListener(R.id.btn_delete);// 默认不选中
+                .addOnClickListener(R.id.btn_delete);
 
         setButtonStyle((Button) helper.getView(R.id.btn_type), item.getType());
+
+        if (item.getState() == GoodsRsp.GOODS_INVALID){
+            helper.getView(R.id.iv_invalid).setVisibility(View.VISIBLE);
+        }
+
 
         // 是否显示 radioButton
         if (isShowButton) {
@@ -61,14 +66,13 @@ public class GoodsAdapter extends BaseQuickAdapter<GoodsRsp, BaseViewHolder> {
 
         // 根据 state 来判断是否显示  button
         if (isShowState) {
-            Log.d("state = " + isShowState);
             switch (item.getState()) {
                 case GoodsRsp.GOODS_FOUND:
                     helper.getView(R.id.btn_delete).setVisibility(View.VISIBLE);
                     helper.getView(R.id.btn_found).setVisibility(View.GONE);
                     break;
                 case GoodsRsp.GOODS_NOT_FOUND:
-                    helper.getView(R.id.btn_delete).setVisibility(View.GONE);
+                    helper.getView(R.id.btn_delete).setVisibility(View.VISIBLE);
                     helper.getView(R.id.btn_found).setVisibility(View.VISIBLE);
                     break;
             }

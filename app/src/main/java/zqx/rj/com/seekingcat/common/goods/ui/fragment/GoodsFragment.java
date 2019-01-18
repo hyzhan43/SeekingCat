@@ -88,17 +88,17 @@ public abstract class GoodsFragment<T extends BaseContract.Presenter> extends Mv
 
                 switch (view.getId()) {
                     case R.id.btn_delete:
-                        showDeleteDialog(goodsRsp.getId());
+                        showDeleteDialog(position, goodsRsp.getId());
                         break;
                     case R.id.btn_found:
-                        showFoundDialog(goodsRsp.getId());
+                        showFoundDialog(position, goodsRsp.getId());
                         break;
                 }
             }
         });
     }
 
-    private void showDeleteDialog(final int id) {
+    private void showDeleteDialog(final int position, final int id) {
 
         new AlertDialog.Builder(getActivity())
                 .setTitle(getString(R.string.reminder))
@@ -107,7 +107,7 @@ public abstract class GoodsFragment<T extends BaseContract.Presenter> extends Mv
                 .setPositiveButton(getString(R.string.delete), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        confirmDeleteClick(id);
+                        confirmDeleteClick(position, id);
                     }
                 })
                 .create()
@@ -117,10 +117,12 @@ public abstract class GoodsFragment<T extends BaseContract.Presenter> extends Mv
     /**
      * 确认已经删除
      */
-    protected void confirmDeleteClick(int goodsId) {
+    protected void confirmDeleteClick(int position, int goodsId) {
+
+
     }
 
-    private void showFoundDialog(final int id) {
+    private void showFoundDialog(final int position, final int id) {
         new AlertDialog.Builder(getActivity())
                 .setTitle(getString(R.string.reminder))
                 .setMessage(getString(R.string.confirm_found))
@@ -128,7 +130,7 @@ public abstract class GoodsFragment<T extends BaseContract.Presenter> extends Mv
                 .setPositiveButton(getString(R.string.already_found), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        confirmFoundClick(id);
+                        confirmFoundClick(position, id);
                     }
                 })
                 .create()
@@ -138,7 +140,7 @@ public abstract class GoodsFragment<T extends BaseContract.Presenter> extends Mv
     /**
      * 确认已经找到
      */
-    protected void confirmFoundClick(int goodsId) {
+    protected void confirmFoundClick(int position, int goodsId) {
     }
 
     /**

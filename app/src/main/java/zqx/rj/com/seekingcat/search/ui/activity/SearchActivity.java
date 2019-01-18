@@ -26,6 +26,7 @@ import zqx.rj.com.seekingcat.search.contract.SearchContract;
 import zqx.rj.com.seekingcat.search.model.adapter.HistoryAdapter;
 import zqx.rj.com.seekingcat.search.model.db.Record;
 import zqx.rj.com.seekingcat.search.presenter.SearchPresenter;
+import zqx.rj.com.utils.Log;
 
 public class SearchActivity extends GoodsActivity<SearchContract.Presenter> implements
         SearchContract.View {
@@ -142,6 +143,7 @@ public class SearchActivity extends GoodsActivity<SearchContract.Presenter> impl
         mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
+
                 if (!query.isEmpty()) {
                     isFirst = true;
 
@@ -150,7 +152,7 @@ public class SearchActivity extends GoodsActivity<SearchContract.Presenter> impl
                     mSearchView.setQuery(query, false);
                 }
 
-                return false;
+                return true;
             }
 
             @Override
@@ -168,10 +170,9 @@ public class SearchActivity extends GoodsActivity<SearchContract.Presenter> impl
     }
 
     private void searchGoods(String query) {
+
         showLoading();
         mPresenter.searchGoods(0, query);
-        // 加上这句。防止回车 调用两次 onQueryTextSubmit
-        mSearchView.setIconified(true);
 
         // 添加历史搜索记录
         addHistoryRecord(query);
@@ -277,6 +278,7 @@ public class SearchActivity extends GoodsActivity<SearchContract.Presenter> impl
     public void onRefresh() {
         String query = mSearchView.getQuery().toString();
         if (!query.isEmpty()) {
+            Log.d("LST", "onRefresh = " + query);
             mPresenter.searchGoods(0, query);
         }
     }
@@ -285,6 +287,7 @@ public class SearchActivity extends GoodsActivity<SearchContract.Presenter> impl
     public void onLoadMoreRequested() {
         String query = mSearchView.getQuery().toString();
         if (!query.isEmpty()) {
+            Log.d("LST", "onLoadMoreRequested = " + query);
             mPresenter.searchGoods(++page, query);
         }
     }

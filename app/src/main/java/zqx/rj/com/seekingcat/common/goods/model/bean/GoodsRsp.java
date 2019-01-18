@@ -3,8 +3,12 @@ package zqx.rj.com.seekingcat.common.goods.model.bean;
 public class GoodsRsp {
 
     public static final int GOODS_ALL = -1;
+    // 物品找到
     public static final int GOODS_FOUND = 1;
+    // 物品未找到
     public static final int GOODS_NOT_FOUND = 0;
+    // 物品无效/删除
+    public static final int GOODS_INVALID = -1;
 
     private int id;
     private String name;

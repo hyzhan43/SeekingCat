@@ -99,4 +99,5 @@
     <string name="confirm_found">确认已找到？</string>
     <string name="great">真棒</string>
     <string name="delete_suc">删除成功~</string>
+    <string name="invalid">失效</string>
 </resources>

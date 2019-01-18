@@ -28,16 +28,6 @@ public abstract class BaseFragment extends TakePhotoFragment {
 
     protected Dialog mLoading;
 
-    /**
-     * 视图是否加载完毕
-     */
-    private Boolean isViewPrepare = false;
-
-    /**
-     * 数据是否加载
-     */
-    private Boolean hasLoadData = false;
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -53,7 +43,6 @@ public abstract class BaseFragment extends TakePhotoFragment {
 
         mLoading = new DialogBuilder(getActivity()).build();
 
-        isViewPrepare = true;
 
         initView(mRoot);
         initData();

@@ -22,6 +22,8 @@ public class PublishStateFragment extends GoodsFragment<MyPublishContract.Presen
 
     private Integer state = 0;
 
+    private int index = 0;
+
     public static PublishStateFragment getInstance(Integer state) {
         Bundle bundle = new Bundle();
         bundle.putInt("state", state);
@@ -59,14 +61,16 @@ public class PublishStateFragment extends GoodsFragment<MyPublishContract.Presen
     }
 
     @Override
-    protected void confirmFoundClick(int goodsId) {
+    protected void confirmFoundClick(int position, int goodsId) {
         showLoading();
+        index = position;
         mPresenter.foundGoods(goodsId);
     }
 
     @Override
-    protected void confirmDeleteClick(int goodsId) {
+    protected void confirmDeleteClick(int position, int goodsId) {
         showLoading();
+        index = position;
         mPresenter.deleteMyPublishGoods(goodsId);
     }
 
@@ -89,11 +93,18 @@ public class PublishStateFragment extends GoodsFragment<MyPublishContract.Presen
     public void foundSuc() {
         hideLoading();
         toast(getString(R.string.great));
+
+        // 设置数据源 状态为 已找到
+        mGoodsAdapter.getData().get(index).setState(GoodsRsp.GOODS_FOUND);
+        // 更新 recyclerView
+        mGoodsAdapter.notifyItemChanged(index);
     }
 
     @Override
     public void deletePublishSuc() {
         hideLoading();
         toast(getString(R.string.delete_suc));
+        // 删除 recyclerView 对应的 item
+        mGoodsAdapter.remove(index);
     }
 }
