@@ -10,7 +10,7 @@
 
     <include
         android:id="@+id/ic_toolbar"
-        layout="@layout/common_toolbar"/>
+        layout="@layout/common_toolbar" />
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/civ_portrait"
@@ -23,8 +23,8 @@
         app:civ_border_color="@color/white"
         app:civ_border_width="1dp"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ic_toolbar"
+        app:layout_constraintRight_toRightOf="parent"
         tools:targetApi="lollipop" />
 
     <!--账号-->

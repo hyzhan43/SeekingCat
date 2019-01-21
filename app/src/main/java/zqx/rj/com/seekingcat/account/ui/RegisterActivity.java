@@ -14,7 +14,7 @@ import zqx.rj.com.seekingcat.account.presenter.RegisterPresenter;
 public class RegisterActivity extends MvpActivity<RegisterContract.Presenter>
         implements RegisterContract.View {
 
-    @BindView(R.id.toolbar)
+    @BindView(R.id.ic_toolbar)
     Toolbar toolbar;
 
     @BindView(R.id.tie_account)
@@ -26,7 +26,6 @@ public class RegisterActivity extends MvpActivity<RegisterContract.Presenter>
     @Override
     protected void initView() {
         super.initView();
-
         setToolBarTitle(toolbar, getString(R.string.register));
     }
 
