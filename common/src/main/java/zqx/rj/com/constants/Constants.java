@@ -29,5 +29,6 @@ public class Constants {
 
     public static final String NICK_NAME = "nickName";
     public static final String AVATAR_URL = "avatarUrl";
-
+    // 头像路径
+    public static final String PORTRAIT_PATH = "portrait_path";
 }

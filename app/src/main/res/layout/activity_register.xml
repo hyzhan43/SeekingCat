@@ -8,6 +8,10 @@
     android:focusable="true"
     android:focusableInTouchMode="true">
 
+    <include
+        android:id="@+id/ic_toolbar"
+        layout="@layout/common_toolbar"/>
+
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/civ_portrait"
         android:layout_width="100dp"
@@ -20,7 +24,7 @@
         app:civ_border_width="1dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ic_toolbar"
         tools:targetApi="lollipop" />
 
     <!--账号-->

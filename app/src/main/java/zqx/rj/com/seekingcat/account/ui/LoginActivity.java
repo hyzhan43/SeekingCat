@@ -14,7 +14,7 @@ import zqx.rj.com.base.mvp.MvpActivity;
 import zqx.rj.com.constants.Constants;
 import zqx.rj.com.seekingcat.MainActivity;
 import zqx.rj.com.seekingcat.R;
-import zqx.rj.com.seekingcat.account.LoginContract;
+import zqx.rj.com.seekingcat.account.contract.LoginContract;
 import zqx.rj.com.seekingcat.account.presenter.LoginPresenter;
 import zqx.rj.com.utils.Preferences;
 
@@ -92,7 +92,6 @@ public class LoginActivity extends MvpActivity<LoginContract.Presenter>
     @OnClick(R.id.tv_register)
     void onRegisterClick() {
         startActivity(RegisterActivity.class);
-        finish();
     }
 
     @Override

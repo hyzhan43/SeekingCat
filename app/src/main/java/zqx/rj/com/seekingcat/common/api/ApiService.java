@@ -5,6 +5,8 @@ import java.util.List;
 
 import io.reactivex.Observable;
 import okhttp3.MultipartBody;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
@@ -86,7 +88,7 @@ public interface ApiService {
     @POST("goods/unfollow/{id}")
     Observable<BaseResponse> unFollowGoods(@Path("id") int id);
 
-    @POST("goods/unfollow/list")
+    @POST("user/unfollow/list")
     Observable<BaseResponse> deleteFollow(@Query("goodsIds") List<Integer> goodsIds);
 
     @GET("user/publish/{page}")

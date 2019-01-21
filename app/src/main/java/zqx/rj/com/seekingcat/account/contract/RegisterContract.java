@@ -1,4 +1,4 @@
-package zqx.rj.com.seekingcat.account;
+package zqx.rj.com.seekingcat.account.contract;
 
 import zqx.rj.com.base.mvp.BaseContract;
 

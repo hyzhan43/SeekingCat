@@ -1,8 +1,10 @@
 package zqx.rj.com.seekingcat.mine.ui.activity;
 
 import android.view.MenuItem;
+import android.view.View;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import butterknife.OnClick;
@@ -52,7 +54,6 @@ public class FollowActivity extends GoodsEditActivity<FollowContract.Presenter>
     @Override
     protected void initData() {
         super.initData();
-
         mPresenter.getFollow(page);
     }
 
@@ -85,6 +86,7 @@ public class FollowActivity extends GoodsEditActivity<FollowContract.Presenter>
     @OnClick(R.id.btn_delete)
     void onClickDelete() {
 
+        //  批量删除 id
         List<Integer> goodsIdList = new ArrayList<>();
         for (GoodsRsp goodsRsp : mGoodsAdapter.getData()) {
             // 获取 选中的 item
@@ -93,7 +95,7 @@ public class FollowActivity extends GoodsEditActivity<FollowContract.Presenter>
             }
         }
 
-        if (goodsIdList.isEmpty()){
+        if (goodsIdList.isEmpty()) {
             toast(getString(R.string.delete_tips));
             return;
         }
@@ -104,6 +106,26 @@ public class FollowActivity extends GoodsEditActivity<FollowContract.Presenter>
 
     @Override
     public void deleteSuc() {
-//        mGoodsAdapter.remove();
+        // 获取原始数据
+        List<GoodsRsp> goodsRspList = mGoodsAdapter.getData();
+
+        List<Integer> positionList = new ArrayList<>();
+        for (int i = 0; i < goodsRspList.size(); i++) {
+            // 判断是否是要删除的item
+            if (goodsRspList.get(i).getChoose()) {
+                // 收集要删除item 的 position
+                // 直接删除  position 会错乱
+                positionList.add(i);
+            }
+        }
+
+        // 先排序
+        Collections.sort(positionList);
+        // 然后在反序
+        Collections.reverse(positionList);
+        // 最后在删除 (从后面往前面删除, 就不会数据错乱了)
+        for (Integer id : positionList) {
+            mGoodsAdapter.remove(id);
+        }
     }
 }

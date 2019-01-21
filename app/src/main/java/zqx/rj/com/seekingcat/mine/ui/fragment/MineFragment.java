@@ -113,13 +113,14 @@ public class MineFragment extends MvpFragment<MineContract.Presenter>
             return;
 
         String nickName = userInfoRsp.getNickName();
-        if (nickName == null) {
-            nickName = "未设置";
-        }
 
         // 存储个人信息
         Preferences.putString(Constants.NICK_NAME, nickName);
         Preferences.putString(Constants.AVATAR_URL, userInfoRsp.getAvatarUrl());
+
+        if (nickName == null) {
+            nickName = "未设置";
+        }
 
         mTvName.setText(nickName);
         // 显示头像
@@ -225,6 +226,8 @@ public class MineFragment extends MvpFragment<MineContract.Presenter>
         hideLoading();
 
         mTvName.setText(newName);
+        // 保存到 SharePreferences
+        Preferences.putString(Constants.NICK_NAME, newName);
     }
 
     private AlertDialog getNameDialog() {
@@ -238,11 +241,7 @@ public class MineFragment extends MvpFragment<MineContract.Presenter>
             mNameDialog = new AlertDialog.Builder(getActivity())
                     .setMessage("昵称")
                     .setView(view)
-                    .setNeutralButton("取消", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                        }
-                    })
+                    .setNeutralButton("取消", null)
                     .setPositiveButton("确认", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
@@ -278,6 +277,12 @@ public class MineFragment extends MvpFragment<MineContract.Presenter>
     @OnClick(R.id.ll_my_publish)
     void onClickMyPublish() {
         Intent intent = new Intent(getActivity(), MyPublishActivity.class);
+        startActivity(intent);
+    }
+
+    @OnClick(R.id.ll_my_follow)
+    void onClickMyFollow() {
+        Intent intent = new Intent(getActivity(), FollowActivity.class);
         startActivity(intent);
     }
 
@@ -325,7 +330,6 @@ public class MineFragment extends MvpFragment<MineContract.Presenter>
         mPortraitPath = result.getImage().getCompressPath();
         // 更新后的 头像文件
         File goodsFile = new File(mPortraitPath);
-        Log.d("LST", "length = " + goodsFile.length());
         // 上传头像 到 服务器
         mPresenter.updatePortrait(goodsFile);
     }
@@ -334,6 +338,9 @@ public class MineFragment extends MvpFragment<MineContract.Presenter>
     public void updatePortraitSuc() {
         // 加载显示 更新后的头像
         GlideUtil.loadImage(getActivity(), mPortraitPath, mCivPortrait);
+
+        // 保存用户头像路径到 SharePreferences
+        Preferences.putString(Constants.PORTRAIT_PATH, mPortraitPath);
         hideLoading();
     }
 

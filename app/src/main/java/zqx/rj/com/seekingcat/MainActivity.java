@@ -11,8 +11,6 @@ import android.support.v7.app.AlertDialog;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.alibaba.android.arouter.launcher.ARouter;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,6 +23,7 @@ import zqx.rj.com.seekingcat.search.ui.activity.SearchActivity;
 import zqx.rj.com.seekingcat.home.ui.fragment.HomeFragment;
 import zqx.rj.com.seekingcat.mine.ui.fragment.MineFragment;
 import zqx.rj.com.seekingcat.publish.ui.activity.PublishActivity;
+import zqx.rj.com.utils.Log;
 import zqx.rj.com.utils.Preferences;
 
 public class MainActivity extends BaseActivity {
@@ -110,13 +109,17 @@ public class MainActivity extends BaseActivity {
 
     @OnClick(R.id.fab_publish)
     void onFloatButton() {
-        String avatarUrl = Preferences.getString(Constants.AVATAR_URL, "");
+        // 获取头像路径
+        String portraitPath = Preferences.getString(Constants.PORTRAIT_PATH, "");
         String nickName = Preferences.getString(Constants.NICK_NAME, "");
-        if (avatarUrl.isEmpty() || nickName.isEmpty()) {
+
+        if (portraitPath.isEmpty() || nickName.isEmpty()) {
             if (mDialog == null) {
                 mDialog = initPublishDialog();
             }
             mDialog.show();
+
+            Log.d("LST", "nickName = " + nickName);
         } else {
             startActivity(PublishActivity.class);
         }

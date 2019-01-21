@@ -5,7 +5,7 @@ import android.text.TextUtils;
 import zqx.rj.com.base.mvp.BasePresenter;
 import zqx.rj.com.net.callback.Callback;
 import zqx.rj.com.seekingcat.R;
-import zqx.rj.com.seekingcat.account.LoginContract;
+import zqx.rj.com.seekingcat.account.contract.LoginContract;
 import zqx.rj.com.seekingcat.account.model.bean.LoginRsp;
 import zqx.rj.com.seekingcat.account.model.helper.AccountHelper;
 

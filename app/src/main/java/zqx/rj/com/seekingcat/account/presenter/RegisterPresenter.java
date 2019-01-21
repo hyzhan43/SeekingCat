@@ -3,7 +3,7 @@ package zqx.rj.com.seekingcat.account.presenter;
 import zqx.rj.com.base.mvp.BasePresenter;
 import zqx.rj.com.model.entity.BaseResponse;
 import zqx.rj.com.net.callback.Callback;
-import zqx.rj.com.seekingcat.account.RegisterContract;
+import zqx.rj.com.seekingcat.account.contract.RegisterContract;
 import zqx.rj.com.seekingcat.account.model.helper.AccountHelper;
 
 /**
